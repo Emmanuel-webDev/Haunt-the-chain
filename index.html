@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ARGON PEAKS: HAUNT THE MOUNTAIN — Vibe Testnet</title>
+    <title>ARGON PEAKS: HAUNT THE MOUNTAIN — Robinhood Chain Testnet</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Rajdhani, Inter & JetBrains Mono -->
@@ -87,90 +87,92 @@
             touch-action: none;
         }
 
-        /* HUD Glass & Cyber-Gothic Styling matching Reference Mockup */
+        /* Refined Twilight & Jack-o'-Lantern Midnight Palette (Ref: Reference Illustration) */
         .hud-top-bar {
-            background: linear-gradient(180deg, rgba(6, 4, 14, 0.92) 0%, rgba(10, 7, 22, 0.65) 85%, transparent 100%);
-            border-bottom: 1px solid rgba(0, 242, 254, 0.18);
+            background: linear-gradient(180deg, rgba(10, 6, 24, 0.95) 0%, rgba(18, 11, 40, 0.75) 85%, transparent 100%);
+            border-bottom: 1px solid rgba(167, 139, 250, 0.18);
         }
 
         .center-title-trapezoid {
-            background: linear-gradient(180deg, rgba(14, 19, 38, 0.95) 0%, rgba(8, 11, 24, 0.92) 100%);
-            border-bottom: 2px solid rgba(0, 242, 254, 0.65);
-            border-left: 1px solid rgba(0, 242, 254, 0.35);
-            border-right: 1px solid rgba(0, 242, 254, 0.35);
+            background: linear-gradient(180deg, rgba(28, 17, 60, 0.96) 0%, rgba(16, 10, 36, 0.94) 100%);
+            border-bottom: 2px solid rgba(196, 181, 253, 0.5);
+            border-left: 1px solid rgba(167, 139, 250, 0.28);
+            border-right: 1px solid rgba(167, 139, 250, 0.28);
             clip-path: polygon(0 0, 100% 0, 92% 100%, 8% 100%);
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.22);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.22);
         }
 
         .specter-warning-box {
-            background: linear-gradient(180deg, rgba(28, 11, 16, 0.9) 0%, rgba(15, 6, 12, 0.92) 100%);
-            border: 1px solid rgba(255, 106, 0, 0.65);
-            box-shadow: 0 0 30px rgba(255, 60, 0, 0.35), inset 0 0 18px rgba(255, 106, 0, 0.2);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(26, 13, 44, 0.94) 0%, rgba(16, 8, 28, 0.94) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.2), inset 0 0 16px rgba(245, 158, 11, 0.1);
+            backdrop-filter: blur(12px);
         }
 
         .bottom-controls-bar {
-            background: linear-gradient(180deg, rgba(10, 12, 24, 0.86) 0%, rgba(5, 6, 14, 0.96) 100%);
-            border: 1px solid rgba(0, 242, 254, 0.28);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 18px rgba(0, 242, 254, 0.15);
+            background: linear-gradient(180deg, rgba(15, 10, 34, 0.92) 0%, rgba(8, 5, 18, 0.97) 100%);
+            border: 1px solid rgba(167, 139, 250, 0.22);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), 0 0 18px rgba(124, 58, 237, 0.15);
             backdrop-filter: blur(12px);
         }
 
         .glass-modal {
-            background: rgba(9, 6, 20, 0.88);
+            background: rgba(14, 9, 30, 0.94);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 85, 247, 0.35);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(167, 139, 250, 0.24);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(124, 58, 237, 0.18);
         }
 
         .btn-spectral {
-            background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 25px rgba(255, 106, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0c061a;
+            font-weight: 900;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.45);
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-spectral:hover {
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 12px 32px rgba(255, 106, 0, 0.75);
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.55);
+            background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
         }
 
         .btn-ectoplasm {
-            background: linear-gradient(135deg, #00f2fe 0%, #a855f7 100%);
-            color: #05020a;
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
             transition: all 0.2s ease;
         }
         .btn-ectoplasm:hover {
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 12px 32px rgba(168, 85, 247, 0.7);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.55);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
         }
 
-        /* Blood Vignette & CRT Glitch Overlay when Wendigo is close */
+        /* Ambient Mist Overlay */
         #chaseVignette {
             pointer-events: none;
-            background: radial-gradient(circle at center, transparent 42%, rgba(185, 16, 28, 0.45) 82%, rgba(120, 0, 15, 0.85) 100%);
+            background: radial-gradient(circle at center, transparent 45%, rgba(44, 20, 75, 0.5) 85%, rgba(18, 8, 35, 0.9) 100%);
             mix-blend-mode: screen;
             transition: opacity 0.15s ease;
         }
 
         .crt-scanlines {
             background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.38) 50%
+                rgba(14, 8, 26, 0) 50%, 
+                rgba(0, 0, 0, 0.35) 50%
             ), linear-gradient(
                 90deg,
-                rgba(255, 0, 0, 0.05),
-                rgba(0, 255, 255, 0.03),
-                rgba(168, 85, 247, 0.05)
+                rgba(167, 139, 250, 0.03),
+                rgba(245, 158, 11, 0.02)
             );
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
         }
 
         @keyframes dangerPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 106, 0, 0.6)); }
-            50% { transform: scale(1.03); filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.95)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5)); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 0 16px rgba(234, 88, 12, 0.85)); }
         }
         .animate-danger {
             animation: dangerPulse 0.85s infinite ease-in-out;
@@ -189,101 +191,99 @@
         <div id="chaseVignette" class="absolute inset-0 z-10 opacity-0"></div>
         <div id="glitchOverlay" class="absolute inset-0 z-10 crt-scanlines opacity-0 transition-opacity duration-150"></div>
 
-        <!-- 3. TOP HUD BAR (EXACT MOCKUP LAYOUT: VIBE TESTNET LEFT | TITLE CENTER | SOUL SCORE RIGHT) -->
+        <!-- 3. TOP HUD BAR (COHESIVE MIDNIGHT PURPLE & EMBER GOLD PALETTE) -->
         <header class="hud-top-bar relative z-20 w-full px-3 sm:px-6 py-2 flex items-center justify-between gap-2">
             
-            <!-- TOP LEFT: STRICT PRODUCTION VIBE TESTNET WALLET STATUS -->
+            <!-- TOP LEFT: STRICT PRODUCTION ROBINHOOD CHAIN TESTNET WALLET STATUS -->
             <div class="flex items-center gap-2">
-                <button onclick="openWalletModal()" class="group flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-slate-950/85 border border-cyan-400/35 hover:border-cyan-400 transition-all text-left shadow-[0_0_15px_rgba(0,242,254,0.15)]">
-                    <!-- Glowing Vibe V Emblem -->
-                    <div class="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-400/50 flex items-center justify-center shadow-[0_0_12px_rgba(0,242,254,0.4)]">
-                        <svg class="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2 4l10 16L22 4h-4.5L12 13 6.5 4H2z"/>
-                        </svg>
+                <button onclick="openWalletModal()" class="group flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-[#0e0824]/90 border border-purple-500/30 hover:border-purple-400/60 transition-all text-left shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+                    <!-- Glowing Robinhood Testnet Emblem -->
+                    <div class="w-7 h-7 rounded-md bg-purple-500/15 border border-purple-400/40 flex items-center justify-center shadow-[0_0_10px_rgba(167,139,250,0.3)]">
+                        <i class="fa-solid fa-feather-pointed text-purple-200 text-xs"></i>
                     </div>
                     <div class="leading-tight">
-                        <div class="flex items-center gap-1.5 text-[11px] sm:text-xs font-display font-bold tracking-wider text-white">
-                            <span>VIBE TESTNET</span>
-                            <span class="text-slate-500">|</span>
+                        <div class="flex items-center gap-1.5 text-[11px] sm:text-xs font-display font-bold tracking-wider text-purple-100">
+                            <span>ROBINHOOD TESTNET</span>
+                            <span class="text-purple-400/50">|</span>
                             <span id="hudWalletAddr" class="font-mono text-amber-300">NOT CONNECTED</span>
                         </div>
                         <div class="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-semibold">
                             <span id="hudWalletDot" class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                            <span id="hudWalletState" class="text-amber-400">(CLICK TO CONNECT)</span>
+                            <span id="hudWalletState" class="text-amber-400/90">(CLICK TO CONNECT)</span>
                         </div>
                     </div>
                 </button>
 
                 <!-- Official $HAUNT CA Copy Badge -->
-                <button onclick="copyHauntCA()" title="Copy Official $HAUNT Contract Address" class="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-900 border border-purple-500/35 text-[10px] font-mono text-purple-300 transition-all">
-                    <span class="text-slate-400">$HAUNT CA:</span>
-                    <span class="text-cyan-300 font-bold">0x5c38...6A02</span>
+                <button onclick="copyHauntCA()" title="Copy Official $HAUNT Contract Address" class="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0e0824]/85 hover:bg-[#1a0f38] border border-purple-500/30 text-[10px] font-mono text-purple-200 transition-all">
+                    <span class="text-purple-300/70">$HAUNT CA:</span>
+                    <span class="text-amber-300 font-bold">0x5c38...6A02</span>
                     <i class="fa-regular fa-copy text-purple-300"></i>
                 </button>
 
                 <!-- Mobile Orientation Lock Toggle -->
-                <button onclick="toggleLandscapeLock()" title="Toggle Mobile Landscape Rotation" class="lg:hidden px-2 py-1.5 rounded-lg bg-slate-900/80 border border-white/15 text-cyan-300 text-xs">
+                <button onclick="toggleLandscapeLock()" title="Toggle Mobile Landscape Rotation" class="lg:hidden px-2 py-1.5 rounded-lg bg-[#0e0824]/85 border border-purple-400/25 text-purple-200 text-xs">
                     <i class="fa-solid fa-mobile-screen-button rotate-90"></i>
                 </button>
             </div>
 
             <!-- TOP CENTER: ARGON PEAKS // HAUNT THE MOUNTAIN -->
             <div class="center-title-trapezoid px-5 sm:px-10 py-1.5 hidden sm:flex items-center justify-center">
-                <span class="font-display font-bold tracking-[0.16em] text-xs md:text-sm text-cyan-200 drop-shadow-[0_0_8px_rgba(0,242,254,0.5)] uppercase">
-                    ARGON PEAKS <span class="text-cyan-400 mx-1">//</span> HAUNT THE MOUNTAIN
+                <span class="font-display font-bold tracking-[0.16em] text-xs md:text-sm text-purple-100 drop-shadow-[0_0_10px_rgba(196,181,253,0.35)] uppercase">
+                    ARGON PEAKS <span class="text-amber-400 mx-1">//</span> HAUNT THE MOUNTAIN
                 </span>
             </div>
 
             <!-- TOP RIGHT: 3-HIT SOUL SHIELDS + SOUL SCORE & $HAUNT + AUDIO/LEADERBOARD BUTTONS -->
             <div class="flex items-center gap-2 sm:gap-2.5">
                 <!-- 3-HIT SOUL SHIELD INTEGRITY COUNTER -->
-                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-purple-500/30" title="3-Hit Soul Shields (Run ends after 3 obstacle hits)">
-                    <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 hidden md:inline">SHIELDS</span>
+                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0e0824]/85 border border-purple-500/30" title="3-Hit Soul Shields (Run ends after 3 obstacle hits)">
+                    <span class="text-[9px] font-mono uppercase tracking-wider text-purple-300/70 hidden md:inline">SHIELDS</span>
                     <div id="hudSoulShields" class="flex items-center gap-1 text-xs sm:text-sm">
-                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
-                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
-                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
+                        <i class="fa-solid fa-shield-halved text-purple-300 drop-shadow-[0_0_8px_rgba(196,181,253,0.6)]"></i>
+                        <i class="fa-solid fa-shield-halved text-purple-300 drop-shadow-[0_0_8px_rgba(196,181,253,0.6)]"></i>
+                        <i class="fa-solid fa-shield-halved text-purple-300 drop-shadow-[0_0_8px_rgba(196,181,253,0.6)]"></i>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2.5 px-3 py-1 rounded-lg bg-slate-950/75 border border-cyan-500/25">
+                <div class="flex items-center gap-2.5 px-3 py-1 rounded-lg bg-[#0e0824]/85 border border-purple-500/30">
                     <div class="text-right leading-tight">
-                        <div class="text-[11px] sm:text-sm font-display font-extrabold tracking-wider text-white">
-                            SOUL SCORE: <span id="hudSoulScore" class="font-mono text-cyan-200">0</span>
+                        <div class="text-[11px] sm:text-sm font-display font-extrabold tracking-wider text-purple-100">
+                            SOUL SCORE: <span id="hudSoulScore" class="font-mono text-white">0</span>
                         </div>
-                        <div class="text-[10px] sm:text-xs font-mono font-bold text-orange-400 tracking-widest">
-                            $HAUNT <span id="hudComboTag" class="text-cyan-300 ml-1">x1.0</span>
+                        <div class="text-[10px] sm:text-xs font-mono font-bold text-amber-400 tracking-widest">
+                            $HAUNT <span id="hudComboTag" class="text-amber-300 ml-1">x1.0</span>
                         </div>
                     </div>
-                    <!-- Glowing Blue Flaming Skull Badge -->
-                    <div class="w-8 h-8 rounded-full bg-cyan-500/15 border border-cyan-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.55)]">
-                        <i class="fa-solid fa-skull text-cyan-300 text-sm animate-pulse"></i>
+                    <!-- Glowing Warm Jack-o'-Lantern Skull Badge -->
+                    <div class="w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                        <i class="fa-solid fa-skull text-amber-400 text-sm animate-pulse"></i>
                     </div>
                 </div>
 
-                <button onclick="toggleLeaderboardModal()" title="Vibe Testnet Onchain Log (TAB)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-slate-900/85 border border-cyan-400/30 hover:border-cyan-400 flex items-center justify-center text-amber-400 transition-all">
+                <button onclick="toggleLeaderboardModal()" title="Robinhood Testnet Onchain Log (TAB)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#0e0824]/85 border border-purple-400/30 hover:border-amber-400/60 flex items-center justify-center text-amber-400 transition-all">
                     <i class="fa-solid fa-trophy text-xs sm:text-sm"></i>
                 </button>
 
-                <button id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Spectral Synth Audio" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-slate-900/85 border border-cyan-400/30 hover:border-cyan-400 flex items-center justify-center text-cyan-300 transition-all">
+                <button id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Spectral Synth Audio" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#0e0824]/85 border border-purple-400/30 hover:border-purple-400 flex items-center justify-center text-purple-200 transition-all">
                     <i id="audioIcon" class="fa-solid fa-volume-high text-xs sm:text-sm"></i>
                 </button>
             </div>
         </header>
 
-        <!-- 4. CENTRAL CHASE WARNING OVERLAY (MATCHES MOCKUP + PROMPT SPECS) -->
+        <!-- 4. CENTRAL CHASE WARNING OVERLAY (COHESIVE MIDNIGHT/EMBER PALETTE) -->
         <div id="chaseWarningHud" class="relative z-20 w-full flex flex-col items-center mt-1 sm:mt-2 pointer-events-none px-3">
             <div id="specterAlertBox" class="specter-warning-box rounded-xl px-4 sm:px-6 py-2 sm:py-2.5 w-full max-w-md text-center transition-transform duration-150">
-                <div class="flex items-center justify-center gap-2 text-xs sm:text-sm font-display font-extrabold tracking-wider text-orange-400 uppercase">
+                <div class="flex items-center justify-center gap-2 text-xs sm:text-sm font-display font-extrabold tracking-wider text-amber-400 uppercase">
                     <i class="fa-solid fa-triangle-exclamation text-amber-400 animate-bounce"></i>
                     <span id="chaseWarningHeader">!!! CHASE WARNING !!! THE AVALANCHE WENDIGO</span>
                 </div>
                 <div class="text-xs sm:text-sm font-mono font-bold text-slate-100 tracking-widest mt-0.5">
-                    SPECTER DETECTED! <span class="text-orange-400">|</span> DISTANCE: <span id="hudWendigoDist" class="text-white font-extrabold">18.4m</span>
+                    SPECTER DETECTED! <span class="text-amber-400">|</span> DISTANCE: <span id="hudWendigoDist" class="text-white font-extrabold">18.4m</span>
                 </div>
                 <!-- Proximity Danger Bar -->
-                <div class="relative w-full h-2.5 bg-slate-950/95 rounded-full overflow-hidden mt-1.5 border border-orange-500/40 p-0.5">
-                    <div id="wendigoProximityBar" class="h-full rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-amber-300 transition-all duration-75" style="width: 68%;"></div>
+                <div class="relative w-full h-2.5 bg-slate-950/95 rounded-full overflow-hidden mt-1.5 border border-amber-500/40 p-0.5">
+                    <div id="wendigoProximityBar" class="h-full rounded-full bg-gradient-to-r from-purple-800 via-amber-600 to-amber-300 transition-all duration-75" style="width: 68%;"></div>
                     <!-- Vertical Glowing Tick Marker -->
                     <div id="wendigoBarTick" class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_8px_#fff]" style="left: 68%;"></div>
                 </div>
@@ -291,71 +291,71 @@
 
             <!-- Dynamic Event / Gate Repulse / Spectral Trick Toast -->
             <div id="eventToast" class="mt-1.5 transition-all duration-200 opacity-0 transform -translate-y-2 text-center">
-                <div id="eventToastTitle" class="text-base sm:text-xl font-display font-black italic tracking-wider uppercase text-cyan-300 drop-shadow-[0_2px_12px_rgba(0,242,254,0.85)]">
+                <div id="eventToastTitle" class="text-base sm:text-xl font-display font-black italic tracking-wider uppercase text-amber-300 drop-shadow-[0_2px_12px_rgba(245,158,11,0.7)]">
                     JACK-O'-LANTERN GATE CLEARED!
                 </div>
-                <div id="eventToastSub" class="text-[11px] sm:text-xs font-mono font-bold text-orange-300">
+                <div id="eventToastSub" class="text-[11px] sm:text-xs font-mono font-bold text-purple-200">
                     +450 $HAUNT // WENDIGO REPULSED +18.0m!
                 </div>
             </div>
         </div>
 
-        <!-- 5. HERO / START SCREEN MODAL OVERLAY (ENFORCES REAL WEB3 WALLET GATE BEFORE DROP IN) -->
-        <main id="heroOverlay" class="fixed inset-0 z-30 flex items-center justify-center px-4 bg-black/65 backdrop-blur-md">
-            <div class="max-w-2xl w-full glass-modal rounded-3xl p-5 sm:p-8 relative overflow-hidden border border-purple-500/40">
-                <div class="absolute -top-24 -right-24 w-64 h-64 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- 5. HERO / START SCREEN MODAL OVERLAY (COHESIVE MIDNIGHT PURPLE & EMBER GOLD) -->
+        <main id="heroOverlay" class="fixed inset-0 z-30 flex items-center justify-center px-4 bg-black/70 backdrop-blur-md">
+            <div class="max-w-2xl w-full glass-modal rounded-3xl p-5 sm:p-8 relative overflow-hidden border border-purple-500/30">
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-purple-900/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-amber-600/15 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/40 text-orange-300 text-[11px] font-mono font-bold">
-                        <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
-                        <span>VIBE TESTNET PRODUCTION // HAUNT THE MOUNTAIN</span>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-400/35 text-purple-200 text-[11px] font-mono font-bold">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                        <span>ROBINHOOD CHAIN TESTNET // HAUNT THE MOUNTAIN</span>
                     </div>
-                    <button onclick="copyHauntCA()" class="px-3 py-1 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-cyan-300 text-[11px] font-mono font-bold flex items-center gap-1.5 transition-all" title="Click to Copy Official $HAUNT CA">
+                    <button onclick="copyHauntCA()" class="px-3 py-1 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-amber-300 text-[11px] font-mono font-bold flex items-center gap-1.5 transition-all" title="Click to Copy Official $HAUNT CA">
                         <span>$HAUNT CA: 0x5c38...6A02</span>
                         <i class="fa-regular fa-copy"></i>
                     </button>
                 </div>
 
                 <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-black tracking-wider uppercase text-white leading-none mb-2">
-                    ARGON PEAKS <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-purple-500">HAUNT THE MOUNTAIN</span>
+                    ARGON PEAKS <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-amber-200 to-amber-400">HAUNT THE MOUNTAIN</span>
                 </h1>
-                <p class="text-slate-300 text-xs sm:text-sm mb-4 leading-relaxed">
-                    Outrun <strong class="text-orange-400">The Avalanche Wendigo</strong> down the blood-moon obsidian peaks of Argon Peaks. Carve through glowing <strong class="text-amber-300">Jack-o’-Lantern Gates</strong> to surge forward and repulse the mountain specter by 15–20m. Evade <strong class="text-red-400">Obsidian Trees, Cursed Rocks & Tombstones</strong> — 3 obstacle hits shatter your Soul Shields and end the run, triggering an immediate onchain score submission to the <code class="text-cyan-300">$HAUNT</code> smart contract!
+                <p class="text-purple-200/80 text-xs sm:text-sm mb-4 leading-relaxed">
+                    Outrun <strong class="text-amber-400">The Avalanche Wendigo</strong> down the moonlit obsidian peaks of Argon Peaks. Carve through glowing <strong class="text-amber-300">Jack-o’-Lantern Gates</strong> to surge forward and repulse the mountain specter by 15–20m. Evade <strong class="text-purple-300">Obsidian Trees, Cursed Rocks & Tombstones</strong> — 3 obstacle hits shatter your Soul Shields and end the run, triggering an immediate onchain score submission to the <code class="text-amber-300">$HAUNT</code> smart contract!
                 </p>
 
                 <!-- Official Contract Address Banner -->
-                <div class="bg-slate-950/85 border border-cyan-400/30 rounded-xl p-2.5 mb-4 flex items-center justify-between gap-2 font-mono text-xs">
+                <div class="bg-[#0c0720]/90 border border-purple-500/25 rounded-xl p-2.5 mb-4 flex items-center justify-between gap-2 font-mono text-xs">
                     <div class="truncate">
-                        <span class="text-slate-400 text-[10px] block uppercase">OFFICIAL $HAUNT SMART CONTRACT (VIBE TESTNET)</span>
-                        <span class="text-cyan-300 font-bold">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</span>
+                        <span class="text-purple-300/70 text-[10px] block uppercase">OFFICIAL $HAUNT SMART CONTRACT (ROBINHOOD CHAIN TESTNET)</span>
+                        <span class="text-amber-300 font-bold">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</span>
                     </div>
-                    <button onclick="copyHauntCA()" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-[11px] font-bold shrink-0">
+                    <button onclick="copyHauntCA()" class="px-3 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/40 text-purple-200 text-[11px] font-bold shrink-0">
                         <i class="fa-regular fa-copy mr-1"></i> COPY CA
                     </button>
                 </div>
 
                 <div class="grid grid-cols-3 gap-2.5 mb-5 font-mono">
-                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
-                        <div class="text-[10px] text-slate-400">PEAK SOUL SCORE</div>
-                        <div id="heroBestScore" class="text-base sm:text-lg font-extrabold text-cyan-300">0 $HAUNT</div>
+                    <div class="bg-[#0c0720]/75 border border-purple-500/20 rounded-xl p-2.5">
+                        <div class="text-[10px] text-purple-300/70">PEAK SOUL SCORE</div>
+                        <div id="heroBestScore" class="text-base sm:text-lg font-extrabold text-purple-100">0 $HAUNT</div>
                     </div>
-                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
-                        <div class="text-[10px] text-slate-400">LONGEST SURVIVAL</div>
-                        <div id="heroBestTime" class="text-base sm:text-lg font-extrabold text-orange-400">0.0s</div>
+                    <div class="bg-[#0c0720]/75 border border-purple-500/20 rounded-xl p-2.5">
+                        <div class="text-[10px] text-purple-300/70">LONGEST SURVIVAL</div>
+                        <div id="heroBestTime" class="text-base sm:text-lg font-extrabold text-amber-300">0.0s</div>
                     </div>
-                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
-                        <div class="text-[10px] text-slate-400">WALLET STATUS</div>
+                    <div class="bg-[#0c0720]/75 border border-purple-500/20 rounded-xl p-2.5">
+                        <div class="text-[10px] text-purple-300/70">WALLET STATUS</div>
                         <div id="heroWalletStatus" class="text-xs sm:text-sm font-bold text-amber-400 truncate">REQUIRED</div>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-white/10">
-                    <button onclick="toggleLeaderboardModal()" class="px-4 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-400/30 text-cyan-300 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-purple-500/20">
+                    <button onclick="toggleLeaderboardModal()" class="px-4 py-3 rounded-xl bg-[#130b2c] hover:bg-[#1a0f3a] border border-purple-400/30 text-purple-200 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
                         <i class="fa-solid fa-ranking-star"></i> Onchain Log
                     </button>
                     <button id="heroDropInBtn" onclick="handleDropInAttempt()" class="btn-spectral rounded-xl px-7 py-3.5 font-display font-black text-sm sm:text-base tracking-widest uppercase flex items-center justify-center gap-2.5">
-                        <span id="heroDropInBtnText">[CONNECT VIBE TESTNET WALLET TO DROP IN]</span>
+                        <span id="heroDropInBtnText">[CONNECT ROBINHOOD TESTNET WALLET TO DROP IN]</span>
                         <i id="heroDropInBtnIcon" class="fa-solid fa-wallet"></i>
                     </button>
                 </div>
@@ -364,12 +364,12 @@
 
         <!-- 6. CRASH / CAUGHT BY WENDIGO & REAL ONCHAIN SUBMISSION MODAL -->
         <div id="gameOverModal" class="hidden fixed inset-0 z-30 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
-            <div class="max-w-lg w-full glass-modal rounded-3xl p-5 sm:p-7 border border-red-500/40 text-center relative overflow-hidden">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-red-700 mx-auto flex items-center justify-center text-white text-2xl font-black mb-3 shadow-[0_0_25px_rgba(239,68,68,0.6)]">
+            <div class="max-w-lg w-full glass-modal rounded-3xl p-5 sm:p-7 border border-purple-500/30 text-center relative overflow-hidden">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 mx-auto flex items-center justify-center text-[#0e0722] text-2xl font-black mb-3 shadow-[0_0_25px_rgba(245,158,11,0.5)]">
                     <i id="gameOverIcon" class="fa-solid fa-skull-crossbones"></i>
                 </div>
 
-                <div id="gameOverSub" class="text-[11px] font-mono uppercase tracking-widest text-orange-400 mb-0.5">
+                <div id="gameOverSub" class="text-[11px] font-mono uppercase tracking-widest text-amber-400 mb-0.5">
                     CHAIN SPECTER INTERCEPTION
                 </div>
                 <h2 id="gameOverTitle" class="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-wider mb-4">
@@ -378,54 +378,54 @@
 
                 <!-- Run Telemetry Stats -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-left font-mono">
-                    <div class="bg-slate-950/80 border border-cyan-500/25 rounded-xl p-2.5">
-                        <div class="text-[9px] text-slate-400">SOULS COLLECTED</div>
-                        <div id="endScore" class="text-sm sm:text-base font-extrabold text-cyan-300">0 $HAUNT</div>
+                    <div class="bg-[#0c0720]/80 border border-purple-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-purple-300/70">SOULS COLLECTED</div>
+                        <div id="endScore" class="text-sm sm:text-base font-extrabold text-purple-100">0 $HAUNT</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-orange-500/25 rounded-xl p-2.5">
-                        <div class="text-[9px] text-slate-400">SURVIVAL DROP</div>
-                        <div id="endSurvivalTime" class="text-sm sm:text-base font-extrabold text-orange-400">0m (0.0s)</div>
+                    <div class="bg-[#0c0720]/80 border border-purple-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-purple-300/70">SURVIVAL DROP</div>
+                        <div id="endSurvivalTime" class="text-sm sm:text-base font-extrabold text-amber-300">0m (0.0s)</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-purple-500/25 rounded-xl p-2.5">
-                        <div class="text-[9px] text-slate-400">PUMPKIN GATES</div>
-                        <div id="endGates" class="text-sm sm:text-base font-extrabold text-purple-300">0</div>
+                    <div class="bg-[#0c0720]/80 border border-purple-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-purple-300/70">PUMPKIN GATES</div>
+                        <div id="endGates" class="text-sm sm:text-base font-extrabold text-amber-400">0</div>
                     </div>
-                    <div class="bg-slate-950/80 border border-emerald-500/25 rounded-xl p-2.5">
-                        <div class="text-[9px] text-slate-400">PEAK VELOCITY</div>
-                        <div id="endTopSpeed" class="text-sm sm:text-base font-extrabold text-emerald-300">0 KM/H</div>
+                    <div class="bg-[#0c0720]/80 border border-purple-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-purple-300/70">PEAK VELOCITY</div>
+                        <div id="endTopSpeed" class="text-sm sm:text-base font-extrabold text-purple-200">0 KM/H</div>
                     </div>
                 </div>
 
-                <!-- Real Vibe Testnet Onchain Transaction Status Panel -->
-                <div class="bg-slate-950/90 border border-cyan-400/35 rounded-2xl p-3.5 mb-5 text-left font-mono">
+                <!-- Real Robinhood Chain Testnet Onchain Transaction Status Panel -->
+                <div class="bg-[#0c0720]/90 border border-purple-400/30 rounded-2xl p-3.5 mb-5 text-left font-mono">
                     <div class="flex items-center justify-between text-[11px] mb-1.5">
-                        <span class="text-cyan-300 font-bold flex items-center gap-1.5">
-                            <i id="txSpinner" class="fa-solid fa-circle-notch animate-spin text-cyan-400"></i>
+                        <span class="text-purple-200 font-bold flex items-center gap-1.5">
+                            <i id="txSpinner" class="fa-solid fa-circle-notch animate-spin text-amber-400"></i>
                             <span id="txStatusTitle">AWAITING WALLET SIGNATURE...</span>
                         </span>
-                        <button onclick="copyHauntCA()" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-400/30">
+                        <button onclick="copyHauntCA()" class="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border border-purple-400/30">
                             CA: 0x5c38...6A02 <i class="fa-regular fa-copy ml-0.5"></i>
                         </button>
                     </div>
-                    <div id="txStatusDetail" class="text-[11px] text-slate-300 break-all">
-                        Submitting <code class="text-orange-300">submitHauntScore(uint256,uint256,uint256)</code> to <code class="text-cyan-300">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</code>
+                    <div id="txStatusDetail" class="text-[11px] text-purple-200/80 break-all">
+                        Submitting <code class="text-amber-300">submitHauntScore(uint256,uint256,uint256)</code> to <code class="text-purple-300">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</code>
                     </div>
-                    <div id="txHashRow" class="hidden mt-2 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-emerald-400">
+                    <div id="txHashRow" class="hidden mt-2 pt-2 border-t border-purple-500/20 flex items-center justify-between text-[10px] text-amber-300">
                         <span id="txHashText" class="truncate max-w-[65%]">TX: 0x...</span>
                         <span id="txBlockText">BROADCASTED ONCHAIN</span>
                     </div>
-                    <div id="txRetryRow" class="hidden mt-2.5 pt-2 border-t border-white/10 flex justify-end">
-                        <button onclick="retryLastOnchainSubmission()" class="px-3 py-1.5 rounded-lg bg-orange-500/20 hover:bg-orange-500/35 border border-orange-400/50 text-orange-300 text-[10px] font-bold uppercase tracking-wider">
+                    <div id="txRetryRow" class="hidden mt-2.5 pt-2 border-t border-purple-500/20 flex justify-end">
+                        <button onclick="retryLastOnchainSubmission()" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-300 text-[10px] font-bold uppercase tracking-wider">
                             <i class="fa-solid fa-paper-plane mr-1"></i> Retry Onchain TX
                         </button>
                     </div>
                 </div>
 
                 <div class="flex flex-wrap gap-2.5">
-                    <button onclick="openHeroModal()" class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 font-mono font-bold text-xs uppercase text-slate-300">
+                    <button onclick="openHeroModal()" class="py-3 px-4 rounded-xl bg-[#130b2c] hover:bg-[#1a0f3a] border border-purple-400/20 font-mono font-bold text-xs uppercase text-purple-200">
                         Lodge Menu
                     </button>
-                    <button onclick="toggleLeaderboardModal()" class="py-3 px-4 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-400/40 font-mono font-bold text-xs uppercase text-purple-200">
+                    <button onclick="toggleLeaderboardModal()" class="py-3 px-4 rounded-xl bg-[#1b103c] hover:bg-[#251652] border border-purple-400/35 font-mono font-bold text-xs uppercase text-purple-200">
                         <i class="fa-solid fa-list-ol mr-1"></i> Onchain Log
                     </button>
                     <button onclick="handleDropInAttempt()" class="flex-1 btn-spectral py-3 px-5 rounded-xl font-display font-black text-sm uppercase tracking-wider">
@@ -435,20 +435,20 @@
             </div>
         </div>
 
-        <!-- 7. VIBE TESTNET ONCHAIN LEADERBOARD MODAL (TAB KEY) -->
+        <!-- 7. ROBINHOOD CHAIN TESTNET ONCHAIN LEADERBOARD MODAL (TAB KEY) -->
         <div id="leaderboardModal" class="hidden fixed inset-0 z-40 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
-            <div class="max-w-xl w-full glass-modal rounded-3xl p-5 sm:p-7 border border-cyan-400/40 relative">
-                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+            <div class="max-w-xl w-full glass-modal rounded-3xl p-5 sm:p-7 border border-purple-500/30 relative">
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-purple-500/20">
                     <div>
-                        <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cyan-400">
+                        <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-purple-300">
                             <span>$HAUNT SMART CONTRACT: 0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</span>
-                            <button onclick="copyHauntCA()" class="text-purple-300 hover:text-white"><i class="fa-regular fa-copy"></i></button>
+                            <button onclick="copyHauntCA()" class="text-amber-300 hover:text-white"><i class="fa-regular fa-copy"></i></button>
                         </div>
                         <h3 class="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-wider">
                             VERIFIED ONCHAIN SUBMISSIONS ($HAUNT)
                         </h3>
                     </div>
-                    <button onclick="toggleLeaderboardModal()" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/15 text-slate-300 hover:text-white">
+                    <button onclick="toggleLeaderboardModal()" class="w-8 h-8 rounded-lg bg-[#130b2c] border border-purple-400/20 text-purple-200 hover:text-white">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -457,8 +457,8 @@
                     <!-- Populated dynamically with verified wallet runs -->
                 </div>
 
-                <div class="flex items-center justify-between pt-3 border-t border-white/10 text-[11px] font-mono text-slate-400">
-                    <span>Target CA: <strong class="text-cyan-300">0x5c38...da26A02</strong></span>
+                <div class="flex items-center justify-between pt-3 border-t border-purple-500/20 text-[11px] font-mono text-purple-300/70">
+                    <span>Target CA: <strong class="text-amber-300">0x5c38...da26A02</strong></span>
                     <button onclick="toggleLeaderboardModal()" class="px-4 py-2 rounded-lg btn-ectoplasm font-bold text-xs uppercase">
                         Close
                     </button>
@@ -466,56 +466,56 @@
             </div>
         </div>
 
-        <!-- 8. STRICT VIBE TESTNET WALLET CONNECTION MODAL (NO BURNER / NO DEMO) -->
+        <!-- 8. STRICT ROBINHOOD CHAIN TESTNET WALLET CONNECTION MODAL (NO BURNER / NO DEMO) -->
         <div id="walletModal" class="hidden fixed inset-0 z-40 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
-            <div class="max-w-md w-full glass-modal rounded-3xl p-6 border border-cyan-400/40">
+            <div class="max-w-md w-full glass-modal rounded-3xl p-6 border border-purple-500/30">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-display font-black uppercase tracking-wider text-white">
-                        VIBE TESTNET WEB3 WALLET
+                        ROBINHOOD CHAIN TESTNET WEB3 WALLET
                     </h3>
-                    <button onclick="closeWalletModal()" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/15 text-slate-300">
+                    <button onclick="closeWalletModal()" class="w-8 h-8 rounded-lg bg-[#130b2c] border border-purple-400/20 text-purple-200">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
                 <div class="space-y-3 font-mono text-xs mb-5">
-                    <div class="p-3 rounded-xl bg-slate-950/80 border border-cyan-400/30">
+                    <div class="p-3 rounded-xl bg-[#0c0720]/80 border border-purple-500/25">
                         <div class="flex items-center justify-between mb-1">
-                            <span class="text-[10px] text-slate-400">CONNECTED EVM WALLET ADDRESS</span>
-                            <span id="modalWalletStatusBadge" class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-400/30">DISCONNECTED</span>
+                            <span class="text-[10px] text-purple-300/70">CONNECTED EVM WALLET ADDRESS</span>
+                            <span id="modalWalletStatusBadge" class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-bold border border-amber-400/30">DISCONNECTED</span>
                         </div>
                         <div id="modalWalletFull" class="text-amber-300 font-bold break-all mt-0.5 select-all">Not Connected — Please connect an EVM Wallet (MetaMask, Rabby, Coinbase)</div>
                     </div>
-                    <div class="p-3 rounded-xl bg-slate-950/80 border border-purple-500/30 flex items-center justify-between">
+                    <div class="p-3 rounded-xl bg-[#0c0720]/80 border border-purple-500/25 flex items-center justify-between">
                         <div class="truncate pr-2">
-                            <div class="text-[10px] text-slate-400">$HAUNT CONTRACT ADDRESS</div>
-                            <div class="text-cyan-300 font-bold text-[11px] truncate">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</div>
+                            <div class="text-[10px] text-purple-300/70">$HAUNT CONTRACT ADDRESS</div>
+                            <div class="text-amber-300 font-bold text-[11px] truncate">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</div>
                         </div>
-                        <button onclick="copyHauntCA()" class="px-2.5 py-1 rounded bg-purple-500/20 border border-purple-400/40 text-purple-200 text-[10px] font-bold shrink-0">
+                        <button onclick="copyHauntCA()" class="px-2.5 py-1 rounded bg-purple-500/20 border border-purple-400/30 text-purple-200 text-[10px] font-bold shrink-0">
                             COPY
                         </button>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-white/10">
-                            <div class="text-[10px] text-slate-400">TARGET NETWORK</div>
-                            <div id="modalNetworkName" class="text-emerald-400 font-bold">Vibe Testnet (8423)</div>
+                        <div class="p-2.5 rounded-xl bg-[#0c0720]/80 border border-purple-500/20">
+                            <div class="text-[10px] text-purple-300/70">TARGET NETWORK</div>
+                            <div id="modalNetworkName" class="text-purple-200 font-bold">Robinhood Testnet (46630)</div>
                         </div>
-                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-white/10">
-                            <div class="text-[10px] text-slate-400">PROVIDER STATUS</div>
-                            <div id="modalSignerMode" class="text-orange-300 font-bold">EVM Provider Required</div>
+                        <div class="p-2.5 rounded-xl bg-[#0c0720]/80 border border-purple-500/20">
+                            <div class="text-[10px] text-purple-300/70">PROVIDER STATUS</div>
+                            <div id="modalSignerMode" class="text-amber-300 font-bold">EVM Provider Required</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-2.5">
                     <button id="modalConnectBtn" onclick="connectRealWeb3Wallet(false)" class="w-full py-3.5 rounded-xl btn-ectoplasm font-mono font-extrabold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-wallet mr-1.5"></i> Connect Web3 Wallet (Vibe Testnet)
+                        <i class="fa-solid fa-wallet mr-1.5"></i> Connect Web3 Wallet (Robinhood Testnet)
                     </button>
-                    <button id="modalSwitchChainBtn" onclick="switchToVibeTestnet()" class="hidden w-full py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-300 font-mono font-bold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Switch Network To Vibe Testnet (8423)
+                    <button id="modalSwitchChainBtn" onclick="switchToRobinhoodTestnet()" class="hidden w-full py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-300 font-mono font-bold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Switch Network To Robinhood Testnet (46630)
                     </button>
                     <div id="modalConnectedControls" class="hidden flex gap-2">
-                        <button onclick="disconnectWallet()" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-slate-300 font-mono font-bold text-xs uppercase tracking-wider">
+                        <button onclick="disconnectWallet()" class="flex-1 py-3 rounded-xl bg-[#130b2c] hover:bg-[#1a0f3a] border border-purple-400/25 text-purple-200 font-mono font-bold text-xs uppercase tracking-wider">
                             <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Disconnect
                         </button>
                         <button onclick="closeWalletModal(); startSkiRun();" class="flex-1 py-3 rounded-xl btn-spectral font-mono font-black text-xs uppercase tracking-wider">
@@ -529,47 +529,47 @@
         <!-- 9. MOBILE TOUCH CONTROLS OVERLAY (ERGONOMIC LEFT/RIGHT CARVE & TUCK/SPECTRAL TRICK) -->
         <div id="mobileTouchControls" class="fixed bottom-12 inset-x-3 z-20 pointer-events-none flex items-end justify-between md:hidden">
             <div class="flex items-center gap-2.5 pointer-events-auto">
-                <button id="touchLeftBtn" class="w-14 h-14 rounded-2xl bg-slate-950/80 border border-cyan-400/40 active:scale-95 flex items-center justify-center text-xl text-cyan-300 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                <button id="touchLeftBtn" class="w-14 h-14 rounded-2xl bg-[#0c0720]/85 border border-purple-400/35 active:scale-95 flex items-center justify-center text-xl text-purple-200 shadow-[0_0_15px_rgba(124,58,237,0.25)]">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
-                <button id="touchRightBtn" class="w-14 h-14 rounded-2xl bg-slate-950/80 border border-cyan-400/40 active:scale-95 flex items-center justify-center text-xl text-cyan-300 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                <button id="touchRightBtn" class="w-14 h-14 rounded-2xl bg-[#0c0720]/85 border border-purple-400/35 active:scale-95 flex items-center justify-center text-xl text-purple-200 shadow-[0_0_15px_rgba(124,58,237,0.25)]">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
 
             <div class="flex items-center gap-2.5 pointer-events-auto">
-                <button id="touchTuckBtn" class="px-3.5 h-14 rounded-2xl bg-slate-950/80 border border-orange-400/40 active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-bold text-orange-300">
+                <button id="touchTuckBtn" class="px-3.5 h-14 rounded-2xl bg-[#0c0720]/85 border border-amber-400/35 active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-bold text-amber-300">
                     <i class="fa-solid fa-angles-down text-sm mb-0.5"></i>
                     <span>TUCK</span>
                 </button>
-                <button id="touchTrickBtn" onclick="triggerSpectralJumpOrTrick()" class="px-4 h-14 rounded-2xl btn-ectoplasm active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-black text-slate-950">
+                <button id="touchTrickBtn" onclick="triggerSpectralJumpOrTrick()" class="px-4 h-14 rounded-2xl btn-ectoplasm active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-bold text-white">
                     <i class="fa-solid fa-wand-magic-sparkles text-sm mb-0.5"></i>
                     <span>SPECTRAL TRICK</span>
                 </button>
             </div>
         </div>
 
-        <!-- 10. BOTTOM CONTROL HINTS BAR (EXACT MOCKUP LAYOUT + REQUIRED HINTS) -->
+        <!-- 10. BOTTOM CONTROL HINTS BAR (COHESIVE MIDNIGHT PURPLE & EMBER PALETTE) -->
         <footer class="fixed bottom-2 inset-x-0 z-20 flex justify-center px-3 pointer-events-none">
             <div class="bottom-controls-bar pointer-events-auto rounded-xl px-4 sm:px-6 py-1.5 sm:py-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] sm:text-xs font-mono tracking-wider">
                 <span>
-                    <strong class="text-cyan-300">A/D</strong> Carve
+                    <strong class="text-purple-200">A/D</strong> Carve
                 </span>
-                <span class="text-slate-600">|</span>
+                <span class="text-purple-400/30">|</span>
                 <span>
-                    <strong class="text-cyan-300">S</strong> Tuck Boost (<span id="footerSpeedDisplay" class="text-orange-400 font-bold">145 KM/H</span>)
+                    <strong class="text-purple-200">S</strong> Tuck Boost (<span id="footerSpeedDisplay" class="text-amber-300 font-bold">145 KM/H</span>)
                 </span>
-                <span class="text-slate-600">|</span>
-                <button onclick="triggerSpectralJumpOrTrick()" class="hover:text-cyan-200">
-                    <strong class="text-cyan-300">SPACE</strong> Spectral Air Trick
+                <span class="text-purple-400/30">|</span>
+                <button onclick="triggerSpectralJumpOrTrick()" class="hover:text-amber-300 transition-colors">
+                    <strong class="text-purple-200">SPACE</strong> Spectral Air Trick
                 </button>
-                <span class="text-slate-600 hidden sm:inline">|</span>
-                <span class="hidden sm:inline text-purple-300">
-                    <i class="fa-solid fa-link text-cyan-400 mr-1"></i><strong>ONCHAIN SUBMIT ON CRASH</strong>
+                <span class="text-purple-400/30 hidden sm:inline">|</span>
+                <span class="hidden sm:inline text-purple-200">
+                    <i class="fa-solid fa-link text-amber-400 mr-1"></i><strong>ONCHAIN SUBMIT ON CRASH</strong>
                 </span>
-                <span class="text-slate-600 hidden md:inline">|</span>
-                <button onclick="toggleLeaderboardModal()" class="hidden md:inline hover:text-cyan-300">
-                    <strong class="text-cyan-300">TAB</strong> Leaderboard
+                <span class="text-purple-400/30 hidden md:inline">|</span>
+                <button onclick="toggleLeaderboardModal()" class="hidden md:inline hover:text-amber-300 transition-colors">
+                    <strong class="text-purple-200">TAB</strong> Leaderboard
                 </button>
             </div>
         </footer>
@@ -589,7 +589,7 @@
             tempInput.select();
             try {
                 document.execCommand('copy');
-                showToast('$HAUNT CA COPIED!', OFFICIAL_HAUNT_CA, '#00f2fe');
+                showToast('$HAUNT CA COPIED!', OFFICIAL_HAUNT_CA, '#f59e0b');
             } catch (err) {
                 console.error('Copy failed:', err);
             }
@@ -614,34 +614,34 @@
         }
 
         /* ==========================================================================
-           2. STRICT PRODUCTION VIBE TESTNET WEB3 & $HAUNT CONTRACT INTEGRATION
+           2. STRICT PRODUCTION ROBINHOOD CHAIN TESTNET WEB3 & $HAUNT CONTRACT
            (NO DEMO / NO BURNER WALLET / REAL EVM PROVIDER REQUIRED BEFORE RUN)
            ========================================================================== */
-        const VIBE_TESTNET_CONFIG = {
+        const ROBINHOOD_TESTNET_CONFIG = {
             contractAddress: OFFICIAL_HAUNT_CA,
-            chainIdHex: '0x20E7', // Vibe Testnet (8423)
-            chainIdDec: 8423,
-            altChainIdHex: '0x509ef55', // Base Vibenet Preview Testnet (84538453)
-            chainName: 'Vibe Testnet',
+            chainIdHex: '0xb626', // Robinhood Chain Testnet (46630)
+            chainIdDec: 46630,
+            chainName: 'Robinhood Chain Testnet',
             nativeCurrency: {
-                name: 'VIBE',
-                symbol: 'VIBE',
+                name: 'Ether',
+                symbol: 'ETH',
                 decimals: 18
             },
             rpcUrls: [
-                'https://rpc.vibes.base.org',
-                'https://rpc-testnet.vibe.org',
-                'https://rpc.vibe.community'
+                'https://rpc.testnet.chain.robinhood.com',
+                'https://rpc.testnet.chain.robinhood.com/rpc'
             ],
-            blockExplorerUrls: ['https://chain.base.org/vibenet/explorer'],
+            blockExplorerUrls: ['https://explorer.testnet.chain.robinhood.com'],
             symbol: '$HAUNT'
         };
+        const VIBE_TESTNET_CONFIG = ROBINHOOD_TESTNET_CONFIG;
 
         const web3State = {
             connected: false,
             address: null,
             shortAddress: 'NOT CONNECTED',
             chainId: null,
+            isRobinhoodNet: false,
             isVibeNet: false,
             providerName: 'No Wallet Connected',
             lastPendingSubmission: null,
@@ -698,30 +698,30 @@
             return null;
         }
 
-        function isVibeChain(chainId) {
+        function isRobinhoodChain(chainId) {
             if (!chainId) return false;
             const hex = typeof chainId === 'string' ? chainId.toLowerCase() : '0x' + Number(chainId).toString(16).toLowerCase();
-            return hex === VIBE_TESTNET_CONFIG.chainIdHex.toLowerCase() ||
-                   hex === VIBE_TESTNET_CONFIG.altChainIdHex.toLowerCase() ||
-                   Number(chainId) === VIBE_TESTNET_CONFIG.chainIdDec ||
-                   Number(chainId) === 84538453;
+            return hex === ROBINHOOD_TESTNET_CONFIG.chainIdHex.toLowerCase() ||
+                   Number(chainId) === ROBINHOOD_TESTNET_CONFIG.chainIdDec;
         }
+        const isVibeChain = isRobinhoodChain;
 
-        async function switchToVibeTestnet(provider) {
+        async function switchToRobinhoodTestnet(provider) {
             if (!provider) provider = getEthereumProvider();
             if (!provider) {
-                showToast('NO EXTENSION DETECTED', 'USE DIRECT ADDRESS ENTRY OR ENABLE EXTENSION FILE ACCESS', '#ef4444');
+                showToast('NO WALLET DETECTED', 'PLEASE INSTALL METAMASK, RABBY OR COINBASE WALLET', '#f59e0b');
                 return false;
             }
             try {
                 await provider.request({
                     method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: VIBE_TESTNET_CONFIG.chainIdHex }]
+                    params: [{ chainId: ROBINHOOD_TESTNET_CONFIG.chainIdHex }]
                 });
-                web3State.chainId = VIBE_TESTNET_CONFIG.chainIdHex;
+                web3State.chainId = ROBINHOOD_TESTNET_CONFIG.chainIdHex;
+                web3State.isRobinhoodNet = true;
                 web3State.isVibeNet = true;
                 updateWalletHUD();
-                showToast('SWITCHED TO VIBE TESTNET', 'CHAIN ID 8423 ACTIVE', '#00f2fe');
+                showToast('SWITCHED TO ROBINHOOD TESTNET', 'CHAIN ID 46630 ACTIVE', '#c4b5fd');
                 return true;
             } catch (switchError) {
                 // 4902 indicates chain has not been added to wallet
@@ -730,45 +730,28 @@
                         await provider.request({
                             method: 'wallet_addEthereumChain',
                             params: [{
-                                chainId: VIBE_TESTNET_CONFIG.chainIdHex,
-                                chainName: VIBE_TESTNET_CONFIG.chainName,
-                                rpcUrls: VIBE_TESTNET_CONFIG.rpcUrls,
-                                nativeCurrency: VIBE_TESTNET_CONFIG.nativeCurrency,
-                                blockExplorerUrls: VIBE_TESTNET_CONFIG.blockExplorerUrls
+                                chainId: ROBINHOOD_TESTNET_CONFIG.chainIdHex,
+                                chainName: ROBINHOOD_TESTNET_CONFIG.chainName,
+                                rpcUrls: ROBINHOOD_TESTNET_CONFIG.rpcUrls,
+                                nativeCurrency: ROBINHOOD_TESTNET_CONFIG.nativeCurrency,
+                                blockExplorerUrls: ROBINHOOD_TESTNET_CONFIG.blockExplorerUrls
                             }]
                         });
-                        web3State.chainId = VIBE_TESTNET_CONFIG.chainIdHex;
+                        web3State.chainId = ROBINHOOD_TESTNET_CONFIG.chainIdHex;
+                        web3State.isRobinhoodNet = true;
                         web3State.isVibeNet = true;
                         updateWalletHUD();
-                        showToast('VIBE TESTNET ADDED & SWITCHED', 'READY TO SUBMIT ONCHAIN', '#00f2fe');
+                        showToast('ROBINHOOD TESTNET ADDED & SWITCHED', 'READY TO SUBMIT ONCHAIN', '#c4b5fd');
                         return true;
                     } catch (addError) {
-                        console.warn('Could not add primary Vibe Testnet, trying alternate Vibenet params:', addError);
-                        try {
-                            await provider.request({
-                                method: 'wallet_addEthereumChain',
-                                params: [{
-                                    chainId: VIBE_TESTNET_CONFIG.altChainIdHex,
-                                    chainName: 'Base Vibenet',
-                                    rpcUrls: ['https://rpc.vibes.base.org'],
-                                    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-                                    blockExplorerUrls: ['https://chain.base.org/vibenet/explorer']
-                                }]
-                            });
-                            web3State.chainId = VIBE_TESTNET_CONFIG.altChainIdHex;
-                            web3State.isVibeNet = true;
-                            updateWalletHUD();
-                            showToast('BASE VIBENET CONNECTED', 'ONCHAIN SCORE LOGGING READY', '#00f2fe');
-                            return true;
-                        } catch (altErr) {
-                            console.warn('Fallback addEthereumChain failed:', altErr);
-                        }
+                        console.warn('Could not add Robinhood Chain Testnet to wallet:', addError);
                     }
                 }
                 console.warn('Chain switch note:', switchError);
                 return false;
             }
         }
+        const switchToVibeTestnet = switchToRobinhoodTestnet;
 
         function formatShortAddr(addr) {
             if (!addr || addr.length < 10) return 'NOT CONNECTED';
@@ -791,41 +774,42 @@
             const modalConnectedControls = document.getElementById('modalConnectedControls');
 
             const provider = getEthereumProvider();
-            const hasVibeChain = isVibeChain(web3State.chainId);
-            web3State.isVibeNet = hasVibeChain;
+            const hasRobinhoodChain = isRobinhoodChain(web3State.chainId);
+            web3State.isRobinhoodNet = hasRobinhoodChain;
+            web3State.isVibeNet = hasRobinhoodChain;
 
             if (web3State.connected && web3State.address) {
                 if (addrEl) {
                     addrEl.textContent = web3State.shortAddress;
-                    addrEl.className = 'font-mono text-cyan-300';
+                    addrEl.className = 'font-mono text-purple-200';
                 }
                 if (stateEl) {
-                    stateEl.textContent = hasVibeChain ? '(CONNECTED: VIBE)' : '(CONNECTED)';
-                    stateEl.className = hasVibeChain ? 'text-emerald-400' : 'text-cyan-400';
+                    stateEl.textContent = hasRobinhoodChain ? '(ROBINHOOD ACTIVE)' : '(CONNECTED)';
+                    stateEl.className = 'text-amber-300';
                 }
                 if (dotEl) {
-                    dotEl.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping';
+                    dotEl.className = 'w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping';
                 }
 
                 if (heroStatusEl) {
                     heroStatusEl.textContent = web3State.shortAddress;
-                    heroStatusEl.className = 'text-xs sm:text-sm font-bold text-emerald-400 truncate';
+                    heroStatusEl.className = 'text-xs sm:text-sm font-bold text-amber-300 truncate';
                 }
                 if (heroBtnText) heroBtnText.textContent = 'DROP INTO ARGON PEAKS';
                 if (heroBtnIcon) heroBtnIcon.className = 'fa-solid fa-bolt';
 
                 if (modalWalletFull) {
                     modalWalletFull.textContent = web3State.address;
-                    modalWalletFull.className = 'text-cyan-300 font-bold break-all mt-0.5 select-all';
+                    modalWalletFull.className = 'text-purple-200 font-bold break-all mt-0.5 select-all';
                 }
                 if (modalWalletStatusBadge) {
                     modalWalletStatusBadge.textContent = 'CONNECTED';
-                    modalWalletStatusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-400/30';
+                    modalWalletStatusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-200 font-bold border border-purple-400/30';
                 }
                 if (modalNetworkName) {
-                    if (hasVibeChain) {
-                        modalNetworkName.textContent = 'Vibe Testnet (Active)';
-                        modalNetworkName.className = 'text-emerald-400 font-bold';
+                    if (hasRobinhoodChain) {
+                        modalNetworkName.textContent = 'Robinhood Chain Testnet (Active)';
+                        modalNetworkName.className = 'text-purple-200 font-bold';
                     } else {
                         modalNetworkName.textContent = web3State.chainId ? `Connected (${web3State.chainId})` : 'EVM Network';
                         modalNetworkName.className = 'text-amber-300 font-bold';
@@ -833,13 +817,13 @@
                 }
                 if (modalSignerMode) {
                     modalSignerMode.textContent = web3State.providerName || 'Live EVM Signer';
-                    modalSignerMode.className = 'text-emerald-400 font-bold';
+                    modalSignerMode.className = 'text-amber-300 font-bold';
                 }
 
                 if (modalConnectBtn) modalConnectBtn.classList.add('hidden');
                 if (modalConnectedControls) modalConnectedControls.classList.remove('hidden');
                 if (modalSwitchChainBtn) {
-                    if (!hasVibeChain && provider) {
+                    if (!hasRobinhoodChain && provider) {
                         modalSwitchChainBtn.classList.remove('hidden');
                     } else {
                         modalSwitchChainBtn.classList.add('hidden');
@@ -862,7 +846,7 @@
                     heroStatusEl.textContent = 'WALLET REQUIRED';
                     heroStatusEl.className = 'text-xs sm:text-sm font-bold text-amber-400 truncate';
                 }
-                if (heroBtnText) heroBtnText.textContent = '[CONNECT VIBE TESTNET WALLET TO DROP IN]';
+                if (heroBtnText) heroBtnText.textContent = '[CONNECT ROBINHOOD TESTNET WALLET TO DROP IN]';
                 if (heroBtnIcon) heroBtnIcon.className = 'fa-solid fa-wallet';
 
                 if (modalWalletFull) {
@@ -874,16 +858,16 @@
                     modalWalletStatusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-400/30';
                 }
                 if (modalNetworkName) {
-                    modalNetworkName.textContent = 'Vibe Testnet (8423)';
+                    modalNetworkName.textContent = 'Robinhood Testnet (46630)';
                     modalNetworkName.className = 'text-slate-300 font-bold';
                 }
                 if (modalSignerMode) {
                     if (provider) {
                         modalSignerMode.textContent = 'Extension Ready';
-                        modalSignerMode.className = 'text-cyan-300 font-bold';
+                        modalSignerMode.className = 'text-purple-200 font-bold';
                     } else {
                         modalSignerMode.textContent = 'Disconnected';
-                        modalSignerMode.className = 'text-orange-300 font-bold';
+                        modalSignerMode.className = 'text-amber-400 font-bold';
                     }
                 }
 
@@ -898,9 +882,10 @@
             web3State.address = null;
             web3State.shortAddress = 'NOT CONNECTED';
             web3State.chainId = null;
+            web3State.isRobinhoodNet = false;
             web3State.isVibeNet = false;
             updateWalletHUD();
-            showToast('WALLET DISCONNECTED', 'PLEASE RECONNECT BEFORE DROPPING IN', '#ff6a00');
+            showToast('WALLET DISCONNECTED', 'PLEASE RECONNECT BEFORE DROPPING IN', '#f59e0b');
         }
 
         function openWalletModal() {
@@ -921,20 +906,20 @@
                     modalWalletFull.textContent =
                         'No Web3 provider (window.ethereum) detected. Please open in a Web3-enabled browser with MetaMask, Rabby, or Coinbase Wallet installed.';
                 }
-                showToast('WEB3 WALLET REQUIRED', 'INSTALL METAMASK OR RABBY TO CONNECT TO VIBE TESTNET', '#ef4444');
+                showToast('WEB3 WALLET REQUIRED', 'INSTALL METAMASK OR RABBY TO CONNECT TO ROBINHOOD TESTNET', '#f59e0b');
                 return false;
             }
 
             try {
-                showToast('CONNECTING WALLET...', 'APPROVE ACCESS IN YOUR EXTENSION', '#a855f7');
+                showToast('CONNECTING WALLET...', 'APPROVE ACCESS IN YOUR EXTENSION', '#c4b5fd');
                 const accounts = await provider.request({ method: 'eth_requestAccounts' });
                 if (!accounts || accounts.length === 0) {
-                    showToast('WALLET ACCESS REQUIRED', 'PLEASE APPROVE ACCOUNT IN YOUR WALLET', '#ff6a00');
+                    showToast('WALLET ACCESS REQUIRED', 'PLEASE APPROVE ACCOUNT IN YOUR WALLET', '#f59e0b');
                     return false;
                 }
 
-                // Prompt network switch to Vibe Testnet
-                await switchToVibeTestnet(provider);
+                // Prompt network switch to Robinhood Chain Testnet
+                await switchToRobinhoodTestnet(provider);
 
                 let chainId = null;
                 try {
@@ -951,7 +936,7 @@
 
                 updateWalletHUD();
                 closeWalletModal();
-                showToast('VIBE TESTNET WALLET CONNECTED!', `CONNECTED AS ${web3State.shortAddress}`, '#00f2fe');
+                showToast('ROBINHOOD TESTNET WALLET CONNECTED!', `CONNECTED AS ${web3State.shortAddress}`, '#c4b5fd');
 
                 if (startAfterConnect) {
                     startSkiRun();
@@ -960,9 +945,9 @@
             } catch (err) {
                 console.error('Wallet connection error:', err);
                 if (err && err.code === -32002) {
-                    showToast('WALLET REQUEST PENDING', 'PLEASE OPEN YOUR WALLET AND CONFIRM', '#ff6a00');
+                    showToast('WALLET REQUEST PENDING', 'PLEASE OPEN YOUR WALLET AND CONFIRM', '#f59e0b');
                 } else {
-                    showToast('WALLET CONNECTION REJECTED', err && err.message ? err.message : 'PLEASE CONNECT WALLET TO PLAY', '#ef4444');
+                    showToast('WALLET CONNECTION REJECTED', err && err.message ? err.message : 'PLEASE CONNECT WALLET TO PLAY', '#f59e0b');
                 }
                 return false;
             }
@@ -1032,7 +1017,7 @@
             return selector + p1 + p2 + p3;
         }
 
-        async function submitScoreOnchainVibeTestnet(soulScore, survivalDistanceMeters, survivalSeconds, gatesCleared) {
+        async function submitScoreOnchainRobinhoodTestnet(soulScore, survivalDistanceMeters, survivalSeconds, gatesCleared) {
             web3State.lastPendingSubmission = {
                 soulScore,
                 survivalDistanceMeters,
@@ -1055,22 +1040,22 @@
             if (!provider || !web3State.connected || !web3State.address) {
                 spinner.className = 'fa-solid fa-triangle-exclamation text-amber-400';
                 titleEl.textContent = 'WALLET DISCONNECTED — CONNECT TO SUBMIT ONCHAIN';
-                detailEl.innerHTML = `Target $HAUNT Contract: <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+                detailEl.innerHTML = `Target $HAUNT Contract: <code class="text-amber-300">${OFFICIAL_HAUNT_CA}</code>`;
                 retryRow.classList.remove('hidden');
                 return;
             }
 
-            if (!isVibeChain(web3State.chainId)) {
-                await switchToVibeTestnet(provider);
+            if (!isRobinhoodChain(web3State.chainId)) {
+                await switchToRobinhoodTestnet(provider);
             }
 
-            spinner.className = 'fa-solid fa-circle-notch animate-spin text-cyan-400';
+            spinner.className = 'fa-solid fa-circle-notch animate-spin text-amber-400';
             titleEl.textContent = 'CONFIRM ONCHAIN TX IN YOUR WEB3 WALLET...';
 
             const distInt = Math.max(1, Math.round(survivalDistanceMeters));
             const safeGates = Math.max(0, Math.round(gatesCleared || 0));
             const calldata = encodeSubmitScoreCalldata(soulScore, distInt, safeGates);
-            detailEl.innerHTML = `Calling <code class="text-orange-300">submitHauntScore(${soulScore}, ${distInt}m, ${safeGates})</code> on <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+            detailEl.innerHTML = `Calling <code class="text-amber-300">submitHauntScore(${soulScore}, ${distInt}m, ${safeGates})</code> on <code class="text-purple-300">${OFFICIAL_HAUNT_CA}</code>`;
 
             try {
                 const txHash = await provider.request({
@@ -1084,9 +1069,9 @@
                     }]
                 });
 
-                spinner.className = 'fa-solid fa-circle-check text-emerald-400';
+                spinner.className = 'fa-solid fa-circle-check text-purple-200';
                 titleEl.textContent = 'ONCHAIN TRANSACTION BROADCASTED TO $HAUNT!';
-                detailEl.innerHTML = `Submitted <strong class="text-orange-400">${soulScore.toLocaleString()} $HAUNT</strong> to <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+                detailEl.innerHTML = `Submitted <strong class="text-amber-400">${soulScore.toLocaleString()} $HAUNT</strong> to <code class="text-purple-300">${OFFICIAL_HAUNT_CA}</code>`;
                 hashRow.classList.remove('hidden');
                 hashText.textContent = `TX: ${txHash}`;
                 blockText.textContent = 'VERIFIED ONCHAIN';
@@ -1104,7 +1089,7 @@
                 renderLeaderboard();
             } catch (err) {
                 console.error('Onchain transaction error:', err);
-                spinner.className = 'fa-solid fa-circle-exclamation text-red-400';
+                spinner.className = 'fa-solid fa-circle-exclamation text-amber-400';
                 titleEl.textContent = 'TRANSACTION REJECTED OR FAILED';
                 detailEl.textContent = err && err.message ? err.message : 'User rejected or network error while calling $HAUNT contract.';
                 retryRow.classList.remove('hidden');
@@ -1114,35 +1099,36 @@
         function retryLastOnchainSubmission() {
             if (!web3State.lastPendingSubmission) return;
             const s = web3State.lastPendingSubmission;
-            submitScoreOnchainVibeTestnet(s.soulScore, s.survivalDistanceMeters, s.survivalSeconds, s.gatesCleared);
+            submitScoreOnchainRobinhoodTestnet(s.soulScore, s.survivalDistanceMeters, s.survivalSeconds, s.gatesCleared);
         }
+        const submitScoreOnchainVibeTestnet = submitScoreOnchainRobinhoodTestnet;
 
         function renderLeaderboard() {
             const container = document.getElementById('leaderboardList');
             if (!web3State.leaderboard || web3State.leaderboard.length === 0) {
                 container.innerHTML = `
-                    <div class="p-6 rounded-2xl bg-slate-950/80 border border-white/10 text-center text-slate-400">
-                        <i class="fa-solid fa-link text-cyan-400 text-lg mb-2 block"></i>
+                    <div class="p-6 rounded-2xl bg-[#0c0720]/80 border border-purple-500/20 text-center text-purple-300/70">
+                        <i class="fa-solid fa-link text-amber-400 text-lg mb-2 block"></i>
                         No verified onchain runs recorded in this session yet.<br>
-                        <span class="text-[11px] text-cyan-300">Connect your wallet, drop in, and submit your Soul Score to ${OFFICIAL_HAUNT_CA}!</span>
+                        <span class="text-[11px] text-amber-300">Connect your wallet, drop in, and submit your Soul Score to ${OFFICIAL_HAUNT_CA}!</span>
                     </div>
                 `;
                 return;
             }
             container.innerHTML = web3State.leaderboard.slice(0, 10).map((entry, idx) => `
-                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/85 border ${idx === 0 ? 'border-amber-400/50' : 'border-white/10'}">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0c0720]/85 border ${idx === 0 ? 'border-amber-400/50' : 'border-purple-500/20'}">
                     <div class="flex items-center gap-3">
-                        <span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300'} flex items-center justify-center font-extrabold text-xs">
+                        <span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-500 text-[#0c061a]' : 'bg-purple-900/60 text-purple-200'} flex items-center justify-center font-extrabold text-xs">
                             ${idx + 1}
                         </span>
                         <div>
-                            <div class="font-bold text-white">${entry.wallet} <span class="text-[10px] text-slate-400 ml-1">(${entry.gates} Gates | ${entry.time})</span></div>
-                            <div class="text-[10px] text-emerald-400">TX: ${entry.tx}</div>
+                            <div class="font-bold text-white">${entry.wallet} <span class="text-[10px] text-purple-300/60 ml-1">(${entry.gates} Gates | ${entry.time})</span></div>
+                            <div class="text-[10px] text-amber-300">TX: ${entry.tx}</div>
                         </div>
                     </div>
                     <div class="text-right">
-                        <div class="text-sm font-extrabold text-cyan-300">${entry.score.toLocaleString()}</div>
-                        <div class="text-[9px] text-orange-400 font-bold">$HAUNT</div>
+                        <div class="text-sm font-extrabold text-purple-100">${entry.score.toLocaleString()}</div>
+                        <div class="text-[9px] text-amber-400 font-bold">$HAUNT</div>
                     </div>
                 </div>
             `).join('');
@@ -1461,9 +1447,9 @@
             let html = '';
             for (let i = 0; i < skier.maxShields; i++) {
                 if (i < skier.shields) {
-                    html += '<i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.85)]"></i>';
+                    html += '<i class="fa-solid fa-shield-halved text-purple-300 drop-shadow-[0_0_8px_rgba(196,181,253,0.65)]"></i>';
                 } else {
-                    html += '<i class="fa-solid fa-shield-halved text-red-900/60"></i>';
+                    html += '<i class="fa-solid fa-shield-halved text-purple-950/60"></i>';
                 }
             }
             container.innerHTML = html;
@@ -1522,7 +1508,7 @@
                     r: Math.random() * 2.2 + 0.7,
                     vy: 1.2 + Math.random() * 2.2,
                     vx: -1.2 - Math.random() * 1.8,
-                    color: Math.random() < 0.7 ? '#cbd5e1' : (Math.random() < 0.5 ? '#a855f7' : '#00f2fe'),
+                    color: Math.random() < 0.65 ? '#cbd5e1' : (Math.random() < 0.5 ? '#c4b5fd' : '#f59e0b'),
                     alpha: 0.35 + Math.random() * 0.45
                 });
             }
@@ -1695,7 +1681,7 @@
             document.getElementById('gameOverModal').classList.add('hidden');
             document.getElementById('leaderboardModal').classList.add('hidden');
 
-            showToast('HAUNT THE MOUNTAIN // DROP IN!', '3 SOUL SHIELDS ACTIVE — CLEAR PUMPKIN GATES!', '#00f2fe');
+            showToast('HAUNT THE MOUNTAIN // DROP IN!', '3 SOUL SHIELDS ACTIVE — CLEAR PUMPKIN GATES!', '#f59e0b');
         }
 
         function triggerSpectralJumpOrTrick() {
@@ -1718,12 +1704,12 @@
                 wendigo.distance = Math.min(wendigo.maxDistance, wendigo.distance + 3.2);
                 spawnEctoplasmBurst(skier.x, skier.y - skier.z, 26);
                 audio.playSpectralTrick();
-                showToast(trick.name + '!', `+${earned} $HAUNT // SPECTRAL BOOST +3.2m`, '#a855f7');
+                showToast(trick.name + '!', `+${earned} $HAUNT // SPECTRAL BOOST +3.2m`, '#c4b5fd');
             }
         }
 
         let toastTimeout = null;
-        function showToast(title, subtitle, colorHex = '#00f2fe') {
+        function showToast(title, subtitle, colorHex = '#f59e0b') {
             const toast = document.getElementById('eventToast');
             const titleEl = document.getElementById('eventToastTitle');
             const subEl = document.getElementById('eventToastSub');
@@ -1776,8 +1762,8 @@
 
             document.getElementById('gameOverModal').classList.remove('hidden');
 
-            // Automatically trigger Real Vibe Testnet Onchain High-Score Submission to 0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02
-            submitScoreOnchainVibeTestnet(finalScore, finalDistance, finalTime, skier.gatesCleared);
+            // Automatically trigger Real Robinhood Chain Testnet Onchain High-Score Submission to 0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02
+            submitScoreOnchainRobinhoodTestnet(finalScore, finalDistance, finalTime, skier.gatesCleared);
         }
 
         /* ==========================================================================
@@ -2121,7 +2107,7 @@
                         showToast(
                             `JACK-O'-LANTERN GATE CLEARED!`,
                             `+${gateSouls} $HAUNT // WENDIGO PUSHED BACK +${pushback}m!`,
-                            '#ff6a00'
+                            '#f59e0b'
                         );
                     } else {
                         gate.missed = true;
@@ -2152,7 +2138,7 @@
                         skier.score += Math.round(300 * skier.combo);
                         spawnEctoplasmBurst(skier.x, skier.y, 22);
                         audio.playSpectralTrick();
-                        showToast('GHOST RUNE LAUNCH!', 'PRESS SPACE OR TAP FOR SPECTRAL AIR TRICK!', '#00f2fe');
+                        showToast('GHOST RUNE LAUNCH!', 'PRESS SPACE OR TAP FOR SPECTRAL AIR TRICK!', '#c4b5fd');
                     }
                 } else if (obs.type === 'soul_vortex') {
                     if (!obs.used && dist < obs.radius + 20) {
@@ -2162,7 +2148,7 @@
                         skier.score += Math.round(500 * skier.combo);
                         spawnEctoplasmBurst(skier.x, skier.y, 24);
                         audio.playGhostlyGateChime(skier.combo + 2);
-                        showToast('ECTOPLASM SOUL VORTEX!', '+500 $HAUNT // +8.5m REPULSE', '#a855f7');
+                        showToast('ECTOPLASM SOUL VORTEX!', '+500 $HAUNT // +8.5m REPULSE', '#c4b5fd');
                     }
                 } else if (obs.type === 'tree' || obs.type === 'cursed_rock' || obs.type === 'tombstone' || obs.type === 'pumpkin_cluster') {
                     const clearance = obs.type === 'tree' ? 48 : 22;
@@ -2191,7 +2177,7 @@
                                 showToast(
                                     `OBSTACLE HIT (${hitsTaken}/3)!`,
                                     `${skier.shields} SOUL ${skier.shields === 1 ? 'SHIELD' : 'SHIELDS'} LEFT // WENDIGO -5.5m`,
-                                    '#ef4444'
+                                    '#f59e0b'
                                 );
                             }
                         }
@@ -2220,70 +2206,93 @@
            10. RENDERING ENGINE (BLOOD MOON, WENDIGO SPECTER, GNARLED TREES, JACK-O'-LANTERNS)
            ========================================================================== */
         function drawMidnightSkyAndBloodMoon(time) {
-            // 1. Dark Atmospheric Midnight Purple/Black Sky
+            // 1. Dark Atmospheric Midnight Purple & Violet Mist Sky (Ref: Halloween Midnight Illustration)
             const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
-            skyGrad.addColorStop(0, '#040309');
-            skyGrad.addColorStop(0.45, '#0c061a');
-            skyGrad.addColorStop(0.82, '#240b2c');
-            skyGrad.addColorStop(1, '#3b112b');
+            skyGrad.addColorStop(0, '#090518');
+            skyGrad.addColorStop(0.35, '#160d36');
+            skyGrad.addColorStop(0.70, '#2e1957');
+            skyGrad.addColorStop(0.92, '#482782');
+            skyGrad.addColorStop(1, '#5d35a3');
             ctx.fillStyle = skyGrad;
             ctx.fillRect(0, 0, W, horizonY + 20);
 
-            // Twinkling Stars
+            // Twinkling Moonlit Stars
             stars.forEach(s => {
-                const alpha = 0.25 + Math.sin(time * 0.003 + s.twinkle) * 0.35;
-                ctx.fillStyle = `rgba(226, 232, 240, ${alpha})`;
+                const alpha = 0.25 + Math.sin(time * 0.003 + s.twinkle) * 0.4;
+                ctx.fillStyle = `rgba(238, 242, 255, ${alpha})`;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
                 ctx.fill();
             });
 
-            // 2. Massive Glowing Blood-Red Full Moon (Positioned Upper Right like Reference Mockup)
-            const moonX = W * 0.70 - (skier.x - W * 0.5) * 0.03;
-            const moonY = horizonY * 0.58;
-            const moonR = Math.max(46, Math.min(78, W * 0.058));
+            // 2. Massive Glowing Moonlit Full Moon (Centered / Upper Sky matching Reference Illustration)
+            const moonX = W * 0.52 - (skier.x - W * 0.5) * 0.025;
+            const moonY = horizonY * 0.48;
+            const moonR = Math.max(52, Math.min(88, W * 0.068));
 
-            // Huge Crimson Atmospheric Halo
-            const haloGrad = ctx.createRadialGradient(moonX, moonY, moonR * 0.3, moonX, moonY, moonR * 3.4);
-            haloGrad.addColorStop(0, 'rgba(255, 55, 55, 0.65)');
-            haloGrad.addColorStop(0.35, 'rgba(220, 28, 50, 0.32)');
-            haloGrad.addColorStop(0.7, 'rgba(130, 15, 45, 0.12)');
-            haloGrad.addColorStop(1, 'rgba(10, 5, 20, 0)');
+            // Ethereal Lavender-Violet Atmospheric Halo
+            const haloGrad = ctx.createRadialGradient(moonX, moonY, moonR * 0.4, moonX, moonY, moonR * 3.6);
+            haloGrad.addColorStop(0, 'rgba(238, 242, 255, 0.7)');
+            haloGrad.addColorStop(0.28, 'rgba(196, 181, 253, 0.42)');
+            haloGrad.addColorStop(0.60, 'rgba(139, 92, 246, 0.18)');
+            haloGrad.addColorStop(0.85, 'rgba(76, 29, 149, 0.06)');
+            haloGrad.addColorStop(1, 'rgba(9, 5, 24, 0)');
             ctx.fillStyle = haloGrad;
             ctx.beginPath();
-            ctx.arc(moonX, moonY, moonR * 3.4, 0, Math.PI * 2);
+            ctx.arc(moonX, moonY, moonR * 3.6, 0, Math.PI * 2);
             ctx.fill();
 
-            // Blood Moon Disc
-            const moonGrad = ctx.createRadialGradient(moonX - moonR * 0.2, moonY - moonR * 0.2, moonR * 0.1, moonX, moonY, moonR);
-            moonGrad.addColorStop(0, '#ff857a');
-            moonGrad.addColorStop(0.55, '#ff3b3b');
-            moonGrad.addColorStop(0.88, '#c81e2b');
-            moonGrad.addColorStop(1, '#82101d');
+            // Luminous Moon Disc (Pale Luminous Silver-Lavender)
+            const moonGrad = ctx.createRadialGradient(moonX - moonR * 0.25, moonY - moonR * 0.25, moonR * 0.08, moonX, moonY, moonR);
+            moonGrad.addColorStop(0, '#ffffff');
+            moonGrad.addColorStop(0.5, '#eef2ff');
+            moonGrad.addColorStop(0.82, '#ddd6fe');
+            moonGrad.addColorStop(1, '#c4b5fd');
             ctx.fillStyle = moonGrad;
             ctx.beginPath();
             ctx.arc(moonX, moonY, moonR, 0, Math.PI * 2);
             ctx.fill();
 
-            // Blood Moon Crater Details (Maria)
-            ctx.fillStyle = 'rgba(110, 12, 24, 0.42)';
+            // Moon Crater Details (Soft Violet Maria)
+            ctx.fillStyle = 'rgba(124, 58, 237, 0.18)';
             [
-                { dx: -0.28, dy: -0.18, r: 0.26 },
-                { dx: 0.22, dy: -0.10, r: 0.32 },
-                { dx: -0.12, dy: 0.28, r: 0.22 },
-                { dx: 0.30, dy: 0.25, r: 0.18 },
-                { dx: -0.38, dy: 0.15, r: 0.15 }
+                { dx: -0.28, dy: -0.18, r: 0.24 },
+                { dx: 0.24, dy: -0.10, r: 0.30 },
+                { dx: -0.10, dy: 0.26, r: 0.22 },
+                { dx: 0.28, dy: 0.24, r: 0.16 },
+                { dx: -0.36, dy: 0.14, r: 0.14 }
             ].forEach(c => {
                 ctx.beginPath();
                 ctx.arc(moonX + c.dx * moonR, moonY + c.dy * moonR, c.r * moonR, 0, Math.PI * 2);
                 ctx.fill();
             });
 
-            // 3. Jagged Obsidian Mountain Peaks with Crimson/Midnight Rim Lighting
+            // Night Bats in the Moonlit Sky (matching Reference Illustration)
+            ctx.fillStyle = 'rgba(18, 10, 42, 0.85)';
+            const batTime = time * 0.002;
+            [
+                { bx: moonX - moonR * 0.6, by: moonY + moonR * 0.35, scale: 0.7, flap: Math.sin(batTime * 8) },
+                { bx: moonX + moonR * 0.1, by: moonY + moonR * 0.85, scale: 0.9, flap: Math.sin(batTime * 8 + 1.2) },
+                { bx: moonX + moonR * 1.3, by: moonY - moonR * 0.4, scale: 0.6, flap: Math.sin(batTime * 8 + 2.5) }
+            ].forEach(b => {
+                ctx.save();
+                ctx.translate(b.bx, b.by);
+                ctx.scale(b.scale, b.scale);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(-6, -8 * b.flap, -14, -2 * b.flap);
+                ctx.quadraticCurveTo(-8, 4, 0, 3);
+                ctx.quadraticCurveTo(8, 4, 14, -2 * b.flap);
+                ctx.quadraticCurveTo(6, -8 * b.flap, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            // 3. Jagged Obsidian Mountain Peaks with Lavender/Periwinkle Rim Lighting
             const parallax = (skier.x - W * 0.5);
-            drawJaggedMountainRange(horizonY + 6, 130, 0.0035, '#0d0918', 'rgba(255, 70, 70, 0.22)', -parallax * 0.04, 1.1);
-            drawJaggedMountainRange(horizonY + 14, 90, 0.0058, '#121324', 'rgba(148, 163, 184, 0.15)', -parallax * 0.08, 2.6);
-            drawJaggedMountainRange(horizonY + 22, 55, 0.0095, '#171b30', 'rgba(0, 242, 254, 0.12)', -parallax * 0.12, 4.2);
+            drawJaggedMountainRange(horizonY + 6, 130, 0.0035, '#0b061c', 'rgba(196, 181, 253, 0.28)', -parallax * 0.04, 1.1);
+            drawJaggedMountainRange(horizonY + 14, 90, 0.0058, '#120b29', 'rgba(167, 139, 250, 0.20)', -parallax * 0.08, 2.6);
+            drawJaggedMountainRange(horizonY + 22, 55, 0.0095, '#1a1038', 'rgba(245, 158, 11, 0.14)', -parallax * 0.12, 4.2);
         }
 
         function drawJaggedMountainRange(baseY, maxH, freq, fillCol, rimCol, offsetX, seed) {
