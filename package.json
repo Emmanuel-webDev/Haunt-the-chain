@@ -1,0 +1,9 @@
+{
+  "name": "argon-peaks-haunt-the-mountain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ARGON PEAKS: HAUNT THE MOUNTAIN — Vibe Testnet",
+  "scripts": {
+    "start": "serve ."
+  }
+}

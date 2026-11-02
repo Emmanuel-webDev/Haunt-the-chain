@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ARGON PEAKS: HAUNT THE MOUNTAIN — Vibe Testnet</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Rajdhani, Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        haunt: {
+                            cyan: '#00f2fe',
+                            violet: '#a855f7',
+                            orange: '#ff6a00',
+                            blood: '#ef4444',
+                            obsidian: '#06030d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #05020a;
+            font-family: 'Inter', sans-serif;
+            color: #f8fafc;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE MOBILE HORIZONTAL LANDSCAPE CONTAINER
+           Automatically rotates the game to horizontal landscape on portrait phones
+           ========================================================================== */
+        #appViewport {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #05020a;
+            transform-origin: center center;
+        }
+
+        @media screen and (max-width: 920px) and (orientation: portrait) {
+            body.force-landscape #appViewport {
+                width: 100vh;
+                height: 100vw;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        /* HUD Glass & Cyber-Gothic Styling matching Reference Mockup */
+        .hud-top-bar {
+            background: linear-gradient(180deg, rgba(6, 4, 14, 0.92) 0%, rgba(10, 7, 22, 0.65) 85%, transparent 100%);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.18);
+        }
+
+        .center-title-trapezoid {
+            background: linear-gradient(180deg, rgba(14, 19, 38, 0.95) 0%, rgba(8, 11, 24, 0.92) 100%);
+            border-bottom: 2px solid rgba(0, 242, 254, 0.65);
+            border-left: 1px solid rgba(0, 242, 254, 0.35);
+            border-right: 1px solid rgba(0, 242, 254, 0.35);
+            clip-path: polygon(0 0, 100% 0, 92% 100%, 8% 100%);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.22);
+        }
+
+        .specter-warning-box {
+            background: linear-gradient(180deg, rgba(28, 11, 16, 0.9) 0%, rgba(15, 6, 12, 0.92) 100%);
+            border: 1px solid rgba(255, 106, 0, 0.65);
+            box-shadow: 0 0 30px rgba(255, 60, 0, 0.35), inset 0 0 18px rgba(255, 106, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .bottom-controls-bar {
+            background: linear-gradient(180deg, rgba(10, 12, 24, 0.86) 0%, rgba(5, 6, 14, 0.96) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.28);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 18px rgba(0, 242, 254, 0.15);
+            backdrop-filter: blur(12px);
+        }
+
+        .glass-modal {
+            background: rgba(9, 6, 20, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .btn-spectral {
+            background: linear-gradient(135deg, #ff6a00 0%, #ee0979 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 106, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-spectral:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(255, 106, 0, 0.75);
+        }
+
+        .btn-ectoplasm {
+            background: linear-gradient(135deg, #00f2fe 0%, #a855f7 100%);
+            color: #05020a;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            transition: all 0.2s ease;
+        }
+        .btn-ectoplasm:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(168, 85, 247, 0.7);
+        }
+
+        /* Blood Vignette & CRT Glitch Overlay when Wendigo is close */
+        #chaseVignette {
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 42%, rgba(185, 16, 28, 0.45) 82%, rgba(120, 0, 15, 0.85) 100%);
+            mix-blend-mode: screen;
+            transition: opacity 0.15s ease;
+        }
+
+        .crt-scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.38) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.05),
+                rgba(0, 255, 255, 0.03),
+                rgba(168, 85, 247, 0.05)
+            );
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        @keyframes dangerPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 106, 0, 0.6)); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.95)); }
+        }
+        .animate-danger {
+            animation: dangerPulse 0.85s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="force-landscape select-none">
+
+    <!-- MASTER LANDSCAPE VIEWPORT CONTAINER -->
+    <div id="appViewport">
+
+        <!-- 1. INTERACTIVE 60FPS SPECTRAL CANVAS -->
+        <canvas id="alpineCanvas" class="absolute inset-0 z-0"></canvas>
+
+        <!-- 2. BLOOD VIGNETTE & STATIC GLITCH OVERLAY (DYNAMICALLY SCALES WITH WENDIGO PROXIMITY) -->
+        <div id="chaseVignette" class="absolute inset-0 z-10 opacity-0"></div>
+        <div id="glitchOverlay" class="absolute inset-0 z-10 crt-scanlines opacity-0 transition-opacity duration-150"></div>
+
+        <!-- 3. TOP HUD BAR (EXACT MOCKUP LAYOUT: VIBE TESTNET LEFT | TITLE CENTER | SOUL SCORE RIGHT) -->
+        <header class="hud-top-bar relative z-20 w-full px-3 sm:px-6 py-2 flex items-center justify-between gap-2">
+            
+            <!-- TOP LEFT: STRICT PRODUCTION VIBE TESTNET WALLET STATUS -->
+            <div class="flex items-center gap-2">
+                <button onclick="openWalletModal()" class="group flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-slate-950/85 border border-cyan-400/35 hover:border-cyan-400 transition-all text-left shadow-[0_0_15px_rgba(0,242,254,0.15)]">
+                    <!-- Glowing Vibe V Emblem -->
+                    <div class="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-400/50 flex items-center justify-center shadow-[0_0_12px_rgba(0,242,254,0.4)]">
+                        <svg class="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2 4l10 16L22 4h-4.5L12 13 6.5 4H2z"/>
+                        </svg>
+                    </div>
+                    <div class="leading-tight">
+                        <div class="flex items-center gap-1.5 text-[11px] sm:text-xs font-display font-bold tracking-wider text-white">
+                            <span>VIBE TESTNET</span>
+                            <span class="text-slate-500">|</span>
+                            <span id="hudWalletAddr" class="font-mono text-amber-300">NOT CONNECTED</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-semibold">
+                            <span id="hudWalletDot" class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span id="hudWalletState" class="text-amber-400">(CLICK TO CONNECT)</span>
+                        </div>
+                    </div>
+                </button>
+
+                <!-- Official $HAUNT CA Copy Badge -->
+                <button onclick="copyHauntCA()" title="Copy Official $HAUNT Contract Address" class="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-900 border border-purple-500/35 text-[10px] font-mono text-purple-300 transition-all">
+                    <span class="text-slate-400">$HAUNT CA:</span>
+                    <span class="text-cyan-300 font-bold">0x5c38...6A02</span>
+                    <i class="fa-regular fa-copy text-purple-300"></i>
+                </button>
+
+                <!-- Mobile Orientation Lock Toggle -->
+                <button onclick="toggleLandscapeLock()" title="Toggle Mobile Landscape Rotation" class="lg:hidden px-2 py-1.5 rounded-lg bg-slate-900/80 border border-white/15 text-cyan-300 text-xs">
+                    <i class="fa-solid fa-mobile-screen-button rotate-90"></i>
+                </button>
+            </div>
+
+            <!-- TOP CENTER: ARGON PEAKS // HAUNT THE MOUNTAIN -->
+            <div class="center-title-trapezoid px-5 sm:px-10 py-1.5 hidden sm:flex items-center justify-center">
+                <span class="font-display font-bold tracking-[0.16em] text-xs md:text-sm text-cyan-200 drop-shadow-[0_0_8px_rgba(0,242,254,0.5)] uppercase">
+                    ARGON PEAKS <span class="text-cyan-400 mx-1">//</span> HAUNT THE MOUNTAIN
+                </span>
+            </div>
+
+            <!-- TOP RIGHT: 3-HIT SOUL SHIELDS + SOUL SCORE & $HAUNT + AUDIO/LEADERBOARD BUTTONS -->
+            <div class="flex items-center gap-2 sm:gap-2.5">
+                <!-- 3-HIT SOUL SHIELD INTEGRITY COUNTER -->
+                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/80 border border-purple-500/30" title="3-Hit Soul Shields (Run ends after 3 obstacle hits)">
+                    <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 hidden md:inline">SHIELDS</span>
+                    <div id="hudSoulShields" class="flex items-center gap-1 text-xs sm:text-sm">
+                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
+                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
+                        <i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.8)]"></i>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 px-3 py-1 rounded-lg bg-slate-950/75 border border-cyan-500/25">
+                    <div class="text-right leading-tight">
+                        <div class="text-[11px] sm:text-sm font-display font-extrabold tracking-wider text-white">
+                            SOUL SCORE: <span id="hudSoulScore" class="font-mono text-cyan-200">0</span>
+                        </div>
+                        <div class="text-[10px] sm:text-xs font-mono font-bold text-orange-400 tracking-widest">
+                            $HAUNT <span id="hudComboTag" class="text-cyan-300 ml-1">x1.0</span>
+                        </div>
+                    </div>
+                    <!-- Glowing Blue Flaming Skull Badge -->
+                    <div class="w-8 h-8 rounded-full bg-cyan-500/15 border border-cyan-400/50 flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.55)]">
+                        <i class="fa-solid fa-skull text-cyan-300 text-sm animate-pulse"></i>
+                    </div>
+                </div>
+
+                <button onclick="toggleLeaderboardModal()" title="Vibe Testnet Onchain Log (TAB)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-slate-900/85 border border-cyan-400/30 hover:border-cyan-400 flex items-center justify-center text-amber-400 transition-all">
+                    <i class="fa-solid fa-trophy text-xs sm:text-sm"></i>
+                </button>
+
+                <button id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Spectral Synth Audio" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-slate-900/85 border border-cyan-400/30 hover:border-cyan-400 flex items-center justify-center text-cyan-300 transition-all">
+                    <i id="audioIcon" class="fa-solid fa-volume-high text-xs sm:text-sm"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 4. CENTRAL CHASE WARNING OVERLAY (MATCHES MOCKUP + PROMPT SPECS) -->
+        <div id="chaseWarningHud" class="relative z-20 w-full flex flex-col items-center mt-1 sm:mt-2 pointer-events-none px-3">
+            <div id="specterAlertBox" class="specter-warning-box rounded-xl px-4 sm:px-6 py-2 sm:py-2.5 w-full max-w-md text-center transition-transform duration-150">
+                <div class="flex items-center justify-center gap-2 text-xs sm:text-sm font-display font-extrabold tracking-wider text-orange-400 uppercase">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400 animate-bounce"></i>
+                    <span id="chaseWarningHeader">!!! CHASE WARNING !!! THE AVALANCHE WENDIGO</span>
+                </div>
+                <div class="text-xs sm:text-sm font-mono font-bold text-slate-100 tracking-widest mt-0.5">
+                    SPECTER DETECTED! <span class="text-orange-400">|</span> DISTANCE: <span id="hudWendigoDist" class="text-white font-extrabold">18.4m</span>
+                </div>
+                <!-- Proximity Danger Bar -->
+                <div class="relative w-full h-2.5 bg-slate-950/95 rounded-full overflow-hidden mt-1.5 border border-orange-500/40 p-0.5">
+                    <div id="wendigoProximityBar" class="h-full rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-amber-300 transition-all duration-75" style="width: 68%;"></div>
+                    <!-- Vertical Glowing Tick Marker -->
+                    <div id="wendigoBarTick" class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_8px_#fff]" style="left: 68%;"></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Event / Gate Repulse / Spectral Trick Toast -->
+            <div id="eventToast" class="mt-1.5 transition-all duration-200 opacity-0 transform -translate-y-2 text-center">
+                <div id="eventToastTitle" class="text-base sm:text-xl font-display font-black italic tracking-wider uppercase text-cyan-300 drop-shadow-[0_2px_12px_rgba(0,242,254,0.85)]">
+                    JACK-O'-LANTERN GATE CLEARED!
+                </div>
+                <div id="eventToastSub" class="text-[11px] sm:text-xs font-mono font-bold text-orange-300">
+                    +450 $HAUNT // WENDIGO REPULSED +18.0m!
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HERO / START SCREEN MODAL OVERLAY (ENFORCES REAL WEB3 WALLET GATE BEFORE DROP IN) -->
+        <main id="heroOverlay" class="fixed inset-0 z-30 flex items-center justify-center px-4 bg-black/65 backdrop-blur-md">
+            <div class="max-w-2xl w-full glass-modal rounded-3xl p-5 sm:p-8 relative overflow-hidden border border-purple-500/40">
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/40 text-orange-300 text-[11px] font-mono font-bold">
+                        <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                        <span>VIBE TESTNET PRODUCTION // HAUNT THE MOUNTAIN</span>
+                    </div>
+                    <button onclick="copyHauntCA()" class="px-3 py-1 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-cyan-300 text-[11px] font-mono font-bold flex items-center gap-1.5 transition-all" title="Click to Copy Official $HAUNT CA">
+                        <span>$HAUNT CA: 0x5c38...6A02</span>
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-black tracking-wider uppercase text-white leading-none mb-2">
+                    ARGON PEAKS <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-purple-500">HAUNT THE MOUNTAIN</span>
+                </h1>
+                <p class="text-slate-300 text-xs sm:text-sm mb-4 leading-relaxed">
+                    Outrun <strong class="text-orange-400">The Avalanche Wendigo</strong> down the blood-moon obsidian peaks of Argon Peaks. Carve through glowing <strong class="text-amber-300">Jack-o’-Lantern Gates</strong> to surge forward and repulse the mountain specter by 15–20m. Evade <strong class="text-red-400">Obsidian Trees, Cursed Rocks & Tombstones</strong> — 3 obstacle hits shatter your Soul Shields and end the run, triggering an immediate onchain score submission to the <code class="text-cyan-300">$HAUNT</code> smart contract!
+                </p>
+
+                <!-- Official Contract Address Banner -->
+                <div class="bg-slate-950/85 border border-cyan-400/30 rounded-xl p-2.5 mb-4 flex items-center justify-between gap-2 font-mono text-xs">
+                    <div class="truncate">
+                        <span class="text-slate-400 text-[10px] block uppercase">OFFICIAL $HAUNT SMART CONTRACT (VIBE TESTNET)</span>
+                        <span class="text-cyan-300 font-bold">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</span>
+                    </div>
+                    <button onclick="copyHauntCA()" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-[11px] font-bold shrink-0">
+                        <i class="fa-regular fa-copy mr-1"></i> COPY CA
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2.5 mb-5 font-mono">
+                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
+                        <div class="text-[10px] text-slate-400">PEAK SOUL SCORE</div>
+                        <div id="heroBestScore" class="text-base sm:text-lg font-extrabold text-cyan-300">0 $HAUNT</div>
+                    </div>
+                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
+                        <div class="text-[10px] text-slate-400">LONGEST SURVIVAL</div>
+                        <div id="heroBestTime" class="text-base sm:text-lg font-extrabold text-orange-400">0.0s</div>
+                    </div>
+                    <div class="bg-slate-950/70 border border-white/10 rounded-xl p-2.5">
+                        <div class="text-[10px] text-slate-400">WALLET STATUS</div>
+                        <div id="heroWalletStatus" class="text-xs sm:text-sm font-bold text-amber-400 truncate">REQUIRED</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-white/10">
+                    <button onclick="toggleLeaderboardModal()" class="px-4 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-400/30 text-cyan-300 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-ranking-star"></i> Onchain Log
+                    </button>
+                    <button id="heroDropInBtn" onclick="handleDropInAttempt()" class="btn-spectral rounded-xl px-7 py-3.5 font-display font-black text-sm sm:text-base tracking-widest uppercase flex items-center justify-center gap-2.5">
+                        <span id="heroDropInBtnText">[CONNECT VIBE TESTNET WALLET TO DROP IN]</span>
+                        <i id="heroDropInBtnIcon" class="fa-solid fa-wallet"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 6. CRASH / CAUGHT BY WENDIGO & REAL ONCHAIN SUBMISSION MODAL -->
+        <div id="gameOverModal" class="hidden fixed inset-0 z-30 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
+            <div class="max-w-lg w-full glass-modal rounded-3xl p-5 sm:p-7 border border-red-500/40 text-center relative overflow-hidden">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-red-700 mx-auto flex items-center justify-center text-white text-2xl font-black mb-3 shadow-[0_0_25px_rgba(239,68,68,0.6)]">
+                    <i id="gameOverIcon" class="fa-solid fa-skull-crossbones"></i>
+                </div>
+
+                <div id="gameOverSub" class="text-[11px] font-mono uppercase tracking-widest text-orange-400 mb-0.5">
+                    CHAIN SPECTER INTERCEPTION
+                </div>
+                <h2 id="gameOverTitle" class="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-wider mb-4">
+                    CONSUMED BY THE WENDIGO
+                </h2>
+
+                <!-- Run Telemetry Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 text-left font-mono">
+                    <div class="bg-slate-950/80 border border-cyan-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-slate-400">SOULS COLLECTED</div>
+                        <div id="endScore" class="text-sm sm:text-base font-extrabold text-cyan-300">0 $HAUNT</div>
+                    </div>
+                    <div class="bg-slate-950/80 border border-orange-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-slate-400">SURVIVAL DROP</div>
+                        <div id="endSurvivalTime" class="text-sm sm:text-base font-extrabold text-orange-400">0m (0.0s)</div>
+                    </div>
+                    <div class="bg-slate-950/80 border border-purple-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-slate-400">PUMPKIN GATES</div>
+                        <div id="endGates" class="text-sm sm:text-base font-extrabold text-purple-300">0</div>
+                    </div>
+                    <div class="bg-slate-950/80 border border-emerald-500/25 rounded-xl p-2.5">
+                        <div class="text-[9px] text-slate-400">PEAK VELOCITY</div>
+                        <div id="endTopSpeed" class="text-sm sm:text-base font-extrabold text-emerald-300">0 KM/H</div>
+                    </div>
+                </div>
+
+                <!-- Real Vibe Testnet Onchain Transaction Status Panel -->
+                <div class="bg-slate-950/90 border border-cyan-400/35 rounded-2xl p-3.5 mb-5 text-left font-mono">
+                    <div class="flex items-center justify-between text-[11px] mb-1.5">
+                        <span class="text-cyan-300 font-bold flex items-center gap-1.5">
+                            <i id="txSpinner" class="fa-solid fa-circle-notch animate-spin text-cyan-400"></i>
+                            <span id="txStatusTitle">AWAITING WALLET SIGNATURE...</span>
+                        </span>
+                        <button onclick="copyHauntCA()" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-400/30">
+                            CA: 0x5c38...6A02 <i class="fa-regular fa-copy ml-0.5"></i>
+                        </button>
+                    </div>
+                    <div id="txStatusDetail" class="text-[11px] text-slate-300 break-all">
+                        Submitting <code class="text-orange-300">submitHauntScore(uint256,uint256,uint256)</code> to <code class="text-cyan-300">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</code>
+                    </div>
+                    <div id="txHashRow" class="hidden mt-2 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-emerald-400">
+                        <span id="txHashText" class="truncate max-w-[65%]">TX: 0x...</span>
+                        <span id="txBlockText">BROADCASTED ONCHAIN</span>
+                    </div>
+                    <div id="txRetryRow" class="hidden mt-2.5 pt-2 border-t border-white/10 flex justify-end">
+                        <button onclick="retryLastOnchainSubmission()" class="px-3 py-1.5 rounded-lg bg-orange-500/20 hover:bg-orange-500/35 border border-orange-400/50 text-orange-300 text-[10px] font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-paper-plane mr-1"></i> Retry Onchain TX
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2.5">
+                    <button onclick="openHeroModal()" class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 font-mono font-bold text-xs uppercase text-slate-300">
+                        Lodge Menu
+                    </button>
+                    <button onclick="toggleLeaderboardModal()" class="py-3 px-4 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-400/40 font-mono font-bold text-xs uppercase text-purple-200">
+                        <i class="fa-solid fa-list-ol mr-1"></i> Onchain Log
+                    </button>
+                    <button onclick="handleDropInAttempt()" class="flex-1 btn-spectral py-3 px-5 rounded-xl font-display font-black text-sm uppercase tracking-wider">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Haunt The Mountain Again
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. VIBE TESTNET ONCHAIN LEADERBOARD MODAL (TAB KEY) -->
+        <div id="leaderboardModal" class="hidden fixed inset-0 z-40 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
+            <div class="max-w-xl w-full glass-modal rounded-3xl p-5 sm:p-7 border border-cyan-400/40 relative">
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+                    <div>
+                        <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cyan-400">
+                            <span>$HAUNT SMART CONTRACT: 0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</span>
+                            <button onclick="copyHauntCA()" class="text-purple-300 hover:text-white"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-display font-black text-white uppercase tracking-wider">
+                            VERIFIED ONCHAIN SUBMISSIONS ($HAUNT)
+                        </h3>
+                    </div>
+                    <button onclick="toggleLeaderboardModal()" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/15 text-slate-300 hover:text-white">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="leaderboardList" class="space-y-2 max-h-60 overflow-y-auto pr-1 font-mono text-xs mb-4">
+                    <!-- Populated dynamically with verified wallet runs -->
+                </div>
+
+                <div class="flex items-center justify-between pt-3 border-t border-white/10 text-[11px] font-mono text-slate-400">
+                    <span>Target CA: <strong class="text-cyan-300">0x5c38...da26A02</strong></span>
+                    <button onclick="toggleLeaderboardModal()" class="px-4 py-2 rounded-lg btn-ectoplasm font-bold text-xs uppercase">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. STRICT VIBE TESTNET WALLET CONNECTION MODAL (NO BURNER / NO DEMO) -->
+        <div id="walletModal" class="hidden fixed inset-0 z-40 flex items-center justify-center px-4 bg-black/75 backdrop-blur-md">
+            <div class="max-w-md w-full glass-modal rounded-3xl p-6 border border-cyan-400/40">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-display font-black uppercase tracking-wider text-white">
+                        VIBE TESTNET WEB3 WALLET
+                    </h3>
+                    <button onclick="closeWalletModal()" class="w-8 h-8 rounded-lg bg-slate-900 border border-white/15 text-slate-300">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-3 font-mono text-xs mb-5">
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-cyan-400/30">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] text-slate-400">CONNECTED EVM WALLET ADDRESS</span>
+                            <span id="modalWalletStatusBadge" class="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-400/30">DISCONNECTED</span>
+                        </div>
+                        <div id="modalWalletFull" class="text-amber-300 font-bold break-all mt-0.5 select-all">Not Connected — Please connect an EVM Wallet (MetaMask, Rabby, Coinbase)</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-purple-500/30 flex items-center justify-between">
+                        <div class="truncate pr-2">
+                            <div class="text-[10px] text-slate-400">$HAUNT CONTRACT ADDRESS</div>
+                            <div class="text-cyan-300 font-bold text-[11px] truncate">0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02</div>
+                        </div>
+                        <button onclick="copyHauntCA()" class="px-2.5 py-1 rounded bg-purple-500/20 border border-purple-400/40 text-purple-200 text-[10px] font-bold shrink-0">
+                            COPY
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-white/10">
+                            <div class="text-[10px] text-slate-400">TARGET NETWORK</div>
+                            <div id="modalNetworkName" class="text-emerald-400 font-bold">Vibe Testnet (8423)</div>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-950/80 border border-white/10">
+                            <div class="text-[10px] text-slate-400">PROVIDER STATUS</div>
+                            <div id="modalSignerMode" class="text-orange-300 font-bold">EVM Provider Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2.5">
+                    <button id="modalConnectBtn" onclick="connectRealWeb3Wallet(false)" class="w-full py-3.5 rounded-xl btn-ectoplasm font-mono font-extrabold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-wallet mr-1.5"></i> Connect Web3 Wallet (Vibe Testnet)
+                    </button>
+                    <button id="modalSwitchChainBtn" onclick="switchToVibeTestnet()" class="hidden w-full py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/50 text-amber-300 font-mono font-bold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Switch Network To Vibe Testnet (8423)
+                    </button>
+                    <div id="modalConnectedControls" class="hidden flex gap-2">
+                        <button onclick="disconnectWallet()" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/15 text-slate-300 font-mono font-bold text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Disconnect
+                        </button>
+                        <button onclick="closeWalletModal(); startSkiRun();" class="flex-1 py-3 rounded-xl btn-spectral font-mono font-black text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt mr-1"></i> Drop In Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. MOBILE TOUCH CONTROLS OVERLAY (ERGONOMIC LEFT/RIGHT CARVE & TUCK/SPECTRAL TRICK) -->
+        <div id="mobileTouchControls" class="fixed bottom-12 inset-x-3 z-20 pointer-events-none flex items-end justify-between md:hidden">
+            <div class="flex items-center gap-2.5 pointer-events-auto">
+                <button id="touchLeftBtn" class="w-14 h-14 rounded-2xl bg-slate-950/80 border border-cyan-400/40 active:scale-95 flex items-center justify-center text-xl text-cyan-300 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="touchRightBtn" class="w-14 h-14 rounded-2xl bg-slate-950/80 border border-cyan-400/40 active:scale-95 flex items-center justify-center text-xl text-cyan-300 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2.5 pointer-events-auto">
+                <button id="touchTuckBtn" class="px-3.5 h-14 rounded-2xl bg-slate-950/80 border border-orange-400/40 active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-bold text-orange-300">
+                    <i class="fa-solid fa-angles-down text-sm mb-0.5"></i>
+                    <span>TUCK</span>
+                </button>
+                <button id="touchTrickBtn" onclick="triggerSpectralJumpOrTrick()" class="px-4 h-14 rounded-2xl btn-ectoplasm active:scale-95 flex flex-col items-center justify-center text-[10px] font-mono font-black text-slate-950">
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm mb-0.5"></i>
+                    <span>SPECTRAL TRICK</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 10. BOTTOM CONTROL HINTS BAR (EXACT MOCKUP LAYOUT + REQUIRED HINTS) -->
+        <footer class="fixed bottom-2 inset-x-0 z-20 flex justify-center px-3 pointer-events-none">
+            <div class="bottom-controls-bar pointer-events-auto rounded-xl px-4 sm:px-6 py-1.5 sm:py-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] sm:text-xs font-mono tracking-wider">
+                <span>
+                    <strong class="text-cyan-300">A/D</strong> Carve
+                </span>
+                <span class="text-slate-600">|</span>
+                <span>
+                    <strong class="text-cyan-300">S</strong> Tuck Boost (<span id="footerSpeedDisplay" class="text-orange-400 font-bold">145 KM/H</span>)
+                </span>
+                <span class="text-slate-600">|</span>
+                <button onclick="triggerSpectralJumpOrTrick()" class="hover:text-cyan-200">
+                    <strong class="text-cyan-300">SPACE</strong> Spectral Air Trick
+                </button>
+                <span class="text-slate-600 hidden sm:inline">|</span>
+                <span class="hidden sm:inline text-purple-300">
+                    <i class="fa-solid fa-link text-cyan-400 mr-1"></i><strong>ONCHAIN SUBMIT ON CRASH</strong>
+                </span>
+                <span class="text-slate-600 hidden md:inline">|</span>
+                <button onclick="toggleLeaderboardModal()" class="hidden md:inline hover:text-cyan-300">
+                    <strong class="text-cyan-300">TAB</strong> Leaderboard
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. LANDSCAPE ORIENTATION CONTROLLER & CLIPBOARD HELPER
+           ========================================================================== */
+        const OFFICIAL_HAUNT_CA = '0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02';
+
+        function copyHauntCA() {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = OFFICIAL_HAUNT_CA;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                showToast('$HAUNT CA COPIED!', OFFICIAL_HAUNT_CA, '#00f2fe');
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function toggleLandscapeLock() {
+            document.body.classList.toggle('force-landscape');
+            setTimeout(() => {
+                initWorldAssets();
+            }, 120);
+        }
+
+        function getViewportDimensions() {
+            const isRotated = window.innerWidth <= 920 &&
+                              window.innerHeight > window.innerWidth &&
+                              document.body.classList.contains('force-landscape');
+            if (isRotated) {
+                return { width: window.innerHeight, height: window.innerWidth, rotated: true };
+            }
+            return { width: window.innerWidth, height: window.innerHeight, rotated: false };
+        }
+
+        /* ==========================================================================
+           2. STRICT PRODUCTION VIBE TESTNET WEB3 & $HAUNT CONTRACT INTEGRATION
+           (NO DEMO / NO BURNER WALLET / REAL EVM PROVIDER REQUIRED BEFORE RUN)
+           ========================================================================== */
+        const VIBE_TESTNET_CONFIG = {
+            contractAddress: OFFICIAL_HAUNT_CA,
+            chainIdHex: '0x20E7', // Vibe Testnet (8423)
+            chainIdDec: 8423,
+            altChainIdHex: '0x509ef55', // Base Vibenet Preview Testnet (84538453)
+            chainName: 'Vibe Testnet',
+            nativeCurrency: {
+                name: 'VIBE',
+                symbol: 'VIBE',
+                decimals: 18
+            },
+            rpcUrls: [
+                'https://rpc.vibes.base.org',
+                'https://rpc-testnet.vibe.org',
+                'https://rpc.vibe.community'
+            ],
+            blockExplorerUrls: ['https://chain.base.org/vibenet/explorer'],
+            symbol: '$HAUNT'
+        };
+
+        const web3State = {
+            connected: false,
+            address: null,
+            shortAddress: 'NOT CONNECTED',
+            chainId: null,
+            isVibeNet: false,
+            providerName: 'No Wallet Connected',
+            lastPendingSubmission: null,
+            leaderboard: JSON.parse(localStorage.getItem('haunt_verified_onchain_runs_v1') || '[]')
+        };
+
+        // EIP-6963 Multi-Injected Provider Discovery
+        const eip6963Providers = [];
+        if (typeof window !== 'undefined') {
+            window.addEventListener('eip6963:announceProvider', (event) => {
+                if (event && event.detail && !eip6963Providers.some(p => p.info.uuid === event.detail.info.uuid)) {
+                    eip6963Providers.push(event.detail);
+                    console.log('EIP-6963 Wallet detected:', event.detail.info.name);
+                    updateWalletHUD();
+                }
+            });
+            window.dispatchEvent(new Event('eip6963:requestProvider'));
+            // Re-announce request after slight injection delay
+            setTimeout(() => {
+                window.dispatchEvent(new Event('eip6963:requestProvider'));
+                updateWalletHUD();
+            }, 300);
+        }
+
+        function getEthereumProvider() {
+            if (typeof window === 'undefined') return null;
+
+            // 1. EIP-6963 announced providers (MetaMask, Rabby, Coinbase, OKX, etc.)
+            if (eip6963Providers.length > 0) {
+                const meta = eip6963Providers.find(p => p.info.name.toLowerCase().includes('metamask'));
+                if (meta) return meta.provider;
+                return eip6963Providers[0].provider;
+            }
+
+            // 2. window.ethereum with multiple provider support
+            if (window.ethereum) {
+                if (window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
+                    const prioritized = window.ethereum.providers.find(p => p.isMetaMask) ||
+                                        window.ethereum.providers.find(p => p.isRabby) ||
+                                        window.ethereum.providers.find(p => p.isCoinbaseWallet) ||
+                                        window.ethereum.providers.find(p => p.isOkxWallet) ||
+                                        window.ethereum.providers[0];
+                    return prioritized || window.ethereum;
+                }
+                return window.ethereum;
+            }
+
+            // 3. Direct globals for other wallets
+            if (window.okxwallet) return window.okxwallet.provider || window.okxwallet;
+            if (window.phantom && window.phantom.ethereum) return window.phantom.ethereum;
+            if (window.coinbaseWalletExtension) return window.coinbaseWalletExtension;
+            if (window.bitkeep && window.bitkeep.ethereum) return window.bitkeep.ethereum;
+
+            return null;
+        }
+
+        function isVibeChain(chainId) {
+            if (!chainId) return false;
+            const hex = typeof chainId === 'string' ? chainId.toLowerCase() : '0x' + Number(chainId).toString(16).toLowerCase();
+            return hex === VIBE_TESTNET_CONFIG.chainIdHex.toLowerCase() ||
+                   hex === VIBE_TESTNET_CONFIG.altChainIdHex.toLowerCase() ||
+                   Number(chainId) === VIBE_TESTNET_CONFIG.chainIdDec ||
+                   Number(chainId) === 84538453;
+        }
+
+        async function switchToVibeTestnet(provider) {
+            if (!provider) provider = getEthereumProvider();
+            if (!provider) {
+                showToast('NO EXTENSION DETECTED', 'USE DIRECT ADDRESS ENTRY OR ENABLE EXTENSION FILE ACCESS', '#ef4444');
+                return false;
+            }
+            try {
+                await provider.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: VIBE_TESTNET_CONFIG.chainIdHex }]
+                });
+                web3State.chainId = VIBE_TESTNET_CONFIG.chainIdHex;
+                web3State.isVibeNet = true;
+                updateWalletHUD();
+                showToast('SWITCHED TO VIBE TESTNET', 'CHAIN ID 8423 ACTIVE', '#00f2fe');
+                return true;
+            } catch (switchError) {
+                // 4902 indicates chain has not been added to wallet
+                if (switchError && (switchError.code === 4902 || switchError.code === -32603 || (switchError.message && switchError.message.toLowerCase().includes('unrecognized')))) {
+                    try {
+                        await provider.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: VIBE_TESTNET_CONFIG.chainIdHex,
+                                chainName: VIBE_TESTNET_CONFIG.chainName,
+                                rpcUrls: VIBE_TESTNET_CONFIG.rpcUrls,
+                                nativeCurrency: VIBE_TESTNET_CONFIG.nativeCurrency,
+                                blockExplorerUrls: VIBE_TESTNET_CONFIG.blockExplorerUrls
+                            }]
+                        });
+                        web3State.chainId = VIBE_TESTNET_CONFIG.chainIdHex;
+                        web3State.isVibeNet = true;
+                        updateWalletHUD();
+                        showToast('VIBE TESTNET ADDED & SWITCHED', 'READY TO SUBMIT ONCHAIN', '#00f2fe');
+                        return true;
+                    } catch (addError) {
+                        console.warn('Could not add primary Vibe Testnet, trying alternate Vibenet params:', addError);
+                        try {
+                            await provider.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: VIBE_TESTNET_CONFIG.altChainIdHex,
+                                    chainName: 'Base Vibenet',
+                                    rpcUrls: ['https://rpc.vibes.base.org'],
+                                    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+                                    blockExplorerUrls: ['https://chain.base.org/vibenet/explorer']
+                                }]
+                            });
+                            web3State.chainId = VIBE_TESTNET_CONFIG.altChainIdHex;
+                            web3State.isVibeNet = true;
+                            updateWalletHUD();
+                            showToast('BASE VIBENET CONNECTED', 'ONCHAIN SCORE LOGGING READY', '#00f2fe');
+                            return true;
+                        } catch (altErr) {
+                            console.warn('Fallback addEthereumChain failed:', altErr);
+                        }
+                    }
+                }
+                console.warn('Chain switch note:', switchError);
+                return false;
+            }
+        }
+
+        function formatShortAddr(addr) {
+            if (!addr || addr.length < 10) return 'NOT CONNECTED';
+            return addr.slice(0, 6) + '...' + addr.slice(-4);
+        }
+
+        function updateWalletHUD() {
+            const addrEl = document.getElementById('hudWalletAddr');
+            const stateEl = document.getElementById('hudWalletState');
+            const dotEl = document.getElementById('hudWalletDot');
+            const heroStatusEl = document.getElementById('heroWalletStatus');
+            const heroBtnText = document.getElementById('heroDropInBtnText');
+            const heroBtnIcon = document.getElementById('heroDropInBtnIcon');
+            const modalWalletFull = document.getElementById('modalWalletFull');
+            const modalWalletStatusBadge = document.getElementById('modalWalletStatusBadge');
+            const modalNetworkName = document.getElementById('modalNetworkName');
+            const modalSignerMode = document.getElementById('modalSignerMode');
+            const modalConnectBtn = document.getElementById('modalConnectBtn');
+            const modalSwitchChainBtn = document.getElementById('modalSwitchChainBtn');
+            const modalConnectedControls = document.getElementById('modalConnectedControls');
+
+            const provider = getEthereumProvider();
+            const hasVibeChain = isVibeChain(web3State.chainId);
+            web3State.isVibeNet = hasVibeChain;
+
+            if (web3State.connected && web3State.address) {
+                if (addrEl) {
+                    addrEl.textContent = web3State.shortAddress;
+                    addrEl.className = 'font-mono text-cyan-300';
+                }
+                if (stateEl) {
+                    stateEl.textContent = hasVibeChain ? '(CONNECTED: VIBE)' : '(CONNECTED)';
+                    stateEl.className = hasVibeChain ? 'text-emerald-400' : 'text-cyan-400';
+                }
+                if (dotEl) {
+                    dotEl.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping';
+                }
+
+                if (heroStatusEl) {
+                    heroStatusEl.textContent = web3State.shortAddress;
+                    heroStatusEl.className = 'text-xs sm:text-sm font-bold text-emerald-400 truncate';
+                }
+                if (heroBtnText) heroBtnText.textContent = 'DROP INTO ARGON PEAKS';
+                if (heroBtnIcon) heroBtnIcon.className = 'fa-solid fa-bolt';
+
+                if (modalWalletFull) {
+                    modalWalletFull.textContent = web3State.address;
+                    modalWalletFull.className = 'text-cyan-300 font-bold break-all mt-0.5 select-all';
+                }
+                if (modalWalletStatusBadge) {
+                    modalWalletStatusBadge.textContent = 'CONNECTED';
+                    modalWalletStatusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-400/30';
+                }
+                if (modalNetworkName) {
+                    if (hasVibeChain) {
+                        modalNetworkName.textContent = 'Vibe Testnet (Active)';
+                        modalNetworkName.className = 'text-emerald-400 font-bold';
+                    } else {
+                        modalNetworkName.textContent = web3State.chainId ? `Connected (${web3State.chainId})` : 'EVM Network';
+                        modalNetworkName.className = 'text-amber-300 font-bold';
+                    }
+                }
+                if (modalSignerMode) {
+                    modalSignerMode.textContent = web3State.providerName || 'Live EVM Signer';
+                    modalSignerMode.className = 'text-emerald-400 font-bold';
+                }
+
+                if (modalConnectBtn) modalConnectBtn.classList.add('hidden');
+                if (modalConnectedControls) modalConnectedControls.classList.remove('hidden');
+                if (modalSwitchChainBtn) {
+                    if (!hasVibeChain && provider) {
+                        modalSwitchChainBtn.classList.remove('hidden');
+                    } else {
+                        modalSwitchChainBtn.classList.add('hidden');
+                    }
+                }
+            } else {
+                if (addrEl) {
+                    addrEl.textContent = 'NOT CONNECTED';
+                    addrEl.className = 'font-mono text-amber-300';
+                }
+                if (stateEl) {
+                    stateEl.textContent = '(CONNECT WALLET)';
+                    stateEl.className = 'text-amber-400';
+                }
+                if (dotEl) {
+                    dotEl.className = 'w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse';
+                }
+
+                if (heroStatusEl) {
+                    heroStatusEl.textContent = 'WALLET REQUIRED';
+                    heroStatusEl.className = 'text-xs sm:text-sm font-bold text-amber-400 truncate';
+                }
+                if (heroBtnText) heroBtnText.textContent = '[CONNECT VIBE TESTNET WALLET TO DROP IN]';
+                if (heroBtnIcon) heroBtnIcon.className = 'fa-solid fa-wallet';
+
+                if (modalWalletFull) {
+                    modalWalletFull.textContent = 'Not Connected — Connect MetaMask, Rabby, or EVM Wallet';
+                    modalWalletFull.className = 'text-amber-300 font-bold break-all mt-0.5';
+                }
+                if (modalWalletStatusBadge) {
+                    modalWalletStatusBadge.textContent = 'DISCONNECTED';
+                    modalWalletStatusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-400/30';
+                }
+                if (modalNetworkName) {
+                    modalNetworkName.textContent = 'Vibe Testnet (8423)';
+                    modalNetworkName.className = 'text-slate-300 font-bold';
+                }
+                if (modalSignerMode) {
+                    if (provider) {
+                        modalSignerMode.textContent = 'Extension Ready';
+                        modalSignerMode.className = 'text-cyan-300 font-bold';
+                    } else {
+                        modalSignerMode.textContent = 'Disconnected';
+                        modalSignerMode.className = 'text-orange-300 font-bold';
+                    }
+                }
+
+                if (modalConnectBtn) modalConnectBtn.classList.remove('hidden');
+                if (modalConnectedControls) modalConnectedControls.classList.add('hidden');
+                if (modalSwitchChainBtn) modalSwitchChainBtn.classList.add('hidden');
+            }
+        }
+
+        function disconnectWallet() {
+            web3State.connected = false;
+            web3State.address = null;
+            web3State.shortAddress = 'NOT CONNECTED';
+            web3State.chainId = null;
+            web3State.isVibeNet = false;
+            updateWalletHUD();
+            showToast('WALLET DISCONNECTED', 'PLEASE RECONNECT BEFORE DROPPING IN', '#ff6a00');
+        }
+
+        function openWalletModal() {
+            updateWalletHUD();
+            document.getElementById('walletModal').classList.remove('hidden');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.add('hidden');
+        }
+
+        async function connectRealWeb3Wallet(startAfterConnect = false) {
+            const provider = getEthereumProvider();
+            if (!provider) {
+                openWalletModal();
+                const modalWalletFull = document.getElementById('modalWalletFull');
+                if (modalWalletFull) {
+                    modalWalletFull.textContent =
+                        'No Web3 provider (window.ethereum) detected. Please open in a Web3-enabled browser with MetaMask, Rabby, or Coinbase Wallet installed.';
+                }
+                showToast('WEB3 WALLET REQUIRED', 'INSTALL METAMASK OR RABBY TO CONNECT TO VIBE TESTNET', '#ef4444');
+                return false;
+            }
+
+            try {
+                showToast('CONNECTING WALLET...', 'APPROVE ACCESS IN YOUR EXTENSION', '#a855f7');
+                const accounts = await provider.request({ method: 'eth_requestAccounts' });
+                if (!accounts || accounts.length === 0) {
+                    showToast('WALLET ACCESS REQUIRED', 'PLEASE APPROVE ACCOUNT IN YOUR WALLET', '#ff6a00');
+                    return false;
+                }
+
+                // Prompt network switch to Vibe Testnet
+                await switchToVibeTestnet(provider);
+
+                let chainId = null;
+                try {
+                    chainId = await provider.request({ method: 'eth_chainId' });
+                } catch (e) {
+                    console.warn('eth_chainId read warning:', e);
+                }
+
+                web3State.address = accounts[0];
+                web3State.shortAddress = formatShortAddr(accounts[0]);
+                web3State.chainId = chainId;
+                web3State.connected = true;
+                web3State.providerName = 'EVM Web3 Provider';
+
+                updateWalletHUD();
+                closeWalletModal();
+                showToast('VIBE TESTNET WALLET CONNECTED!', `CONNECTED AS ${web3State.shortAddress}`, '#00f2fe');
+
+                if (startAfterConnect) {
+                    startSkiRun();
+                }
+                return true;
+            } catch (err) {
+                console.error('Wallet connection error:', err);
+                if (err && err.code === -32002) {
+                    showToast('WALLET REQUEST PENDING', 'PLEASE OPEN YOUR WALLET AND CONFIRM', '#ff6a00');
+                } else {
+                    showToast('WALLET CONNECTION REJECTED', err && err.message ? err.message : 'PLEASE CONNECT WALLET TO PLAY', '#ef4444');
+                }
+                return false;
+            }
+        }
+
+        async function checkExistingWalletConnection() {
+            const provider = getEthereumProvider();
+            if (!provider) {
+                updateWalletHUD();
+                return;
+            }
+            try {
+                const accounts = await provider.request({ method: 'eth_accounts' });
+                if (accounts && accounts.length > 0) {
+                    const chainId = await provider.request({ method: 'eth_chainId' });
+                    web3State.address = accounts[0];
+                    web3State.shortAddress = formatShortAddr(accounts[0]);
+                    web3State.chainId = chainId;
+                    web3State.connected = true;
+                }
+            } catch (e) {
+                console.warn('Silent eth_accounts check failed:', e);
+            }
+
+            if (provider && provider.on) {
+                provider.on('accountsChanged', (accs) => {
+                    if (accs && accs.length > 0) {
+                        web3State.address = accs[0];
+                        web3State.shortAddress = formatShortAddr(accs[0]);
+                        web3State.connected = true;
+                    } else {
+                        web3State.address = null;
+                        web3State.shortAddress = 'NOT CONNECTED';
+                        web3State.connected = false;
+                        if (gameState === 'PLAYING') {
+                            openHeroModal();
+                        }
+                    }
+                    updateWalletHUD();
+                });
+
+                provider.on('chainChanged', (newChainId) => {
+                    web3State.chainId = newChainId;
+                    updateWalletHUD();
+                });
+            }
+
+            updateWalletHUD();
+        }
+
+        async function handleDropInAttempt() {
+            audio.init();
+            if (!web3State.connected || !web3State.address) {
+                const ok = await connectRealWeb3Wallet(true);
+                if (!ok) return;
+            } else {
+                startSkiRun();
+            }
+        }
+
+        // Encode ABI call for submitHauntScore(uint256 soulScore, uint256 survivalDistanceMeters, uint256 gatesCleared)
+        function encodeSubmitScoreCalldata(score, distanceMeters, gates) {
+            const selector = '0x8d4e2f91'; // submitHauntScore(uint256,uint256,uint256)
+            const p1 = BigInt(Math.max(0, Math.floor(score))).toString(16).padStart(64, '0');
+            const p2 = BigInt(Math.max(0, Math.floor(distanceMeters))).toString(16).padStart(64, '0');
+            const p3 = BigInt(Math.max(0, Math.floor(gates))).toString(16).padStart(64, '0');
+            return selector + p1 + p2 + p3;
+        }
+
+        async function submitScoreOnchainVibeTestnet(soulScore, survivalDistanceMeters, survivalSeconds, gatesCleared) {
+            web3State.lastPendingSubmission = {
+                soulScore,
+                survivalDistanceMeters,
+                survivalSeconds,
+                gatesCleared
+            };
+
+            const spinner = document.getElementById('txSpinner');
+            const titleEl = document.getElementById('txStatusTitle');
+            const detailEl = document.getElementById('txStatusDetail');
+            const hashRow = document.getElementById('txHashRow');
+            const retryRow = document.getElementById('txRetryRow');
+            const hashText = document.getElementById('txHashText');
+            const blockText = document.getElementById('txBlockText');
+
+            hashRow.classList.add('hidden');
+            retryRow.classList.add('hidden');
+
+            const provider = getEthereumProvider();
+            if (!provider || !web3State.connected || !web3State.address) {
+                spinner.className = 'fa-solid fa-triangle-exclamation text-amber-400';
+                titleEl.textContent = 'WALLET DISCONNECTED — CONNECT TO SUBMIT ONCHAIN';
+                detailEl.innerHTML = `Target $HAUNT Contract: <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+                retryRow.classList.remove('hidden');
+                return;
+            }
+
+            if (!isVibeChain(web3State.chainId)) {
+                await switchToVibeTestnet(provider);
+            }
+
+            spinner.className = 'fa-solid fa-circle-notch animate-spin text-cyan-400';
+            titleEl.textContent = 'CONFIRM ONCHAIN TX IN YOUR WEB3 WALLET...';
+
+            const distInt = Math.max(1, Math.round(survivalDistanceMeters));
+            const safeGates = Math.max(0, Math.round(gatesCleared || 0));
+            const calldata = encodeSubmitScoreCalldata(soulScore, distInt, safeGates);
+            detailEl.innerHTML = `Calling <code class="text-orange-300">submitHauntScore(${soulScore}, ${distInt}m, ${safeGates})</code> on <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+
+            try {
+                const txHash = await provider.request({
+                    method: 'eth_sendTransaction',
+                    params: [{
+                        from: web3State.address,
+                        to: OFFICIAL_HAUNT_CA,
+                        data: calldata,
+                        value: '0x0',
+                        gas: '0x30D40' // 200,000 gas fallback to prevent dry-run simulation errors on custom testnet
+                    }]
+                });
+
+                spinner.className = 'fa-solid fa-circle-check text-emerald-400';
+                titleEl.textContent = 'ONCHAIN TRANSACTION BROADCASTED TO $HAUNT!';
+                detailEl.innerHTML = `Submitted <strong class="text-orange-400">${soulScore.toLocaleString()} $HAUNT</strong> to <code class="text-cyan-300">${OFFICIAL_HAUNT_CA}</code>`;
+                hashRow.classList.remove('hidden');
+                hashText.textContent = `TX: ${txHash}`;
+                blockText.textContent = 'VERIFIED ONCHAIN';
+
+                // Save verified onchain run
+                web3State.leaderboard.push({
+                    wallet: web3State.shortAddress,
+                    score: soulScore,
+                    time: `${distInt}m (${survivalSeconds.toFixed(1)}s)`,
+                    gates: safeGates,
+                    tx: txHash.slice(0, 10) + '...' + txHash.slice(-6)
+                });
+                web3State.leaderboard.sort((a, b) => b.score - a.score);
+                localStorage.setItem('haunt_verified_onchain_runs_v1', JSON.stringify(web3State.leaderboard.slice(0, 20)));
+                renderLeaderboard();
+            } catch (err) {
+                console.error('Onchain transaction error:', err);
+                spinner.className = 'fa-solid fa-circle-exclamation text-red-400';
+                titleEl.textContent = 'TRANSACTION REJECTED OR FAILED';
+                detailEl.textContent = err && err.message ? err.message : 'User rejected or network error while calling $HAUNT contract.';
+                retryRow.classList.remove('hidden');
+            }
+        }
+
+        function retryLastOnchainSubmission() {
+            if (!web3State.lastPendingSubmission) return;
+            const s = web3State.lastPendingSubmission;
+            submitScoreOnchainVibeTestnet(s.soulScore, s.survivalDistanceMeters, s.survivalSeconds, s.gatesCleared);
+        }
+
+        function renderLeaderboard() {
+            const container = document.getElementById('leaderboardList');
+            if (!web3State.leaderboard || web3State.leaderboard.length === 0) {
+                container.innerHTML = `
+                    <div class="p-6 rounded-2xl bg-slate-950/80 border border-white/10 text-center text-slate-400">
+                        <i class="fa-solid fa-link text-cyan-400 text-lg mb-2 block"></i>
+                        No verified onchain runs recorded in this session yet.<br>
+                        <span class="text-[11px] text-cyan-300">Connect your wallet, drop in, and submit your Soul Score to ${OFFICIAL_HAUNT_CA}!</span>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = web3State.leaderboard.slice(0, 10).map((entry, idx) => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/85 border ${idx === 0 ? 'border-amber-400/50' : 'border-white/10'}">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300'} flex items-center justify-center font-extrabold text-xs">
+                            ${idx + 1}
+                        </span>
+                        <div>
+                            <div class="font-bold text-white">${entry.wallet} <span class="text-[10px] text-slate-400 ml-1">(${entry.gates} Gates | ${entry.time})</span></div>
+                            <div class="text-[10px] text-emerald-400">TX: ${entry.tx}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-extrabold text-cyan-300">${entry.score.toLocaleString()}</div>
+                        <div class="text-[9px] text-orange-400 font-bold">$HAUNT</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleLeaderboardModal() {
+            renderLeaderboard();
+            const modal = document.getElementById('leaderboardModal');
+            modal.classList.toggle('hidden');
+        }
+
+        /* ==========================================================================
+           3. PROCEDURAL SPECTRAL AUDIO ENGINE (SPOOKY WIND, GHOST CHIMES, WENDIGO CHASE)
+           ========================================================================== */
+        class SpectralAudioEngine {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+                this.initialized = false;
+                this.carveGain = null;
+                this.carveFilter = null;
+                this.windGain = null;
+                this.windFilter = null;
+                this.rumbleOsc = null;
+                this.rumbleGain = null;
+                this.lastHeartbeatTime = 0;
+                this.lastChainRattleTime = 0;
+            }
+
+            init() {
+                if (this.initialized) return;
+                try {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioCtx();
+
+                    // Pink/Dark Noise Buffer for Eerie Howling Wind & Ectoplasm Carve
+                    const bufferSize = this.ctx.sampleRate * 2;
+                    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    let b0 = 0, b1 = 0, b2 = 0;
+                    for (let i = 0; i < bufferSize; i++) {
+                        const white = Math.random() * 2 - 1;
+                        b0 = 0.99765 * b0 + white * 0.0990460;
+                        b1 = 0.96300 * b1 + white * 0.2965164;
+                        b2 = 0.57000 * b2 + white * 1.0526913;
+                        output[i] = (b0 + b1 + b2 + white * 0.1848) * 0.09;
+                    }
+
+                    // 1. Ectoplasm Carve Hiss
+                    const carveSource = this.ctx.createBufferSource();
+                    carveSource.buffer = noiseBuffer;
+                    carveSource.loop = true;
+                    this.carveFilter = this.ctx.createBiquadFilter();
+                    this.carveFilter.type = 'bandpass';
+                    this.carveFilter.frequency.value = 1100;
+                    this.carveFilter.Q.value = 2.2;
+                    this.carveGain = this.ctx.createGain();
+                    this.carveGain.gain.value = 0.0;
+                    carveSource.connect(this.carveFilter);
+                    this.carveFilter.connect(this.carveGain);
+                    this.carveGain.connect(this.ctx.destination);
+                    carveSource.start();
+
+                    // 2. Eerie Howling Spooky Wind Swell
+                    const windSource = this.ctx.createBufferSource();
+                    windSource.buffer = noiseBuffer;
+                    windSource.loop = true;
+                    this.windFilter = this.ctx.createBiquadFilter();
+                    this.windFilter.type = 'bandpass';
+                    this.windFilter.frequency.value = 340;
+                    this.windFilter.Q.value = 6.5; // High Q creates eerie ghostly whistle
+                    this.windGain = this.ctx.createGain();
+                    this.windGain.gain.value = 0.08;
+                    windSource.connect(this.windFilter);
+                    this.windFilter.connect(this.windGain);
+                    this.windGain.connect(this.ctx.destination);
+                    windSource.start();
+
+                    // 3. Unsettling Sub-Bass Wendigo Rumble Drone
+                    this.rumbleOsc = this.ctx.createOscillator();
+                    this.rumbleOsc.type = 'sawtooth';
+                    this.rumbleOsc.frequency.value = 46;
+                    const rumbleFilter = this.ctx.createBiquadFilter();
+                    rumbleFilter.type = 'lowpass';
+                    rumbleFilter.frequency.value = 95;
+                    this.rumbleGain = this.ctx.createGain();
+                    this.rumbleGain.gain.value = 0.02;
+                    this.rumbleOsc.connect(rumbleFilter);
+                    rumbleFilter.connect(this.rumbleGain);
+                    this.rumbleGain.connect(this.ctx.destination);
+                    this.rumbleOsc.start();
+
+                    this.initialized = true;
+                } catch (e) {
+                    console.warn('Web Audio API blocked or unsupported:', e);
+                }
+            }
+
+            updateContinuous(speedRatio, gForce, isAirborne, isPlaying, wendigoDist) {
+                if (!this.initialized || !this.enabled || !this.ctx) return;
+                if (this.ctx.state === 'suspended') this.ctx.resume();
+
+                const now = this.ctx.currentTime;
+                const proximityFactor = Math.max(0, Math.min(1, (26 - wendigoDist) / 22));
+
+                // Eerie howling wind swell modulation
+                const eerieSwell = 280 + Math.sin(now * 1.4) * 130 + speedRatio * 320;
+                this.windFilter.frequency.setTargetAtTime(eerieSwell, now, 0.12);
+                this.windGain.gain.setTargetAtTime(0.08 + speedRatio * 0.1 + proximityFactor * 0.08, now, 0.1);
+
+                // Wendigo sub-bass rumble intensifies as it closes in
+                this.rumbleOsc.frequency.setTargetAtTime(42 + proximityFactor * 18 + Math.sin(now * 6) * 4, now, 0.08);
+                this.rumbleGain.gain.setTargetAtTime(isPlaying ? (0.02 + proximityFactor * 0.18) : 0.02, now, 0.08);
+
+                if (!isPlaying || isAirborne) {
+                    this.carveGain.gain.setTargetAtTime(0.0, now, 0.05);
+                } else {
+                    const targetGain = Math.min(0.28, 0.03 + speedRatio * 0.08 + (gForce - 1) * 0.12);
+                    const targetFreq = 800 + speedRatio * 900 + (gForce - 1) * 600;
+                    this.carveGain.gain.setTargetAtTime(targetGain, now, 0.05);
+                    this.carveFilter.frequency.setTargetAtTime(targetFreq, now, 0.05);
+                }
+
+                // Trigger rhythmic Heartbeat & Rattling Chains when Wendigo is close
+                if (isPlaying && wendigoDist < 20) {
+                    const beatInterval = Math.max(0.28, 0.85 - proximityFactor * 0.52);
+                    if (now - this.lastHeartbeatTime > beatInterval) {
+                        this.lastHeartbeatTime = now;
+                        this.playHeartbeat(proximityFactor);
+                    }
+                    if (now - this.lastChainRattleTime > beatInterval * 1.6 && Math.random() < 0.65) {
+                        this.lastChainRattleTime = now;
+                        this.playChainRattle(proximityFactor);
+                    }
+                }
+            }
+
+            playHeartbeat(intensity) {
+                if (!this.initialized || !this.enabled) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(68, now);
+                osc.frequency.exponentialRampToValueAtTime(28, now + 0.16);
+                gain.gain.setValueAtTime(0.08 + intensity * 0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.19);
+            }
+
+            playChainRattle(intensity) {
+                if (!this.initialized || !this.enabled) return;
+                const now = this.ctx.currentTime;
+                // Metallic high-frequency clink cluster
+                [2400, 3150, 4200].forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(freq + Math.random() * 400, now + idx * 0.035);
+                    gain.gain.setValueAtTime(0.02 + intensity * 0.05, now + idx * 0.035);
+                    gain.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.035 + 0.06);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.035);
+                    osc.stop(now + idx * 0.035 + 0.065);
+                });
+            }
+
+            playGhostlyGateChime(combo = 1) {
+                if (!this.initialized || !this.enabled) return;
+                const now = this.ctx.currentTime;
+                // Haunting minor-second / diminished spectral bell + whisper
+                const base = 587.33 * Math.pow(1.04, Math.min(10, combo));
+                [base, base * 1.189, base * 1.498].forEach((freq, i) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.04);
+                    osc.frequency.exponentialRampToValueAtTime(freq * 0.98, now + 0.45);
+                    gain.gain.setValueAtTime(0.11, now + i * 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + i * 0.04);
+                    osc.stop(now + 0.5);
+                });
+            }
+
+            playSpectralTrick() {
+                if (!this.initialized || !this.enabled) return;
+                const now = this.ctx.currentTime;
+                [440, 554.37, 659.25, 880, 1174.66].forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.035);
+                    gain.gain.setValueAtTime(0.12, now + idx * 0.035);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.035);
+                    osc.stop(now + idx * 0.035 + 0.26);
+                });
+            }
+
+            playWendigoRoarCrash() {
+                if (!this.initialized || !this.enabled) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(145, now);
+                osc.frequency.exponentialRampToValueAtTime(28, now + 0.65);
+                gain.gain.setValueAtTime(0.32, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.68);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.7);
+            }
+        }
+
+        const audio = new SpectralAudioEngine();
+
+        function toggleAudio() {
+            audio.init();
+            audio.enabled = !audio.enabled;
+            const icon = document.getElementById('audioIcon');
+            if (audio.enabled) {
+                icon.className = 'fa-solid fa-volume-high text-xs sm:text-sm';
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-500 text-xs sm:text-sm';
+                if (audio.carveGain && audio.ctx) {
+                    audio.carveGain.gain.setTargetAtTime(0, audio.ctx.currentTime, 0.05);
+                    audio.windGain.gain.setTargetAtTime(0, audio.ctx.currentTime, 0.05);
+                    audio.rumbleGain.gain.setTargetAtTime(0, audio.ctx.currentTime, 0.05);
+                }
+            }
+        }
+
+        /* ==========================================================================
+           4. GAME STATE, SKIER & THE AVALANCHE WENDIGO CHASER
+           ========================================================================== */
+        const canvas = document.getElementById('alpineCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        let W = 1280;
+        let H = 720;
+        let horizonY = H * 0.30;
+
+        let highScore = parseInt(localStorage.getItem('haunt_prod_best_score') || '0', 10);
+        let bestTime = parseFloat(localStorage.getItem('haunt_prod_best_time') || '0.0');
+
+        // Start in HERO state enforcing real Web3 wallet connection before a run can start
+        let gameState = 'HERO'; // 'HERO' | 'PLAYING' | 'GAMEOVER'
+
+        const skier = {
+            x: W * 0.58,
+            y: H * 0.68,
+            vx: 0,
+            vy: 11.5,
+            speed: 0,
+            maxSpeed: 0,
+            angle: -0.25,
+            targetAngle: -0.25,
+            gForce: 1.0,
+            distance: 0,
+            survivalTime: 0,
+            score: 0,
+            combo: 1.0,
+            gatesCleared: 0,
+            shields: 3,        // Strict 3-Hit Soul Shield system (3 hits = run ends)
+            maxShields: 3,
+            invulnerableTimer: 0,
+            hitFlashTimer: 0,
+            z: 0,
+            vz: 0,
+            isAirborne: false,
+            trickRotation: 0,
+            tricksInAir: 0,
+            tucking: false,
+            gateBoostTimer: 0
+        };
+
+        // The Pursuing Chain Specter / Avalanche Wendigo
+        const wendigo = {
+            x: W * 0.31,
+            y: H * 0.36,
+            distance: 18.4,
+            maxDistance: 35.0,
+            chainPhase: 0,
+            lungeTimer: 0
+        };
+
+        // Object-Pooled Collections for High-FPS Zero-GC Spikes
+        let ectoplasmTracks = [];
+        let ectoplasmParticles = [];
+        const particlePool = [];
+        let spectralFogLayers = [];
+        let ambientAsh = [];
+        let obstacles = [];
+        let pumpkinGates = [];
+        let chairlifts = [];
+        let stars = [];
+
+        let distanceSinceLastGate = 0;
+        let distanceSinceLastObstacle = 0;
+        let screenShake = 0;
+
+        function updateSoulShieldsHUD() {
+            const container = document.getElementById('hudSoulShields');
+            if (!container) return;
+            let html = '';
+            for (let i = 0; i < skier.maxShields; i++) {
+                if (i < skier.shields) {
+                    html += '<i class="fa-solid fa-shield-halved text-cyan-300 drop-shadow-[0_0_8px_rgba(0,242,254,0.85)]"></i>';
+                } else {
+                    html += '<i class="fa-solid fa-shield-halved text-red-900/60"></i>';
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        /* ==========================================================================
+           5. INITIALIZE WORLD & HIGH-DENSITY SPECTRAL OBSTACLE SCENE
+           ========================================================================== */
+        function initWorldAssets() {
+            const dims = getViewportDimensions();
+            W = canvas.width = dims.width;
+            H = canvas.height = dims.height;
+            horizonY = H * 0.31;
+
+            skier.x = Math.min(W - 80, Math.max(80, W * 0.56));
+            skier.y = H * 0.69;
+
+            // Night Stars
+            stars = [];
+            for (let i = 0; i < 85; i++) {
+                stars.push({
+                    x: Math.random() * W,
+                    y: Math.random() * (horizonY * 0.92),
+                    r: Math.random() * 1.4 + 0.4,
+                    twinkle: Math.random() * Math.PI * 2
+                });
+            }
+
+            // Gondola Cabins across the Blood Moon
+            chairlifts = [
+                { progress: 0.48, swingPhase: 0.2 },
+                { progress: 0.69, swingPhase: 1.4 },
+                { progress: 0.86, swingPhase: 2.7 },
+                { progress: 0.24, swingPhase: 3.9 }
+            ];
+
+            // Spectral Fog Ribbons
+            spectralFogLayers = [];
+            for (let i = 0; i < 6; i++) {
+                spectralFogLayers.push({
+                    x: Math.random() * W,
+                    y: horizonY + (i / 6) * (H - horizonY),
+                    width: W * (0.55 + Math.random() * 0.5),
+                    height: 55 + Math.random() * 55,
+                    vx: (i % 2 === 0 ? 1 : -1) * (0.35 + Math.random() * 0.4),
+                    alpha: 0.08 + Math.random() * 0.09
+                });
+            }
+
+            // Floating Spectral Ash & Spores
+            ambientAsh = [];
+            for (let i = 0; i < 95; i++) {
+                ambientAsh.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.2 + 0.7,
+                    vy: 1.2 + Math.random() * 2.2,
+                    vx: -1.2 - Math.random() * 1.8,
+                    color: Math.random() < 0.7 ? '#cbd5e1' : (Math.random() < 0.5 ? '#a855f7' : '#00f2fe'),
+                    alpha: 0.35 + Math.random() * 0.45
+                });
+            }
+
+            // Seed initial obstacles & Jack-o'-Lantern gates if empty
+            if (obstacles.length === 0 && pumpkinGates.length === 0) {
+                seedInitialSlopeScene();
+            }
+        }
+
+        function seedInitialSlopeScene() {
+            obstacles = [];
+            pumpkinGates = [];
+
+            // Foreground & Midground Gnarled Obsidian Trees, Cursed Rocks & Tombstones
+            obstacles.push({ type: 'tree', x: W * 0.09, y: H * 0.62, radius: 34, height: 150, seed: 1.1, nearMissed: false, hit: false });
+            obstacles.push({ type: 'tree', x: W * 0.91, y: H * 0.66, radius: 32, height: 140, seed: 2.4, nearMissed: false, hit: false });
+            obstacles.push({ type: 'cursed_rock', x: W * 0.42, y: H * 0.82, radius: 24, nearMissed: false, hit: false });
+            obstacles.push({ type: 'tombstone', x: W * 0.78, y: H * 0.85, radius: 22, nearMissed: false, hit: false });
+
+            // Carved Glowing Jack-o'-Lantern Cluster with Blue Spirit Flames
+            obstacles.push({ type: 'pumpkin_cluster', x: W * 0.20, y: H * 0.52, radius: 26, nearMissed: false, hit: false });
+
+            // Ghost Rune Blue-Flame Jump Kicker
+            obstacles.push({ type: 'rune_kicker', x: W * 0.62, y: H * 0.92, width: 84, height: 38, used: false });
+
+            // Neon Jack-o'-Lantern Slalom Gates
+            pumpkinGates.push({ x: W * 0.73, y: H * 0.66, width: 130, passed: false, missed: false, flexAngle: 0 });
+            pumpkinGates.push({ x: W * 0.48, y: H * 0.52, width: 120, passed: false, missed: false, flexAngle: 0 });
+            pumpkinGates.push({ x: W * 0.39, y: H * 0.44, width: 110, passed: false, missed: false, flexAngle: 0 });
+        }
+
+        window.addEventListener('resize', initWorldAssets);
+
+        /* ==========================================================================
+           6. INPUT HANDLING (KEYBOARD, POINTER & LANDSCAPE-AWARE TOUCH)
+           ========================================================================== */
+        const keys = { left: false, right: false, down: false };
+        let pointerActive = false;
+        let pointerX = W * 0.5;
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = true;
+            if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = true;
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') keys.down = true;
+
+            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+                e.preventDefault();
+                if (gameState === 'PLAYING') {
+                    triggerSpectralJumpOrTrick();
+                } else if (gameState === 'HERO' || gameState === 'GAMEOVER') {
+                    handleDropInAttempt();
+                }
+            }
+
+            if (e.code === 'Tab') {
+                e.preventDefault();
+                toggleLeaderboardModal();
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = false;
+            if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = false;
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') keys.down = false;
+        });
+
+        function mapClientToCanvasX(clientX, clientY) {
+            const dims = getViewportDimensions();
+            if (dims.rotated) {
+                return clientY;
+            }
+            return clientX;
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            audio.init();
+            if (gameState !== 'PLAYING') return;
+            pointerActive = true;
+            pointerX = mapClientToCanvasX(e.clientX, e.clientY);
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            if (!pointerActive) return;
+            pointerX = mapClientToCanvasX(e.clientX, e.clientY);
+        });
+        window.addEventListener('pointerup', () => {
+            pointerActive = false;
+        });
+
+        function bindTouchHold(btnId, keyName) {
+            const el = document.getElementById(btnId);
+            if (!el) return;
+            const start = (e) => { e.preventDefault(); audio.init(); keys[keyName] = true; };
+            const end = (e) => { e.preventDefault(); keys[keyName] = false; };
+            el.addEventListener('touchstart', start, { passive: false });
+            el.addEventListener('touchend', end, { passive: false });
+            el.addEventListener('mousedown', start);
+            el.addEventListener('mouseup', end);
+            el.addEventListener('mouseleave', end);
+        }
+        bindTouchHold('touchLeftBtn', 'left');
+        bindTouchHold('touchRightBtn', 'right');
+        bindTouchHold('touchTuckBtn', 'down');
+
+        /* ==========================================================================
+           7. CORE GAMEPLAY FUNCTIONS (WALLET-GATED START, 3-HIT DAMAGE, ONCHAIN END)
+           ========================================================================== */
+        const SPECTRAL_TRICKS = [
+            { name: 'SPECTRAL 360 ECTO-GRAB', pts: 650 },
+            { name: 'PHANTOM CORK 720', pts: 950 },
+            { name: 'WENDIGO EVADE BACKFLIP', pts: 850 },
+            { name: 'SOUL REAPER 1080', pts: 1400 },
+            { name: 'ARGON PEAK QUAD CORK', pts: 1850 }
+        ];
+
+        function openHeroModal() {
+            gameState = 'HERO';
+            document.getElementById('gameOverModal').classList.add('hidden');
+            document.getElementById('heroOverlay').classList.remove('hidden');
+            document.getElementById('heroBestScore').textContent = `${highScore.toLocaleString()} $HAUNT`;
+            document.getElementById('heroBestTime').textContent = `${bestTime.toFixed(1)}s`;
+            updateWalletHUD();
+        }
+
+        function startSkiRun() {
+            // Strict Wallet Gate: Require a connected real EVM wallet before starting any run
+            if (!web3State.connected || !web3State.address) {
+                openHeroModal();
+                connectRealWeb3Wallet(true);
+                return;
+            }
+
+            audio.init();
+            gameState = 'PLAYING';
+
+            skier.x = W * 0.55;
+            skier.y = H * 0.68;
+            skier.vx = 0;
+            skier.vy = 10.5;
+            skier.speed = 112;
+            skier.maxSpeed = 112;
+            skier.angle = -0.22;
+            skier.targetAngle = -0.22;
+            skier.gForce = 1.0;
+            skier.distance = 0;
+            skier.survivalTime = 0;
+            skier.score = 0;
+            skier.combo = 1.0;
+            skier.gatesCleared = 0;
+            skier.shields = 3; // Reset to 3 Soul Shields (3 obstacle hits = Game Over)
+            skier.invulnerableTimer = 0;
+            skier.hitFlashTimer = 0;
+            skier.z = 0;
+            skier.vz = 0;
+            skier.isAirborne = false;
+            skier.trickRotation = 0;
+            skier.tricksInAir = 0;
+            skier.gateBoostTimer = 0;
+
+            wendigo.distance = 22.0;
+            wendigo.x = W * 0.35;
+            wendigo.y = H * 0.38;
+
+            ectoplasmTracks.length = 0;
+            ectoplasmParticles.length = 0;
+            seedInitialSlopeScene();
+            updateSoulShieldsHUD();
+
+            document.getElementById('heroOverlay').classList.add('hidden');
+            document.getElementById('gameOverModal').classList.add('hidden');
+            document.getElementById('leaderboardModal').classList.add('hidden');
+
+            showToast('HAUNT THE MOUNTAIN // DROP IN!', '3 SOUL SHIELDS ACTIVE — CLEAR PUMPKIN GATES!', '#00f2fe');
+        }
+
+        function triggerSpectralJumpOrTrick() {
+            audio.init();
+            if (gameState !== 'PLAYING') return;
+
+            if (!skier.isAirborne) {
+                skier.isAirborne = true;
+                skier.vz = 8.6;
+                skier.tricksInAir = 0;
+                skier.trickRotation = 0;
+                spawnEctoplasmBurst(skier.x, skier.y, 18);
+                audio.playSpectralTrick();
+            } else if (skier.z > 10) {
+                skier.tricksInAir++;
+                const trick = SPECTRAL_TRICKS[(skier.tricksInAir - 1) % SPECTRAL_TRICKS.length];
+                const earned = Math.round(trick.pts * skier.combo);
+                skier.score += earned;
+                skier.combo = Math.min(10, +(skier.combo + 0.5).toFixed(1));
+                wendigo.distance = Math.min(wendigo.maxDistance, wendigo.distance + 3.2);
+                spawnEctoplasmBurst(skier.x, skier.y - skier.z, 26);
+                audio.playSpectralTrick();
+                showToast(trick.name + '!', `+${earned} $HAUNT // SPECTRAL BOOST +3.2m`, '#a855f7');
+            }
+        }
+
+        let toastTimeout = null;
+        function showToast(title, subtitle, colorHex = '#00f2fe') {
+            const toast = document.getElementById('eventToast');
+            const titleEl = document.getElementById('eventToastTitle');
+            const subEl = document.getElementById('eventToastSub');
+
+            titleEl.textContent = title;
+            titleEl.style.color = colorHex;
+            subEl.textContent = subtitle;
+
+            toast.classList.remove('opacity-0', '-translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 1650);
+        }
+
+        function triggerGameOver(reason) {
+            gameState = 'GAMEOVER';
+            audio.playWendigoRoarCrash();
+
+            const finalScore = Math.round(skier.score);
+            const finalTime = skier.survivalTime;
+            const finalDistance = Math.round(skier.distance);
+
+            if (finalScore > highScore) {
+                highScore = finalScore;
+                localStorage.setItem('haunt_prod_best_score', String(highScore));
+            }
+            if (finalTime > bestTime) {
+                bestTime = finalTime;
+                localStorage.setItem('haunt_prod_best_time', String(bestTime.toFixed(1)));
+            }
+
+            const titleEl = document.getElementById('gameOverTitle');
+            const subEl = document.getElementById('gameOverSub');
+            if (reason === 'wendigo') {
+                subEl.textContent = 'MOUNTAIN SPECTER INTERCEPTION // DISTANCE 0.0m';
+                titleEl.textContent = 'CONSUMED BY THE WENDIGO';
+            } else {
+                subEl.textContent = '3 OBSTACLE HITS TAKEN // SOUL SHIELDS SHATTERED';
+                titleEl.textContent = 'SPECTRAL WIPEOUT ON THE SLOPE';
+            }
+
+            document.getElementById('endScore').textContent = `${finalScore.toLocaleString()} $HAUNT`;
+            document.getElementById('endSurvivalTime').textContent = `${finalDistance}m (${finalTime.toFixed(1)}s)`;
+            document.getElementById('endGates').textContent = skier.gatesCleared;
+            document.getElementById('endTopSpeed').textContent = `${Math.round(skier.maxSpeed)} KM/H`;
+
+            document.getElementById('gameOverModal').classList.remove('hidden');
+
+            // Automatically trigger Real Vibe Testnet Onchain High-Score Submission to 0x5c3899EfeBeA12BB79c1369C4079716Bfda26A02
+            submitScoreOnchainVibeTestnet(finalScore, finalDistance, finalTime, skier.gatesCleared);
+        }
+
+        /* ==========================================================================
+           8. PROCEDURAL SPAWNING & OBJECT-POOLED ECTOPLASM PARTICLES
+           ========================================================================== */
+        function spawnJackOLanternGate(yPos) {
+            const gateWidth = Math.max(115, Math.min(165, W * 0.14));
+            const margin = Math.max(95, W * 0.14);
+            const centerX = margin + Math.random() * (W - margin * 2);
+
+            pumpkinGates.push({
+                x: centerX,
+                y: yPos,
+                width: gateWidth,
+                passed: false,
+                missed: false,
+                flexAngle: 0
+            });
+        }
+
+        function spawnSpookySlopeFeature(yPos) {
+            const roll = Math.random();
+            const xPos = 55 + Math.random() * (W - 110);
+
+            if (roll < 0.36) {
+                // Dead Gnarled Obsidian Tree
+                obstacles.push({
+                    type: 'tree',
+                    x: xPos,
+                    y: yPos,
+                    radius: 23 + Math.random() * 13,
+                    height: 88 + Math.random() * 62,
+                    seed: Math.random() * 10,
+                    nearMissed: false,
+                    hit: false
+                });
+            } else if (roll < 0.56) {
+                // Jagged Cursed Obsidian Rock Outcrop
+                obstacles.push({
+                    type: 'cursed_rock',
+                    x: xPos,
+                    y: yPos,
+                    radius: 22 + Math.random() * 10,
+                    nearMissed: false,
+                    hit: false
+                });
+            } else if (roll < 0.70) {
+                // Spectral Gothic Tombstone
+                obstacles.push({
+                    type: 'tombstone',
+                    x: xPos,
+                    y: yPos,
+                    radius: 20,
+                    nearMissed: false,
+                    hit: false
+                });
+            } else if (roll < 0.82) {
+                // Carved Glowing Jack-o'-Lantern Pumpkin Cluster
+                obstacles.push({
+                    type: 'pumpkin_cluster',
+                    x: xPos,
+                    y: yPos,
+                    radius: 23,
+                    nearMissed: false,
+                    hit: false
+                });
+            } else if (roll < 0.93) {
+                // Ghost Rune Glowing Blue Flame Kicker
+                obstacles.push({
+                    type: 'rune_kicker',
+                    x: Math.max(110, Math.min(W - 110, xPos)),
+                    y: yPos,
+                    width: 82,
+                    height: 38,
+                    used: false
+                });
+            } else {
+                // Ectoplasm Soul Vortex Pad
+                obstacles.push({
+                    type: 'soul_vortex',
+                    x: Math.max(100, Math.min(W - 100, xPos)),
+                    y: yPos,
+                    radius: 30,
+                    used: false
+                });
+            }
+        }
+
+        function acquireParticle() {
+            return particlePool.length > 0 ? particlePool.pop() : {};
+        }
+
+        function spawnEctoplasmSpray(x, y, count, dirX, speedFactor) {
+            if (ectoplasmParticles.length > 220) return;
+            for (let i = 0; i < count; i++) {
+                const isCyan = Math.random() < 0.48;
+                const p = acquireParticle();
+                p.x = x + (Math.random() - 0.5) * 14;
+                p.y = y + (Math.random() - 0.5) * 8;
+                p.vx = dirX * (1.2 + Math.random() * 3.4) * speedFactor + (Math.random() - 0.5) * 1.6;
+                p.vy = -2.0 - Math.random() * 3.5;
+                p.r = 2.5 + Math.random() * 4.2;
+                p.color = isCyan ? '#00f2fe' : (Math.random() < 0.5 ? '#a855f7' : '#e879f9');
+                p.alpha = 0.92;
+                p.decay = 0.024 + Math.random() * 0.02;
+                ectoplasmParticles.push(p);
+            }
+        }
+
+        function spawnEctoplasmBurst(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count;
+                const spd = 2 + Math.random() * 4.5;
+                const p = acquireParticle();
+                p.x = x;
+                p.y = y;
+                p.vx = Math.cos(angle) * spd;
+                p.vy = Math.sin(angle) * spd - 2;
+                p.r = 3 + Math.random() * 4;
+                p.color = i % 2 === 0 ? '#00f2fe' : '#a855f7';
+                p.alpha = 1.0;
+                p.decay = 0.026;
+                ectoplasmParticles.push(p);
+            }
+        }
+
+        /* ==========================================================================
+           9. ENHANCED DELTA-TIME (60-120FPS) PHYSICS & 3-HIT OBSTACLE COLLISIONS
+           ========================================================================== */
+        function updatePhysics(dt) {
+            // Normalize delta-time to 60Hz baseline (frameScale = 1.0 at 60fps, 0.5 at 120fps)
+            const frameScale = Math.min(2.2, dt * 60);
+
+            chairlifts.forEach(c => {
+                c.progress = (c.progress + 0.00055 * frameScale) % 1;
+                c.swingPhase += 0.035 * frameScale;
+            });
+
+            spectralFogLayers.forEach(fog => {
+                fog.x += fog.vx * frameScale;
+                if (fog.x > W + fog.width * 0.5) fog.x = -fog.width * 0.5;
+                if (fog.x < -fog.width * 0.5) fog.x = W + fog.width * 0.5;
+            });
+
+            ambientAsh.forEach(p => {
+                p.x += p.vx * frameScale;
+                p.y += (p.vy - (gameState === 'PLAYING' ? skier.vy * 0.2 : 0)) * frameScale;
+                if (p.x < -10) p.x = W + 10;
+                if (p.x > W + 10) p.x = -10;
+                if (p.y < -10) p.y = H + 10;
+                if (p.y > H + 10) p.y = -10;
+            });
+
+            if (gameState !== 'PLAYING') {
+                audio.updateContinuous(0, 1, false, false, 25);
+                return;
+            }
+
+            skier.survivalTime += dt;
+
+            // 1. Delta-Time Responsive Carving & Edge Bite Physics
+            const steerRate = (skier.isAirborne ? 0.026 : 0.058) * frameScale;
+            if (keys.left) {
+                skier.targetAngle = Math.max(-1.08, skier.targetAngle - steerRate);
+            } else if (keys.right) {
+                skier.targetAngle = Math.min(1.08, skier.targetAngle + steerRate);
+            } else if (pointerActive) {
+                const dx = pointerX - skier.x;
+                skier.targetAngle = Math.max(-1.05, Math.min(1.05, dx / 130));
+            } else {
+                skier.targetAngle *= Math.pow(0.93, frameScale);
+            }
+
+            skier.tucking = keys.down && !skier.isAirborne;
+            if (skier.tucking) skier.targetAngle *= Math.pow(0.86, frameScale);
+
+            const prevAngle = skier.angle;
+            skier.angle += (skier.targetAngle - skier.angle) * Math.min(1, 0.20 * frameScale);
+            const angularVel = Math.abs(skier.angle - prevAngle) / Math.max(0.1, frameScale);
+
+            // 2. Downhill Momentum, Aero Tuck & Gate Boost
+            if (skier.gateBoostTimer > 0) skier.gateBoostTimer = Math.max(0, skier.gateBoostTimer - frameScale);
+            const boostBonus = skier.gateBoostTimer > 0 ? 3.5 : 0;
+
+            const carveIntensity = Math.abs(Math.sin(skier.angle));
+            const accel = (skier.tucking ? 0.25 : 0.16) * frameScale;
+            const drag = carveIntensity * 0.135 * frameScale;
+            const maxVy = (skier.tucking ? 17.8 : 14.4) + boostBonus;
+
+            skier.vy = Math.min(maxVy, Math.max(6.2, skier.vy + accel - drag));
+            skier.vx = Math.sin(skier.angle) * (skier.vy * 0.94);
+
+            skier.x += skier.vx * frameScale;
+            if (skier.x < 45) {
+                skier.x = 45;
+                skier.targetAngle = 0.32;
+            } else if (skier.x > W - 45) {
+                skier.x = W - 45;
+                skier.targetAngle = -0.32;
+            }
+
+            skier.speed = Math.min(172, Math.round(skier.vy * 8.6 + (skier.tucking ? 12 : 0)));
+            if (skier.speed > skier.maxSpeed) skier.maxSpeed = skier.speed;
+
+            skier.gForce = +(1.0 + (angularVel * 26 + carveIntensity * 1.45) * (skier.vy / 12)).toFixed(1);
+            const vertDelta = skier.vy * 0.14 * frameScale;
+            skier.distance += vertDelta;
+            skier.score += vertDelta * 3.8 * skier.combo;
+
+            if (skier.invulnerableTimer > 0) skier.invulnerableTimer = Math.max(0, skier.invulnerableTimer - frameScale);
+            if (skier.hitFlashTimer > 0) skier.hitFlashTimer = Math.max(0, skier.hitFlashTimer - frameScale);
+            if (screenShake > 0) screenShake *= Math.pow(0.86, frameScale);
+
+            // 3. Airborne & Spectral Trick Physics
+            if (skier.isAirborne) {
+                skier.z += skier.vz * frameScale;
+                skier.vz -= 0.36 * frameScale;
+                if (skier.tricksInAir > 0) {
+                    skier.trickRotation += 0.28 * frameScale;
+                    if (Math.random() < 0.7 * frameScale) {
+                        spawnEctoplasmSpray(skier.x, skier.y - skier.z, 2, 0, 0.8);
+                    }
+                }
+                if (skier.z <= 0) {
+                    skier.z = 0;
+                    skier.vz = 0;
+                    skier.isAirborne = false;
+                    skier.trickRotation = 0;
+                    spawnEctoplasmBurst(skier.x, skier.y, 14);
+                }
+            } else {
+                ectoplasmTracks.push({
+                    x: skier.x,
+                    y: skier.y + 8,
+                    angle: skier.angle,
+                    alpha: 0.88
+                });
+                if (ectoplasmTracks.length > 90) ectoplasmTracks.shift();
+
+                const sprayDir = skier.angle >= 0 ? -1 : 1;
+                if (Math.random() < 0.82 * frameScale) {
+                    spawnEctoplasmSpray(skier.x, skier.y + 4, Math.ceil(1 + carveIntensity * 2), sprayDir, skier.vy / 11);
+                }
+            }
+
+            // Scroll Ectoplasm Tracks
+            for (let i = ectoplasmTracks.length - 1; i >= 0; i--) {
+                ectoplasmTracks[i].y -= skier.vy * 0.55 * frameScale;
+                ectoplasmTracks[i].x -= skier.vx * 0.32 * frameScale;
+                ectoplasmTracks[i].alpha -= 0.015 * frameScale;
+                if (ectoplasmTracks[i].y < horizonY || ectoplasmTracks[i].alpha <= 0) {
+                    ectoplasmTracks.splice(i, 1);
+                }
+            }
+
+            // Update Pooled Ectoplasm Particles
+            for (let i = ectoplasmParticles.length - 1; i >= 0; i--) {
+                const p = ectoplasmParticles[i];
+                p.x += (p.vx - skier.vx * 0.25) * frameScale;
+                p.y += (p.vy - skier.vy * 0.35) * frameScale;
+                p.alpha -= p.decay * frameScale;
+                if (p.alpha <= 0) {
+                    particlePool.push(p);
+                    ectoplasmParticles.splice(i, 1);
+                }
+            }
+
+            // 4. THE AVALANCHE WENDIGO CHASE MECHANIC
+            wendigo.chainPhase += 0.12 * frameScale;
+            const wendigoBaseSpeed = 12.6 + Math.min(2.4, skier.survivalTime * 0.022);
+            const relSpeed = (skier.vy - wendigoBaseSpeed) * 0.042 * frameScale;
+            wendigo.distance = Math.max(0, Math.min(wendigo.maxDistance, wendigo.distance + relSpeed));
+
+            const proximityNorm = 1 - Math.min(1, wendigo.distance / wendigo.maxDistance);
+            const targetWendigoX = skier.x - 160 + Math.sin(wendigo.chainPhase * 0.3) * 55;
+            wendigo.x += (Math.max(120, Math.min(W - 180, targetWendigoX)) - wendigo.x) * Math.min(1, 0.045 * frameScale);
+            const targetWendigoY = horizonY + 45 + proximityNorm * (skier.y - horizonY - 95);
+            wendigo.y += (targetWendigoY - wendigo.y) * Math.min(1, 0.08 * frameScale);
+
+            if (wendigo.distance <= 0.05) {
+                wendigo.distance = 0;
+                triggerGameOver('wendigo');
+                return;
+            }
+
+            // Screen Vignette & Impact Flash
+            const vignetteEl = document.getElementById('chaseVignette');
+            const glitchEl = document.getElementById('glitchOverlay');
+            const alertBox = document.getElementById('specterAlertBox');
+            if (skier.hitFlashTimer > 0) {
+                vignetteEl.style.opacity = '0.95';
+                glitchEl.style.opacity = '0.85';
+            } else if (wendigo.distance < 18.0) {
+                const dangerRatio = Math.min(1, (18.0 - wendigo.distance) / 14.0);
+                const pulse = 0.5 + 0.5 * Math.sin(performance.now() * 0.012);
+                vignetteEl.style.opacity = String((0.25 + dangerRatio * 0.65) * (0.7 + 0.3 * pulse));
+                glitchEl.style.opacity = String(dangerRatio * 0.75);
+                alertBox.classList.add('animate-danger');
+            } else {
+                vignetteEl.style.opacity = '0';
+                glitchEl.style.opacity = '0';
+                alertBox.classList.remove('animate-danger');
+            }
+
+            // 5. High-Density Spawning of Jack-o'-Lantern Gates & Obstacles
+            distanceSinceLastGate += skier.vy * frameScale;
+            if (distanceSinceLastGate > 280) {
+                distanceSinceLastGate = 0;
+                spawnJackOLanternGate(H + 90);
+            }
+
+            distanceSinceLastObstacle += skier.vy * frameScale;
+            if (distanceSinceLastObstacle > 92) {
+                distanceSinceLastObstacle = 0;
+                spawnSpookySlopeFeature(H + 100);
+            }
+
+            // 6. Update Jack-o'-Lantern Slalom Gates (Speed Burst + 15-20m Wendigo Repulse)
+            for (let i = pumpkinGates.length - 1; i >= 0; i--) {
+                const gate = pumpkinGates[i];
+                const stepY = skier.vy * 0.72 * frameScale;
+                gate.y -= stepY;
+
+                if (!gate.passed && !gate.missed && gate.y <= skier.y + 12 && gate.y >= skier.y - stepY - 20) {
+                    const halfW = gate.width * 0.5;
+                    if (Math.abs(skier.x - gate.x) <= halfW + 18) {
+                        gate.passed = true;
+                        gate.flexAngle = skier.vx >= 0 ? 0.38 : -0.38;
+                        skier.gatesCleared++;
+                        skier.combo = Math.min(10, +(skier.combo + 0.5).toFixed(1));
+                        skier.gateBoostTimer = 65;
+
+                        const pushback = +(15.5 + Math.random() * 4.5).toFixed(1);
+                        wendigo.distance = Math.min(wendigo.maxDistance, wendigo.distance + pushback);
+
+                        const gateSouls = Math.round(400 * skier.combo);
+                        skier.score += gateSouls;
+
+                        spawnEctoplasmBurst(skier.x, skier.y, 20);
+                        audio.playGhostlyGateChime(skier.combo);
+                        showToast(
+                            `JACK-O'-LANTERN GATE CLEARED!`,
+                            `+${gateSouls} $HAUNT // WENDIGO PUSHED BACK +${pushback}m!`,
+                            '#ff6a00'
+                        );
+                    } else {
+                        gate.missed = true;
+                    }
+                }
+
+                if (gate.y < horizonY - 50) {
+                    pumpkinGates.splice(i, 1);
+                }
+            }
+
+            // 7. Update Obstacles & Strict 3-Hit Damage System
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const obs = obstacles[i];
+                obs.y -= skier.vy * 0.72 * frameScale;
+
+                const dx = skier.x - obs.x;
+                const dy = skier.y - obs.y;
+                const dist = Math.hypot(dx, dy);
+
+                if (obs.type === 'rune_kicker') {
+                    if (!obs.used && !skier.isAirborne && Math.abs(dx) < obs.width * 0.55 && Math.abs(dy) < 26) {
+                        obs.used = true;
+                        skier.isAirborne = true;
+                        skier.vz = 11.8 + (skier.vy * 0.16);
+                        skier.tricksInAir = 0;
+                        skier.trickRotation = 0;
+                        skier.score += Math.round(300 * skier.combo);
+                        spawnEctoplasmBurst(skier.x, skier.y, 22);
+                        audio.playSpectralTrick();
+                        showToast('GHOST RUNE LAUNCH!', 'PRESS SPACE OR TAP FOR SPECTRAL AIR TRICK!', '#00f2fe');
+                    }
+                } else if (obs.type === 'soul_vortex') {
+                    if (!obs.used && dist < obs.radius + 20) {
+                        obs.used = true;
+                        skier.gateBoostTimer = 80;
+                        wendigo.distance = Math.min(wendigo.maxDistance, wendigo.distance + 8.5);
+                        skier.score += Math.round(500 * skier.combo);
+                        spawnEctoplasmBurst(skier.x, skier.y, 24);
+                        audio.playGhostlyGateChime(skier.combo + 2);
+                        showToast('ECTOPLASM SOUL VORTEX!', '+500 $HAUNT // +8.5m REPULSE', '#a855f7');
+                    }
+                } else if (obs.type === 'tree' || obs.type === 'cursed_rock' || obs.type === 'tombstone' || obs.type === 'pumpkin_cluster') {
+                    const clearance = obs.type === 'tree' ? 48 : 22;
+                    if (skier.z < clearance) {
+                        const hitRadius = obs.radius * 0.72;
+                        if (!obs.hit && dist < hitRadius && skier.invulnerableTimer <= 0) {
+                            obs.hit = true;
+                            skier.shields = Math.max(0, skier.shields - 1);
+                            skier.invulnerableTimer = 65;
+                            skier.hitFlashTimer = 18;
+                            skier.vy = Math.max(6.0, skier.vy * 0.52);
+                            skier.combo = 1.0;
+                            wendigo.distance = Math.max(1.2, wendigo.distance - 5.5);
+                            screenShake = 18;
+
+                            updateSoulShieldsHUD();
+                            audio.playWendigoRoarCrash();
+                            spawnEctoplasmBurst(skier.x, skier.y, 28);
+
+                            // End current run immediately after 3 hits (0 shields left)
+                            if (skier.shields <= 0) {
+                                triggerGameOver('crash');
+                                return;
+                            } else {
+                                const hitsTaken = 3 - skier.shields;
+                                showToast(
+                                    `OBSTACLE HIT (${hitsTaken}/3)!`,
+                                    `${skier.shields} SOUL ${skier.shields === 1 ? 'SHIELD' : 'SHIELDS'} LEFT // WENDIGO -5.5m`,
+                                    '#ef4444'
+                                );
+                            }
+                        }
+                    }
+                }
+
+                if (obs.y < horizonY - 90) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            // 8. Update Audio & HUD
+            audio.updateContinuous(skier.speed / 150, skier.gForce, skier.isAirborne, true, wendigo.distance);
+
+            document.getElementById('hudSoulScore').textContent = Math.round(skier.score).toLocaleString();
+            document.getElementById('hudComboTag').textContent = `x${skier.combo.toFixed(1)}`;
+            document.getElementById('hudWendigoDist').textContent = `${wendigo.distance.toFixed(1)}m`;
+            document.getElementById('footerSpeedDisplay').textContent = `${skier.speed} KM/H`;
+
+            const dangerPct = Math.max(8, Math.min(96, (1 - wendigo.distance / wendigo.maxDistance) * 100));
+            document.getElementById('wendigoProximityBar').style.width = `${dangerPct}%`;
+            document.getElementById('wendigoBarTick').style.left = `${dangerPct}%`;
+        }
+
+        /* ==========================================================================
+           10. RENDERING ENGINE (BLOOD MOON, WENDIGO SPECTER, GNARLED TREES, JACK-O'-LANTERNS)
+           ========================================================================== */
+        function drawMidnightSkyAndBloodMoon(time) {
+            // 1. Dark Atmospheric Midnight Purple/Black Sky
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
+            skyGrad.addColorStop(0, '#040309');
+            skyGrad.addColorStop(0.45, '#0c061a');
+            skyGrad.addColorStop(0.82, '#240b2c');
+            skyGrad.addColorStop(1, '#3b112b');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, W, horizonY + 20);
+
+            // Twinkling Stars
+            stars.forEach(s => {
+                const alpha = 0.25 + Math.sin(time * 0.003 + s.twinkle) * 0.35;
+                ctx.fillStyle = `rgba(226, 232, 240, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 2. Massive Glowing Blood-Red Full Moon (Positioned Upper Right like Reference Mockup)
+            const moonX = W * 0.70 - (skier.x - W * 0.5) * 0.03;
+            const moonY = horizonY * 0.58;
+            const moonR = Math.max(46, Math.min(78, W * 0.058));
+
+            // Huge Crimson Atmospheric Halo
+            const haloGrad = ctx.createRadialGradient(moonX, moonY, moonR * 0.3, moonX, moonY, moonR * 3.4);
+            haloGrad.addColorStop(0, 'rgba(255, 55, 55, 0.65)');
+            haloGrad.addColorStop(0.35, 'rgba(220, 28, 50, 0.32)');
+            haloGrad.addColorStop(0.7, 'rgba(130, 15, 45, 0.12)');
+            haloGrad.addColorStop(1, 'rgba(10, 5, 20, 0)');
+            ctx.fillStyle = haloGrad;
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, moonR * 3.4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Blood Moon Disc
+            const moonGrad = ctx.createRadialGradient(moonX - moonR * 0.2, moonY - moonR * 0.2, moonR * 0.1, moonX, moonY, moonR);
+            moonGrad.addColorStop(0, '#ff857a');
+            moonGrad.addColorStop(0.55, '#ff3b3b');
+            moonGrad.addColorStop(0.88, '#c81e2b');
+            moonGrad.addColorStop(1, '#82101d');
+            ctx.fillStyle = moonGrad;
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, moonR, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Blood Moon Crater Details (Maria)
+            ctx.fillStyle = 'rgba(110, 12, 24, 0.42)';
+            [
+                { dx: -0.28, dy: -0.18, r: 0.26 },
+                { dx: 0.22, dy: -0.10, r: 0.32 },
+                { dx: -0.12, dy: 0.28, r: 0.22 },
+                { dx: 0.30, dy: 0.25, r: 0.18 },
+                { dx: -0.38, dy: 0.15, r: 0.15 }
+            ].forEach(c => {
+                ctx.beginPath();
+                ctx.arc(moonX + c.dx * moonR, moonY + c.dy * moonR, c.r * moonR, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 3. Jagged Obsidian Mountain Peaks with Crimson/Midnight Rim Lighting
+            const parallax = (skier.x - W * 0.5);
+            drawJaggedMountainRange(horizonY + 6, 130, 0.0035, '#0d0918', 'rgba(255, 70, 70, 0.22)', -parallax * 0.04, 1.1);
+            drawJaggedMountainRange(horizonY + 14, 90, 0.0058, '#121324', 'rgba(148, 163, 184, 0.15)', -parallax * 0.08, 2.6);
+            drawJaggedMountainRange(horizonY + 22, 55, 0.0095, '#171b30', 'rgba(0, 242, 254, 0.12)', -parallax * 0.12, 4.2);
+        }
+
+        function drawJaggedMountainRange(baseY, maxH, freq, fillCol, rimCol, offsetX, seed) {
+            ctx.fillStyle = fillCol;
+            ctx.beginPath();
+            ctx.moveTo(0, baseY + 40);
+            for (let x = 0; x <= W + 30; x += 24) {
+                const px = x + offsetX;
+                const h = Math.abs(Math.sin(px * freq + seed) * Math.cos(px * freq * 0.6 - seed)) * maxH +
+                          Math.abs(Math.sin(px * freq * 2.3)) * (maxH * 0.28);
+                ctx.lineTo(x, baseY - h);
+            }
+            ctx.lineTo(W, baseY + 40);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = rimCol;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        }
+
+        function drawHauntedChairlift() {
+            const startX = W * 0.42;
+            const startY = horizonY + 12;
+            const endX = W + 40;
+            const endY = horizonY - 58;
+
+            // Support Tower Silhouette
+            const towerX = startX + (endX - startX) * 0.62;
+            const towerY = startY + (endY - startY) * 0.62;
+            ctx.strokeStyle = '#090d1a';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(towerX, towerY);
+            ctx.lineTo(towerX - 10, towerY + 65);
+            ctx.moveTo(towerX, towerY);
+            ctx.lineTo(towerX + 10, towerY + 65);
+            ctx.moveTo(towerX - 18, towerY);
+            ctx.lineTo(towerX + 18, towerY);
+            ctx.stroke();
+
+            // Dual Cable Lines
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.moveTo(startX, startY + 5);
+            ctx.lineTo(endX, endY + 5);
+            ctx.stroke();
+
+            // Gondola Cabins
+            chairlifts.forEach(c => {
+                const cx = startX + (endX - startX) * c.progress;
+                const cy = startY + (endY - startY) * c.progress;
+                const swing = Math.sin(c.swingPhase) * 2.5;
+                const scale = 0.65 + c.progress * 0.65;
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.scale(scale, scale);
+
+                ctx.strokeStyle = '#1e293b';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(swing, 14);
+                ctx.stroke();
+
+                // Dark Gondola Cabin
+                ctx.fillStyle = '#090d18';
+                ctx.beginPath();
+                ctx.roundRect(swing - 14, 14, 28, 20, 5);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 106, 0, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Dim Glowing Blood/Orange Window
+                ctx.fillStyle = 'rgba(255, 90, 30, 0.55)';
+                ctx.fillRect(swing - 10, 18, 20, 7);
+
+                ctx.restore();
+            });
+        }
+
+        function drawSpectralSlopeAndTracks() {
+            // Dark Spectral Midnight Snow Slope Gradient
+            const slopeGrad = ctx.createLinearGradient(0, horizonY, 0, H);
+            slopeGrad.addColorStop(0, '#121829');
+            slopeGrad.addColorStop(0.45, '#161f33');
+            slopeGrad.addColorStop(1, '#0c1221');
+            ctx.fillStyle = slopeGrad;
+            ctx.fillRect(0, horizonY, W, H - horizonY);
+
+            // Diagonal Slope Ridge Shading (matches left-to-right downhill perspective of reference)
+            const ridgeGrad = ctx.createLinearGradient(0, horizonY, W, H);
+            ridgeGrad.addColorStop(0, 'rgba(30, 41, 59, 0.35)');
+            ridgeGrad.addColorStop(0.5, 'rgba(15, 23, 42, 0.0)');
+            ridgeGrad.addColorStop(1, 'rgba(8, 12, 24, 0.55)');
+            ctx.fillStyle = ridgeGrad;
+            ctx.fillRect(0, horizonY, W, H - horizonY);
+
+            // Subtle Snow Texture Ridges
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.06)';
+            ctx.lineWidth = 1.5;
+            const ridgeOffset = (skier.distance * 9) % 85;
+            for (let y = horizonY + 20; y < H; y += 85) {
+                const drawY = y - ridgeOffset;
+                if (drawY > horizonY) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, drawY - 25);
+                    ctx.quadraticCurveTo(W * 0.5, drawY + 15, W, drawY - 10);
+                    ctx.stroke();
+                }
+            }
+
+            // Glowing Violet & Cyan Ectoplasm Dual Ski Trails
+            if (ectoplasmTracks.length > 1) {
+                ctx.save();
+                for (let i = 1; i < ectoplasmTracks.length; i++) {
+                    const prev = ectoplasmTracks[i - 1];
+                    const curr = ectoplasmTracks[i];
+                    if (Math.abs(curr.y - prev.y) > 55) continue;
+
+                    const skiSpacing = 7;
+                    const cosA = Math.cos(curr.angle);
+
+                    // Outer Violet Ectoplasm Glow
+                    ctx.shadowColor = '#a855f7';
+                    ctx.shadowBlur = 14;
+                    ctx.strokeStyle = `rgba(168, 85, 247, ${curr.alpha * 0.85})`;
+                    ctx.lineWidth = 4.5;
+
+                    ctx.beginPath();
+                    ctx.moveTo(prev.x - skiSpacing * cosA, prev.y);
+                    ctx.lineTo(curr.x - skiSpacing * cosA, curr.y);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(prev.x + skiSpacing * cosA, prev.y);
+                    ctx.lineTo(curr.x + skiSpacing * cosA, curr.y);
+                    ctx.stroke();
+
+                    // Inner Neon Cyan Core
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${curr.alpha})`;
+                    ctx.lineWidth = 2.0;
+                    ctx.beginPath();
+                    ctx.moveTo(prev.x - skiSpacing * cosA, prev.y);
+                    ctx.lineTo(curr.x - skiSpacing * cosA, curr.y);
+                    ctx.moveTo(prev.x + skiSpacing * cosA, prev.y);
+                    ctx.lineTo(curr.x + skiSpacing * cosA, curr.y);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+        }
+
+        /* ==========================================================================
+           RENDER THE AVALANCHE WENDIGO (CHAIN SPECTER) ON THE SLOPE
+           Matches the massive horned shadow monster with whipping chains & glowing orange eyes
+           ========================================================================== */
+        function drawAvalancheWendigo(time) {
+            const proximityScale = Math.max(0.55, Math.min(1.45, 1.38 - (wendigo.distance / wendigo.maxDistance) * 0.75));
+            const wx = wendigo.x;
+            const wy = wendigo.y;
+
+            ctx.save();
+            ctx.translate(wx, wy);
+            ctx.scale(proximityScale, proximityScale);
+
+            // 1. Billowing Dark Shadow Smoke Cloud Base
+            for (let i = 0; i < 14; i++) {
+                const angle = (i / 14) * Math.PI * 2 + time * 0.0015;
+                const rad = 35 + (i % 3) * 22;
+                const sx = Math.cos(angle) * rad * 1.3;
+                const sy = Math.sin(angle) * rad * 0.7 + 20;
+                const r = 38 + Math.sin(time * 0.004 + i) * 10;
+
+                const smokeGrad = ctx.createRadialGradient(sx, sy, 5, sx, sy, r);
+                smokeGrad.addColorStop(0, 'rgba(8, 6, 15, 0.92)');
+                smokeGrad.addColorStop(0.6, 'rgba(20, 15, 32, 0.65)');
+                smokeGrad.addColorStop(1, 'rgba(15, 10, 25, 0)');
+                ctx.fillStyle = smokeGrad;
+                ctx.beginPath();
+                ctx.arc(sx, sy, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 2. Whipping Iron Chains Around the Specter
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 3.5;
+            for (let c = 0; c < 4; c++) {
+                ctx.beginPath();
+                const startX = c % 2 === 0 ? -45 : 45;
+                ctx.moveTo(startX, -20);
+                for (let seg = 1; seg <= 6; seg++) {
+                    const cx = startX + (c % 2 === 0 ? -1 : 1) * seg * 16 + Math.sin(time * 0.008 + seg + c) * 12;
+                    const cy = -20 + seg * 12 + Math.cos(time * 0.006 + seg) * 8;
+                    ctx.lineTo(cx, cy);
+                }
+                ctx.stroke();
+
+                // Chain link highlights
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.45)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            // 3. Muscular Shadow Torso & Outstretched Clawed Arms
+            ctx.fillStyle = '#07050e';
+            ctx.beginPath();
+            // Torso & shoulders
+            ctx.moveTo(-55, -45);
+            ctx.quadraticCurveTo(0, -75, 55, -45);
+            ctx.lineTo(35, 35);
+            ctx.lineTo(-35, 35);
+            ctx.closePath();
+            ctx.fill();
+
+            // Left & Right Clawed Arms lunging toward the player
+            const armBob = Math.sin(time * 0.007) * 8;
+            // Left Arm & Claws
+            ctx.strokeStyle = '#07050e';
+            ctx.lineWidth = 18;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(-48, -38);
+            ctx.quadraticCurveTo(-95, -25 + armBob, -108, 15 + armBob);
+            ctx.stroke();
+
+            // Right Arm & Claws
+            ctx.beginPath();
+            ctx.moveTo(48, -38);
+            ctx.quadraticCurveTo(88, -15 - armBob, 96, 28 - armBob);
+            ctx.stroke();
+
+            // Razor Claws
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 3;
+            [-12, -4, 4, 12].forEach(offset => {
+                ctx.beginPath();
+                ctx.moveTo(-108 + offset * 0.5, 15 + armBob);
+                ctx.lineTo(-114 + offset, 34 + armBob);
+                ctx.moveTo(96 + offset * 0.5, 28 - armBob);
+                ctx.lineTo(102 + offset, 46 - armBob);
+                ctx.stroke();
+            });
+
+            // 4. Jagged Wendigo Antlers / Horns
+            ctx.strokeStyle = '#06040b';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            // Left Horn
+            ctx.moveTo(-16, -68);
+            ctx.quadraticCurveTo(-48, -105, -34, -135);
+            ctx.moveTo(-34, -96);
+            ctx.lineTo(-56, -112);
+            // Right Horn
+            ctx.moveTo(16, -68);
+            ctx.quadraticCurveTo(48, -105, 34, -135);
+            ctx.moveTo(34, -96);
+            ctx.lineTo(56, -112);
+            ctx.stroke();
+
+            // 5. Demon Head, Blazing Neon-Orange Eyes & Glowing Jagged Maw
+            ctx.fillStyle = '#080510';
+            ctx.beginPath();
+            ctx.arc(0, -52, 24, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Intense Orange Glow behind Face
+            const faceGlow = ctx.createRadialGradient(0, -48, 2, 0, -48, 42);
+            faceGlow.addColorStop(0, 'rgba(255, 106, 0, 0.75)');
+            faceGlow.addColorStop(0.5, 'rgba(239, 68, 68, 0.28)');
+            faceGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = faceGlow;
+            ctx.beginPath();
+            ctx.arc(0, -48, 42, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Piercing Glowing Orange Eyes
+            ctx.save();
+            ctx.shadowColor = '#ff6a00';
+            ctx.shadowBlur = 16;
+            ctx.fillStyle = '#ffae00';
+            ctx.beginPath();
+            // Left Eye
+            ctx.moveTo(-14, -56);
+            ctx.lineTo(-4, -52);
+            ctx.lineTo(-12, -49);
+            ctx.closePath();
+            // Right Eye
+            ctx.moveTo(14, -56);
+            ctx.lineTo(4, -52);
+            ctx.lineTo(12, -49);
+            ctx.closePath();
+            ctx.fill();
+
+            // Blazing Jagged Maw
+            ctx.fillStyle = '#ff5500';
+            ctx.beginPath();
+            ctx.moveTo(-12, -40);
+            ctx.lineTo(-6, -44);
+            ctx.lineTo(0, -39);
+            ctx.lineTo(6, -44);
+            ctx.lineTo(12, -40);
+            ctx.lineTo(7, -30);
+            ctx.lineTo(0, -34);
+            ctx.lineTo(-7, -30);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        /* ==========================================================================
+           RENDER JACK-O'-LANTERN NEON SLALOM GATES & BLUE SPIRIT FLAMES
+           ========================================================================== */
+        function drawJackOLanternGates(time) {
+            pumpkinGates.forEach(gate => {
+                const halfW = gate.width * 0.5;
+                const leftX = gate.x - halfW;
+                const rightX = gate.x + halfW;
+
+                ctx.save();
+                // Ground Orange Light Pool cast by the Jack-o'-Lantern Gate
+                const groundGlow = ctx.createRadialGradient(gate.x, gate.y, 10, gate.x, gate.y, gate.width * 0.75);
+                groundGlow.addColorStop(0, 'rgba(255, 106, 0, 0.28)');
+                groundGlow.addColorStop(1, 'rgba(255, 106, 0, 0)');
+                ctx.fillStyle = groundGlow;
+                ctx.beginPath();
+                ctx.ellipse(gate.x, gate.y + 6, gate.width * 0.75, 22, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Draw gate banner & glowing poles (like the glowing Jack-o'-Lantern banners in the mockup)
+                [leftX, rightX].forEach((px, idx) => {
+                    // Only draw the full dual-pole banner structure on each side or across the gate
+                    ctx.save();
+                    ctx.translate(px, gate.y);
+                    if (gate.passed) {
+                        ctx.rotate(gate.flexAngle);
+                        gate.flexAngle *= 0.92;
+                    }
+
+                    const poleW = 28;
+                    const poleH = 68;
+
+                    // Dark translucent banner between the twin neon orange vertical bars
+                    ctx.fillStyle = 'rgba(20, 10, 18, 0.78)';
+                    ctx.fillRect(-poleW * 0.5, -poleH * 0.82, poleW, poleH * 0.48);
+
+                    // Twin Glowing Neon-Orange Vertical Light Bars
+                    ctx.shadowColor = '#ff6a00';
+                    ctx.shadowBlur = 16;
+                    ctx.strokeStyle = '#ff7b00';
+                    ctx.lineWidth = 3.2;
+                    ctx.beginPath();
+                    ctx.moveTo(-poleW * 0.5, 0);
+                    ctx.lineTo(-poleW * 0.5, -poleH);
+                    ctx.moveTo(poleW * 0.5, 0);
+                    ctx.lineTo(poleW * 0.5, -poleH);
+                    ctx.stroke();
+
+                    // Inner white-hot core on poles
+                    ctx.strokeStyle = '#ffd8a8';
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+
+                    // Glowing Carved Jack-o'-Lantern Emblem inside Banner
+                    ctx.strokeStyle = '#ff8800';
+                    ctx.lineWidth = 1.8;
+                    ctx.beginPath();
+                    ctx.arc(0, -poleH * 0.58, 9.5, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Pumpkin Eyes & Grin inside banner
+                    ctx.fillStyle = '#ffaa00';
+                    ctx.beginPath();
+                    ctx.moveTo(-5, -poleH * 0.61);
+                    ctx.lineTo(-2, -poleH * 0.61);
+                    ctx.lineTo(-3.5, -poleH * 0.65);
+                    ctx.closePath();
+                    ctx.moveTo(5, -poleH * 0.61);
+                    ctx.lineTo(2, -poleH * 0.61);
+                    ctx.lineTo(3.5, -poleH * 0.65);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(0, -poleH * 0.55, 5.5, 0.15 * Math.PI, 0.85 * Math.PI);
+                    ctx.stroke();
+
+                    // Flickering Blue Spirit Flame floating above banner!
+                    const flameFlicker = Math.sin(time * 0.015 + px) * 3;
+                    ctx.shadowColor = '#00f2fe';
+                    ctx.shadowBlur = 18;
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.beginPath();
+                    ctx.moveTo(-6, -poleH * 0.84);
+                    ctx.quadraticCurveTo(0, -poleH * 1.18 + flameFlicker, 6, -poleH * 0.84);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.fillStyle = '#e0f2fe';
+                    ctx.beginPath();
+                    ctx.arc(0, -poleH * 0.88, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.restore();
+                });
+            });
+        }
+
+        /* ==========================================================================
+           RENDER DEAD GNARLED OBSIDIAN TREES, PUMPKIN CLUSTERS & GHOST RUNE KICKERS
+           ========================================================================== */
+        function drawGnarledTreeBranch(x1, y1, length, angle, depth, width) {
+            if (depth === 0 || length < 6) return;
+            const x2 = x1 + Math.sin(angle) * length;
+            const y2 = y1 - Math.cos(angle) * length;
+
+            ctx.lineWidth = width;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.quadraticCurveTo(
+                (x1 + x2) * 0.5 + Math.cos(angle) * 5,
+                (y1 + y2) * 0.5,
+                x2,
+                y2
+            );
+            ctx.stroke();
+
+            drawGnarledTreeBranch(x2, y2, length * 0.72, angle - 0.48, depth - 1, width * 0.65);
+            drawGnarledTreeBranch(x2, y2, length * 0.68, angle + 0.52, depth - 1, width * 0.65);
+        }
+
+        function drawCarvedPumpkin(x, y, radius, time) {
+            ctx.save();
+            ctx.translate(x, y);
+
+            // Orange Ground Glow
+            const glow = ctx.createRadialGradient(0, 2, 2, 0, 2, radius * 2.2);
+            glow.addColorStop(0, 'rgba(255, 106, 0, 0.55)');
+            glow.addColorStop(1, 'rgba(255, 106, 0, 0)');
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(0, 2, radius * 2.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Pumpkin Body Ribs
+            ctx.fillStyle = '#9a3412';
+            ctx.beginPath();
+            ctx.ellipse(0, 0, radius, radius * 0.78, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#c2410c';
+            ctx.beginPath();
+            ctx.ellipse(0, 0, radius * 0.72, radius * 0.78, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Glowing Carved Eyes & Jagged Smile
+            ctx.shadowColor = '#ff9500';
+            ctx.shadowBlur = 12;
+            ctx.fillStyle = '#ffdd00';
+            ctx.beginPath();
+            // Left Eye
+            ctx.moveTo(-radius * 0.45, -radius * 0.15);
+            ctx.lineTo(-radius * 0.15, -radius * 0.08);
+            ctx.lineTo(-radius * 0.32, -radius * 0.42);
+            ctx.closePath();
+            // Right Eye
+            ctx.moveTo(radius * 0.45, -radius * 0.15);
+            ctx.lineTo(radius * 0.15, -radius * 0.08);
+            ctx.lineTo(radius * 0.32, -radius * 0.42);
+            ctx.closePath();
+            ctx.fill();
+
+            // Jagged Carved Mouth
+            ctx.beginPath();
+            ctx.moveTo(-radius * 0.5, radius * 0.15);
+            ctx.lineTo(-radius * 0.25, radius * 0.32);
+            ctx.lineTo(0, radius * 0.18);
+            ctx.lineTo(radius * 0.25, radius * 0.32);
+            ctx.lineTo(radius * 0.5, radius * 0.15);
+            ctx.lineTo(radius * 0.3, radius * 0.48);
+            ctx.lineTo(0, radius * 0.38);
+            ctx.lineTo(-radius * 0.3, radius * 0.48);
+            ctx.closePath();
+            ctx.fill();
+
+            // Blue Spirit Flame burning on top of Pumpkin!
+            const flicker = Math.sin(time * 0.018 + x) * 3;
+            ctx.shadowColor = '#00f2fe';
+            ctx.shadowBlur = 15;
+            ctx.fillStyle = '#00f2fe';
+            ctx.beginPath();
+            ctx.moveTo(-radius * 0.28, -radius * 0.72);
+            ctx.quadraticCurveTo(0, -radius * 1.55 + flicker, radius * 0.28, -radius * 0.72);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawObstacles(time) {
+            obstacles.forEach(obs => {
+                ctx.save();
+                ctx.translate(obs.x, obs.y);
+
+                if (obs.type === 'tree') {
+                    // Dead, Gnarled Obsidian-Black Tree
+                    ctx.fillStyle = 'rgba(2, 4, 10, 0.55)';
+                    ctx.beginPath();
+                    ctx.ellipse(8, 6, obs.radius, obs.radius * 0.38, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = '#070911';
+                    ctx.lineCap = 'round';
+                    drawGnarledTreeBranch(0, 6, obs.height * 0.46, (obs.seed % 0.3) - 0.15, 4, obs.radius * 0.45);
+
+                } else if (obs.type === 'cursed_rock') {
+                    // Jagged Cursed Obsidian Rock with Violet/Crimson Cracks
+                    const r = obs.radius;
+                    ctx.fillStyle = 'rgba(2, 4, 10, 0.6)';
+                    ctx.beginPath();
+                    ctx.ellipse(4, 6, r * 1.1, r * 0.45, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#0c0a18';
+                    ctx.beginPath();
+                    ctx.moveTo(-r, 6);
+                    ctx.lineTo(-r * 0.65, -r * 0.75);
+                    ctx.lineTo(-r * 0.1, -r * 0.45);
+                    ctx.lineTo(r * 0.35, -r * 0.9);
+                    ctx.lineTo(r, 6);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.strokeStyle = '#a855f7';
+                    ctx.lineWidth = 1.6;
+                    ctx.beginPath();
+                    ctx.moveTo(-r * 0.35, 2);
+                    ctx.lineTo(-r * 0.55, -r * 0.45);
+                    ctx.moveTo(r * 0.25, 2);
+                    ctx.lineTo(r * 0.32, -r * 0.6);
+                    ctx.stroke();
+
+                } else if (obs.type === 'tombstone') {
+                    // Spectral Gothic Tombstone
+                    const r = obs.radius;
+                    ctx.fillStyle = 'rgba(2, 4, 10, 0.55)';
+                    ctx.beginPath();
+                    ctx.ellipse(3, 5, r * 0.9, r * 0.35, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#16192b';
+                    ctx.strokeStyle = 'rgba(0, 242, 254, 0.45)';
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.roundRect(-r * 0.6, -r * 1.3, r * 1.2, r * 1.5, [10, 10, 2, 2]);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    // Glowing Cross Emblem
+                    ctx.strokeStyle = '#00f2fe';
+                    ctx.lineWidth = 1.8;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -r * 1.0);
+                    ctx.lineTo(0, -r * 0.25);
+                    ctx.moveTo(-r * 0.28, -r * 0.72);
+                    ctx.lineTo(r * 0.28, -r * 0.72);
+                    ctx.stroke();
+
+                } else if (obs.type === 'pumpkin_cluster') {
+                    // Pair of Carved Glowing Jack-o'-Lanterns with Blue Spirit Flames
+                    drawCarvedPumpkin(-14, 4, obs.radius * 0.58, time);
+                    drawCarvedPumpkin(10, 0, obs.radius * 0.85, time);
+
+                } else if (obs.type === 'rune_kicker') {
+                    // Ghost Rune Glowing Blue Flame Kicker Ramp
+                    const w = obs.width;
+                    const h = obs.height;
+                    const grad = ctx.createLinearGradient(0, -h, 0, h * 0.5);
+                    grad.addColorStop(0, '#0f172a');
+                    grad.addColorStop(1, '#050814');
+
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.moveTo(-w * 0.5, h * 0.4);
+                    ctx.lineTo(w * 0.5, h * 0.4);
+                    ctx.lineTo(w * 0.4, -h * 0.65);
+                    ctx.lineTo(-w * 0.4, -h * 0.65);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.shadowColor = '#00f2fe';
+                    ctx.shadowBlur = 14;
+                    ctx.strokeStyle = '#00f2fe';
+                    ctx.lineWidth = 2.2;
+                    ctx.stroke();
+
+                    // Glowing Ghost Runes etched into the ramp
+                    ctx.beginPath();
+                    ctx.moveTo(-16, 6);
+                    ctx.lineTo(0, -12);
+                    ctx.lineTo(16, 6);
+                    ctx.moveTo(0, -12);
+                    ctx.lineTo(0, 10);
+                    ctx.stroke();
+
+                    // Blue Spirit Flames along kicker lip
+                    [-w * 0.32, 0, w * 0.32].forEach((fx, i) => {
+                        const flk = Math.sin(time * 0.02 + i) * 4;
+                        ctx.fillStyle = '#00f2fe';
+                        ctx.beginPath();
+                        ctx.moveTo(fx - 5, -h * 0.65);
+                        ctx.quadraticCurveTo(fx, -h * 1.15 + flk, fx + 5, -h * 0.65);
+                        ctx.closePath();
+                        ctx.fill();
+                    });
+
+                } else if (obs.type === 'soul_vortex') {
+                    // Swirling Violet/Cyan Ectoplasm Vortex Pad
+                    ctx.shadowColor = '#a855f7';
+                    ctx.shadowBlur = 16;
+                    ctx.strokeStyle = '#a855f7';
+                    ctx.lineWidth = 2.5;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, obs.radius, obs.radius * 0.55, 0, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.strokeStyle = '#00f2fe';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, obs.radius * 0.62, obs.radius * 0.34, 0, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            });
+        }
+
+        /* ==========================================================================
+           RENDER THE ARMORED NIGHT SKIER WITH NEON TRIM & ECTOPLASM SKIS
+           ========================================================================== */
+        function drawPlayerSkier() {
+            ctx.save();
+            if (skier.invulnerableTimer > 0 && Math.floor(skier.invulnerableTimer / 4) % 2 === 0) {
+                ctx.globalAlpha = 0.45;
+            }
+
+            // Ectoplasm Aura under Skier
+            const auraGrad = ctx.createRadialGradient(skier.x, skier.y + 8, 4, skier.x, skier.y + 8, 48);
+            auraGrad.addColorStop(0, 'rgba(0, 242, 254, 0.45)');
+            auraGrad.addColorStop(0.5, 'rgba(168, 85, 247, 0.28)');
+            auraGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+            ctx.fillStyle = auraGrad;
+            ctx.beginPath();
+            ctx.ellipse(skier.x, skier.y + 8, 48, 22, -skier.angle * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+
+            const airScale = 1 + skier.z * 0.012;
+            ctx.translate(skier.x, skier.y - skier.z);
+            ctx.scale(airScale, airScale);
+            ctx.rotate(-skier.angle * 0.55 + skier.trickRotation);
+
+            // 1. Glowing Neon Cyan & Violet Twin-Tip Skis
+            ctx.save();
+            ctx.shadowColor = '#00f2fe';
+            ctx.shadowBlur = 16;
+            ctx.fillStyle = '#090d1a';
+            ctx.strokeStyle = '#00f2fe';
+            ctx.lineWidth = 2.2;
+
+            // Left Ski
+            ctx.beginPath();
+            ctx.roundRect(-12, -18, 6, 42, 3);
+            ctx.fill();
+            ctx.stroke();
+
+            // Right Ski
+            ctx.beginPath();
+            ctx.roundRect(6, -18, 6, 42, 3);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+
+            // 2. Glowing Orange/Cyan Ski Poles angled back
+            ctx.save();
+            ctx.shadowColor = '#ff6a00';
+            ctx.shadowBlur = 10;
+            ctx.strokeStyle = '#ff7b00';
+            ctx.lineWidth = 2.2;
+            const poleSpread = skier.tucking ? 18 : 28;
+            ctx.beginPath();
+            ctx.moveTo(-11, -4);
+            ctx.lineTo(-poleSpread, -24);
+            ctx.moveTo(11, -4);
+            ctx.lineTo(poleSpread, -24);
+            ctx.stroke();
+            ctx.restore();
+
+            // 3. Obsidian Armored Ski Suit with Glowing Neon-Orange Trim
+            ctx.fillStyle = '#0c101d';
+            ctx.beginPath();
+            ctx.roundRect(-11, -14, 22, 22, 6);
+            ctx.fill();
+
+            // Glowing Neon-Orange Armor Seams
+            ctx.save();
+            ctx.shadowColor = '#ff6a00';
+            ctx.shadowBlur = 8;
+            ctx.strokeStyle = '#ff7b00';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(-8, -10);
+            ctx.lineTo(8, -10);
+            ctx.moveTo(-7, -10);
+            ctx.lineTo(-5, 4);
+            ctx.moveTo(7, -10);
+            ctx.lineTo(5, 4);
+            ctx.stroke();
+            ctx.restore();
+
+            // 4. Dark Aero Helmet & Glowing Cyan/Violet Visor Goggles
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(0, -12, 8.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Orange collar ring
+            ctx.strokeStyle = '#ff6a00';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.arc(0, -10, 7.5, 0.1 * Math.PI, 0.9 * Math.PI);
+            ctx.stroke();
+
+            // Glowing Cyan Goggles
+            ctx.save();
+            ctx.shadowColor = '#00f2fe';
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = '#00f2fe';
+            ctx.beginPath();
+            ctx.roundRect(-6, -15, 12, 4.5, 2);
+            ctx.fill();
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        function drawEctoplasmAndSpectralFog() {
+            // Ectoplasm Spray Particles
+            ectoplasmParticles.forEach(p => {
+                ctx.save();
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 12;
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(0, p.alpha);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            // Ambient Spectral Fog Layers across the Slope
+            spectralFogLayers.forEach(fog => {
+                const fogGrad = ctx.createRadialGradient(fog.x, fog.y, 10, fog.x, fog.y, fog.width * 0.5);
+                fogGrad.addColorStop(0, `rgba(148, 163, 184, ${fog.alpha})`);
+                fogGrad.addColorStop(0.5, `rgba(88, 28, 135, ${fog.alpha * 0.5})`);
+                fogGrad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+                ctx.fillStyle = fogGrad;
+                ctx.fillRect(fog.x - fog.width * 0.5, fog.y - fog.height * 0.5, fog.width, fog.height);
+            });
+
+            // Floating Spectral Ash & Spores
+            ambientAsh.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1.0;
+        }
+
+        /* ==========================================================================
+           11. MASTER 60-120FPS ANIMATION LOOP
+           ========================================================================== */
+        let lastFrameTime = performance.now();
+
+        function animateLoop(timestamp) {
+            const dt = Math.min(0.05, Math.max(0.001, (timestamp - lastFrameTime) / 1000));
+            lastFrameTime = timestamp;
+
+            updatePhysics(dt);
+
+            ctx.save();
+            if (screenShake > 0.5) {
+                ctx.translate((Math.random() - 0.5) * screenShake, (Math.random() - 0.5) * screenShake);
+            }
+
+            drawMidnightSkyAndBloodMoon(timestamp);
+            drawHauntedChairlift();
+            drawSpectralSlopeAndTracks();
+            drawAvalancheWendigo(timestamp);
+            drawJackOLanternGates(timestamp);
+            drawObstacles(timestamp);
+            drawPlayerSkier();
+            drawEctoplasmAndSpectralFog();
+
+            ctx.restore();
+            requestAnimationFrame(animateLoop);
+        }
+
+        window.onload = function () {
+            initWorldAssets();
+            updateSoulShieldsHUD();
+            checkExistingWalletConnection();
+            openHeroModal();
+            renderLeaderboard();
+            requestAnimationFrame(animateLoop);
+        };
+    </script>
+</body>
+</html>
